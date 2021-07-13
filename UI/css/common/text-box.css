@@ -1,0 +1,9 @@
+.text-box {
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  height: 40px;
+  color: #bbb;
+  font-family: "GoogleSans";
+  font-size: 13;
+  color: me;
+}

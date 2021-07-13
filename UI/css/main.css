@@ -1,0 +1,32 @@
+@import url("../css/common/header.css");
+@import url("../css/common/menu.css");
+@import url("../css/common/content.css");
+@import url("../css/common/button.css");
+@import url("../css/common/text-box.css");
+
+body {
+  font-family: "GoogleSans";
+  font-size: 13;
+  color: #454545;
+  margin: 0px;
+}
+
+@font-face {
+  font-family: "GoogleSans";
+  src: url("../assets/font/GoogleSans-Regular.otf");
+}
+
+@font-face {
+  font-family: "GoogleSans-Italic";
+  src: url("../assets/font/GoogleSans-Italic.otf");
+}
+
+@font-face {
+  font-family: "GoogleSans-Bold";
+  src: url("../assets/font/GoogleSans-Bold.otf");
+}
+
+@font-face {
+  font-family: "GoogleSans-Medium";
+  src: url("../assets/font/GoogleSans-Medium.otf");
+}
