@@ -7,6 +7,12 @@ input {
   box-sizing: border-box;
 }
 
+.label {
+  font-family: "GoogleSans-Medium";
+  size: 13px;
+  padding-bottom: 4px;
+}
+
 .text-box {
   height: 40px;
   outline: none;
