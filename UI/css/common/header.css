@@ -32,7 +32,46 @@
 }
 
 .header-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: calc(100vw - 220px);
   border-bottom: 1px solid #e5e5e5;
   box-sizing: border-box;
+}
+.header-right .label{
+  font-family: "GoogleSans-Medium";
+  font-size: 15px;
+  padding-left: 16px;
+  padding-right: 10px;
+}
+
+.header-right .profile{
+  display: flex;
+  align-items: center;
+}
+
+.header-right .profile .avatar{
+  height: 30px;
+  width: 30px;
+  margin-right: 16px;
+  margin-left: 16px;
+  background-image: url('../../assets/icon/avatar-default.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.header-right .profile .name{
+  font-family: "GoogleSans-Medium";
+}
+
+.header-right .profile .icon{
+  height: 20px;
+  width: 20px;
+  color: black;
+  background-image: url('../../assets/icon/option.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-right: 16px;
+  margin-left: 16px;
 }

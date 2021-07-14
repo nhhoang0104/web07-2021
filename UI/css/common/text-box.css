@@ -1,9 +1,23 @@
-.text-box {
-  border: 1px solid #bbb;
-  border-radius: 4px;
+.text-box{
   height: 40px;
-  color: #bbb;
+  border: 1px solid #bbb;
+  padding-left: 16px;
+  border-radius: 4px;
   font-family: "GoogleSans";
-  font-size: 13;
-  color: me;
+  color: #bbb;
+  size: 11px;
+}
+
+.label {
+  font-family: "GoogleSans-Medium";
+  size:13px;
+  padding-bottom: 4px;
+}
+
+.text-box:focus{
+  outline: none;
+  border: 1px solid #019160;
+  font-family: "GoogleSans";
+  color: #000;
+  size: 13px;
 }

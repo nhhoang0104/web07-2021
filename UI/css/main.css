@@ -3,6 +3,8 @@
 @import url("../css/common/content.css");
 @import url("../css/common/button.css");
 @import url("../css/common/text-box.css");
+@import url("../css/common/table.css");
+@import url("../css/common/pagination.css");
 
 body {
   font-family: "GoogleSans";
