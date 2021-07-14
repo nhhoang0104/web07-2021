@@ -1,14 +1,35 @@
+button {
+  cursor: pointer;
+  outline: none;
+}
+.btn-circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.btn-circle:hover {
+  background-color: #2fbe8e;
+}
+
+.btn-circle:active {
+  background-color: #01b075;
+}
+
 .btn {
   background-color: #019160;
-  font-family: "GoogleSans";
-  font-size: 13;
-  color: #fff;
   height: 40px;
-  border: none;
-  border-radius: 4px;
   padding-left: 24px;
   padding-right: 24px;
+  border-radius: 4px;
+  font-size: 13px;
   text-align: center;
+  align-items: center;
+  border: 1px solid #fff;
+  color: #fff;
+  outline: none;
 }
 
 .btn:hover {
@@ -19,23 +40,46 @@
   background-color: #01b075;
 }
 
+.btn-icon {
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  min-width: 50px;
+}
+
+.btn .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
 .btn-2 {
-  border: 1px solid #bbb;
-  font-family: "GoogleSans";
-  font-size: 13;
-  color: #fff;
+  background-color: #fff;
   height: 40px;
-  border: none;
-  border-radius: 4px;
   padding-left: 24px;
   padding-right: 24px;
+  border-radius: 4px;
+  font-size: 13px;
   text-align: center;
+  align-items: center;
+  border: 1px solid #bbb;
+  outline: none;
+}
+
+.btn .icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
 }
 
 .btn-2:hover {
   background-color: #e9ebee;
+  border: none;
 }
 
 .btn-2:active {
   background-color: #01b075;
+  color: #fff;
+  border: none;
 }

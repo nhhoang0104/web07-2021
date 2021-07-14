@@ -1,0 +1,21 @@
+input {
+  max-width: 342px;
+  outline: none;
+  border-radius: 4px;
+  outline: none;
+  border: solid 1px #bbbbbb;
+  box-sizing: border-box;
+}
+
+.text-box {
+  height: 40px;
+  outline: none;
+  border-radius: 4px;
+}
+
+.text-box-icon {
+  background-repeat: no-repeat;
+  background-position: 16px center;
+  background-size: 16px;
+  padding-left: 40px;
+}

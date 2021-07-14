@@ -1,48 +1,22 @@
-.pagination{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.pagination {
+  height: 100%;
+  width: 100%;
+  padding: 10px 16px 10px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-.page-navigations{
-    display: flex;
+.pagination-left {
+  font-size: 10px;
 }
 
-.btn-firstpage{
-    width: 24px;
-    height: 24px;
-    background-image: url("../../assets/icon/btn-firstpage.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
+.pagination-right {
+  font-size: 10px;
 }
 
-.btn-lastpage{
-    width: 24px;
-    height: 24px;
-    background-image: url("../../assets/icon/btn-lastpage.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.btn-nextpage{
-    width: 24px;
-    height: 24px;
-    background-image: url("../../assets/icon/btn-next-page.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.btn-prevpage{
-    width: 24px;
-    height: 24px;
-    background-image: url("../../assets/icon/btn-prev-page.svg");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-.page-num{
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    color: #000;
+.pagination-center {
+  display: flex;
+  justify-content: space-around;
 }
