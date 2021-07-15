@@ -5,6 +5,10 @@ input {
   outline: none;
   border: solid 1px #bbbbbb;
   box-sizing: border-box;
+  font-size: 13px;
+  font-family: "GoogleSans";
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .label {
@@ -13,10 +17,16 @@ input {
   padding-bottom: 4px;
 }
 
+.text-box:focus {
+  border: 1px solid #019160;
+}
+
 .text-box {
+  max-width: 342px;
   height: 40px;
   outline: none;
   border-radius: 4px;
+  padding-left: 16px;
 }
 
 .text-box-icon {

@@ -73,6 +73,16 @@
 }
 
 .content .toolbar .toolbar-left {
+  width: 100%;
+  display: flex;
+}
+
+.content .toolbar .toolbar-left .item {
+  margin-right: 5px;
+  width: 100%;
+}
+.content .toolbar .toolbar-left .item-dropdown {
+  width: 20%;
 }
 
 .content .toolbar .toolbar-right {
@@ -125,6 +135,10 @@
 .list table td {
   border-bottom: 1px solid #c5c5c5;
   padding-right: 20px;
+}
+
+.list table tr:nth-child(odd) {
+  background-color: #e9ebee;
 }
 
 ::-webkit-scrollbar {

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/main.css" />
     <link rel="stylesheet" href="../css/page/employees.css" />
+    <link
+      rel="stylesheet"
+      href="../assets/font/fontawesome-5.15.1/css/all.css"
+    />
     <title>Document</title>
   </head>
   <body>
@@ -64,9 +68,21 @@
           <div class="toolbar-left">
             <input
               type="text"
-              class="text-box text-box-icon icon-search"
+              class="text-box text-box-icon icon-search item"
               placeholder="Tìm kiếm theo mã, tên hoặc số điện thoại"
             />
+            <div class="dropdown item item-dropdown">
+              <div class="dropdown-input">Tất cả phòng ban</div>
+              <div class="dropdown-icon">
+                <i class="fas fa-caret-down"></i>
+              </div>
+            </div>
+            <div class="dropdown item item-dropdown">
+              <div class="dropdown-input">Tất cả vị trí</div>
+              <div class="dropdown-icon">
+                <i class="fas fa-caret-down"></i>
+              </div>
+            </div>
           </div>
           <div class="toolbar-right">
             <div class="btn-2"><div class="icon icon-refresh"></div></div>
@@ -303,6 +319,7 @@
     <div class="form-employee">
       <div class="form-header">
         <div class="header">THÔNG TIN NHÂN VIÊN</div>
+        <div class="btn-close"><div class="icon icon-close"></div></div>
       </div>
       <div class="form-body">
         <div class="form-body-left">
@@ -311,7 +328,8 @@
         </div>
         <div class="form-body-right">
           <div class="info-common">
-            <div class="title"></div>
+            <div class="title">A. THONG TIN CHUNG</div>
+            <div class="separator"></div>
             <div class="row">
               <div class="item">
                 <div class="label">Mã nhân viên</div>
@@ -329,7 +347,12 @@
               </div>
               <div class="item">
                 <div class="label">Giới tính</div>
-                <input type="text" class="item text-box" />
+                <div class="dropdown">
+                  <div class="dropdown-input">Nam</div>
+                  <div class="dropdown-icon">
+                    <i class="fas fa-caret-down"></i>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -339,7 +362,7 @@
               </div>
               <div class="item">
                 <div class="label">Ngày cấp</div>
-                <input type="text" class="item text-box" />
+                <input type="date" class="item text-box" />
               </div>
             </div>
             <div class="row">
@@ -361,38 +384,61 @@
             </div>
           </div>
           <div class="info-work">
-            <div class="title"></div>
+            <div class="title">B. THONG TIN CONG VIEC</div>
+            <div class="separator"></div>
             <div class="row">
               <div class="item">
-                <div class="label">Mã nhân viên</div>
+                <div class="label">Vi tri</div>
+                <div class="dropdown">
+                  <div class="dropdown-input">Giam Doc</div>
+                  <div class="dropdown-icon">
+                    <i class="fas fa-caret-down"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="label">Phong ban</div>
+                <div class="dropdown">
+                  <div class="dropdown-input">Phong nhan su</div>
+                  <div class="dropdown-icon">
+                    <i class="fas fa-caret-down"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="item">
+                <div class="label">Ma so thue</div>
                 <input type="text" class="item text-box" />
               </div>
               <div class="item">
-                <div class="label">Họ và tên</div>
+                <div class="label">Muc luong co ban</div>
                 <input type="text" class="item text-box" />
               </div>
             </div>
-             <div class="row">
+            <div class="row">
               <div class="item">
-                <div class="label">Ngày sinh</div>
+                <div class="label">Ngay gia nhap cong ty</div>
                 <input type="text" class="item text-box" />
               </div>
               <div class="item">
-                <div class="label">Giới tính</div>
-                <input type="text" class="item text-box" />
-              </div>
-            </div>
-             <div class="row">
-              <div class="item">
-                <div class="label">Ma nhan vien</div>
-                <input type="text" class="item text-box" />
-              </div>
-              <div class="item">
-                <div class="label">Số CMTND/ Căn cước</div>
-                <input type="text" class="item text-box" />
+                <div class="label">Tinh trang con viec</div>
+                <div class="dropdown">
+                  <div class="dropdown-input">Dang lam viec</div>
+                  <div class="dropdown-icon">
+                    <i class="fas fa-caret-down"></i>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="form-footer">
+        <div class="btn btn-cancel"><div>Hủy</div></div>
+        <div class="btn btn-icon">
+          <i class="far fa-save"></i>
+          <div>Lưu</div>
         </div>
       </div>
     </div>

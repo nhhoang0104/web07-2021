@@ -1,0 +1,31 @@
+.dropdown {
+  max-width: 342px;
+  display: flex;
+  align-items: center;
+  min-height: 35px;
+  max-height: 40px;
+  border-radius: 4px;
+  color: #000;
+  width: 100%;
+  border: 1px solid #bbb;
+  padding-left: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.dropdown .dropdown-input {
+  max-width: 298px;
+  width: 100%;
+}
+
+.dropdown .dropdown-icon {
+  width: 40px;
+  box-sizing: border-box;
+  padding-left: 12px;
+  padding-right: 12px;
+  align-items: center;
+}
+
+.dropdown:active {
+  border: 1px solid #019160;
+}
