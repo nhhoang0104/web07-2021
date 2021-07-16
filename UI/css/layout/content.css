@@ -82,7 +82,7 @@
   width: 100%;
 }
 .content .toolbar .toolbar-left .item-dropdown {
-  width: 20%;
+  width: 15%;
 }
 
 .content .toolbar .toolbar-right {
@@ -105,19 +105,17 @@
 }
 
 .list {
-  padding-left: 16px;
-  padding-right: 16px;
+  padding: 0 16px 0 16px;
   overflow-y: auto;
   overflow-x: auto;
   width: 100%;
-  height: 441px;
+  height: calc(100vh - 252px); /*60px + 72px 40px 20px 60px*/
   margin-top: 20px;
   box-sizing: border-box;
 }
 
 .list table {
   border-collapse: collapse;
-  text-align: left;
   width: 100%;
   font-size: 13px;
 }
@@ -132,13 +130,45 @@
   height: 40px;
 }
 
+.list table th {
+  border-bottom: 1px solid #c5c5c5;
+  padding-right: 25px;
+}
+
+.list table th:nth-child(1) {
+  padding-left: 10px;
+}
+.list table td:nth-child(1) {
+  padding-left: 10px;
+}
+
+.list table th:nth-last-child(1) {
+  padding-right: 0px;
+}
+
+.list table td:nth-last-child(1) {
+  padding-right: 0px;
+}
+
 .list table td {
   border-bottom: 1px solid #c5c5c5;
-  padding-right: 20px;
+  padding-right: 25px;
 }
 
 .list table tr:nth-child(odd) {
   background-color: #e9ebee;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-center {
+  text-align: center;
 }
 
 ::-webkit-scrollbar {

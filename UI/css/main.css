@@ -4,6 +4,7 @@
 @import url("../css/common/pagination.css");
 @import url("../css/common/modal.css");
 @import url("../css/common/dropdown.css");
+@import url("../css/common/combo-box.css");
 
 body {
   font-family: "GoogleSans";

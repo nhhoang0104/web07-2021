@@ -52,3 +52,8 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.icon-16 {
+  height: 16px;
+  width: 16px;
+}
