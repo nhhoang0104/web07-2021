@@ -31,7 +31,7 @@
 }
 
 .dropdown:active {
-  border: 1px solid #019160;
+  border-color: #019160;
 }
 
 .hide {
@@ -76,7 +76,7 @@
 }
 
 .dropdown-menu .dropdown-item:hover .dropdown {
-  border: 1px solid #019160;
+  border-color: #019160;
 }
 
 .dropdown-menu .dropdown-item:active {
@@ -107,7 +107,7 @@
   box-sizing: border-box;
 }
 
-.dropdown-item .label-item {
+.dropdown-item .item-label {
   font-size: 13px;
   font-family: "GoogleSans";
 }

@@ -21,7 +21,7 @@ function renderDropdown(data) {
                   <div class="item-icon">
                     <i class="icon-16 fas fa-check"></i>
                   </div>
-                <div class="label-item">${item.label}</div>
+                <div class="item-label">${item.label}</div>
               </div>`;
     if (item.checked) input.innerHTML = item.label;
   });
@@ -39,11 +39,13 @@ function handleDropdown(dropdown) {
     let toggleIcon = toggle.classList;
 
     if (toggleIcon.contains("fa-chevron-down")) {
+      dropdown.style.borderColor = "#019160";
       toggleIcon.remove("fa-chevron-down");
       toggleIcon.add("fa-chevron-up");
       dropdownMenu.classList.remove("hide");
       handleDropdownMenu(dropdownMenu);
     } else {
+      dropdown.style.borderColor = "#bbb";
       toggleIcon.add("fa-chevron-down");
       toggleIcon.remove("fa-chevron-up");
       dropdownMenu.classList.add("hide");
@@ -78,7 +80,6 @@ function handleDropdownMenu(menu) {
             item.checked = true;
           }
         });
-
         renderDropdown(data);
       },
       false

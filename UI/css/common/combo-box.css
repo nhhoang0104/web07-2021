@@ -66,7 +66,7 @@
   display: none;
 }
 
-.combo-box-data {
+.combo-box-menu {
   width: 100%;
   position: absolute;
   box-shadow: 2px 2px 2px 2px #e9ebee;
@@ -79,7 +79,7 @@
   z-index: 1;
 }
 
-.combo-box-data .combo-box-item {
+.combo-box-menu .combo-box-item {
   display: flex;
   align-items: center;
   width: 100%;
@@ -87,26 +87,26 @@
   box-sizing: border-box;
 }
 
-.combo-box-data .combo-box-item:hover {
+.combo-box-menu .combo-box-item:hover {
   background-color: #e9ebee;
 }
 
-.combo-box-data .combo-box-item:hover .combo-box {
-  border: 1px solid #019160;
+.combo-box-menu .combo-box-item:hover .combo-box {
+  border-color: #019160;
 }
 
-.combo-box-data .combo-box-item:active {
+.combo-box-menu .combo-box-item:active {
   background-color: #019160;
   color: #fff;
   font-family: "GoogleSans";
 }
 
-.combo-box-item .icon-item {
+.combo-box-item .item-icon {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-.combo-box-item .label-item {
+.combo-box-item .item-label {
   font-size: 13px;
   font-family: "GoogleSans";
 }
