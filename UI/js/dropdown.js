@@ -1,20 +1,29 @@
 let listOfDropdown = document.querySelectorAll("div.dropdown");
 
-const data = [
-  { id: 1, label: "Test 1", checked: true },
-  { id: 2, label: "Test 2", checked: false },
-  { id: 3, label: "Test 3", checked: false },
-  { id: 4, label: "Test 4", checked: false },
-];
+let data = {
+  division: [
+    { id: 1, label: "Phòng Nhân Sự", checked: false },
+    { id: 2, label: "Phòng Kỹ Thuật", checked: false },
+    { id: 3, label: "Phòng Sale", checked: false },
+    { id: 4, label: "Phòng Marketing", checked: false },
+  ],
+  position: [
+    { id: 1, label: "Giám đôcs", checked: false },
+    { id: 2, label: "Phó Giám đốc", checked: false },
+    { id: 3, label: "Trưởng phòng", checked: false },
+    { id: 4, label: "Nhân viên Sale", checked: false },
+  ],
+};
 
-function renderDropdown(data) {
-  let dropdown = document.querySelector("div.dropdown");
+function renderDropdown(dropdown) {
   let menu = dropdown.children[2];
   let input = dropdown.children[0];
-
   let tmp = "";
+  let tmpData = data[dropdown.id];
 
-  data.forEach((item) => {
+  if (!tmpData) return;
+
+  tmpData.forEach((item) => {
     tmp += `<div id="${item.id}" class="dropdown-item ${
       item.checked ? "checked" : ""
     }">
@@ -29,10 +38,30 @@ function renderDropdown(data) {
   menu.innerHTML = tmp;
 }
 
-renderDropdown(data);
-
 function handleDropdown(dropdown) {
-  let dropdownMenu = dropdown.children[2];
+  renderDropdown(dropdown);
+  let menu = dropdown.children[2];
+
+  Array.from(menu.children).forEach((item) => {
+    item.addEventListener("click", (e) => {
+      if (e.path.length === 11) {
+        id = e.path[0].id;
+      } else if (e.path.length === 12) {
+        id = e.path[1].id;
+      }
+
+      data[dropdown.id].forEach((item) => {
+        if (item.id === parseInt(id)) {
+          item.checked = true;
+          dropdown.children[0].innerHTML = item.label;
+          menu.children[item.id - 1].classList.add("checked");
+        } else {
+          item.checked = false;
+          menu.children[item.id - 1].classList.remove("checked");
+        }
+      });
+    });
+  });
 
   dropdown.addEventListener("click", () => {
     let toggle = dropdown.children[1].children[0];
@@ -42,15 +71,19 @@ function handleDropdown(dropdown) {
       dropdown.style.borderColor = "#019160";
       toggleIcon.remove("fa-chevron-down");
       toggleIcon.add("fa-chevron-up");
-      dropdownMenu.classList.remove("hide");
-      handleDropdownMenu(dropdownMenu);
+      menu.classList.remove("hide");
     } else {
       dropdown.style.borderColor = "#bbb";
       toggleIcon.add("fa-chevron-down");
       toggleIcon.remove("fa-chevron-up");
-      dropdownMenu.classList.add("hide");
+      menu.classList.add("hide");
     }
   });
+}
+
+function handleMenu(dropdown) {
+  console.log(dropdown);
+  let menu = dropdown.children[2];
 }
 
 function defectClickDropdown(dropdown, positionCurr) {
@@ -66,31 +99,6 @@ function defectClickDropdown(dropdown, positionCurr) {
   }
 }
 
-function handleDropdownMenu(menu) {
-  Array.from(menu.children).forEach((item) => {
-    item.addEventListener(
-      "click",
-      (e) => {
-        data.forEach((item) => {
-          if (item.checked == true) {
-            item.checked = false;
-          }
-
-          if (item.id == e.target.id) {
-            item.checked = true;
-          }
-        });
-        renderDropdown(data);
-      },
-      false
-    );
-  });
-}
-
-listOfDropdown.forEach((dropdown) => handleDropdown(dropdown));
-
-window.onclick = (event) => {
-  listOfDropdown.forEach((dropdown) =>
-    defectClickDropdown(dropdown, event.target)
-  );
-};
+listOfDropdown.forEach((dropdown) => {
+  handleDropdown(dropdown);
+});

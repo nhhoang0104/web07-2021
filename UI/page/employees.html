@@ -59,10 +59,10 @@
       <div class="content-body">
         <div class="content-title">
           <div class="title">Danh sách nhân viên</div>
-          <button class="btn btn-icon">
-            <div id="add-new-employee" class="icon icon-add"></div>
+          <div  id="add-new-employee" class="btn btn-icon">
+            <div class="icon icon-add"></div>
             Thêm nhân viên
-          </button>
+          </div>
         </div>
         <div class="toolbar">
           <div class="toolbar-left">
@@ -71,62 +71,24 @@
               class="text-box text-box-icon icon-search item"
               placeholder="Tìm kiếm theo mã, tên hoặc số điện thoại"
             />
-            <div class="dropdown item item-dropdown">
+            <div id="division" class="dropdown item item-dropdown">
               <div class="dropdown-input">Tất cả phòng ban</div>
               <div class="dropdown-toggle">
                 <i class="fas fa-chevron-down icon-16"></i>
               </div>
-              <div class="dropdown-menu hide">
-                <div id="item-1" class="dropdown-item checked">
-                  <div class="item-icon">
-                    <i class="icon-16 fas fa-check"></i>
-                  </div>
-                  <div class="item-label">Test 1</div>
-                </div>
-                <div id="item-2" class="dropdown-item">
-                  <div class="item-icon">
-                    <i class="icon-16 fas fa-check"></i>
-                  </div>
-                  <div class="item-label">Test 2</div>
-                </div>
-                <div id="item-3" class="dropdown-item">
-                  <div class="item-icon">
-                    <i class="icon-16 fas fa-check"></i>
-                  </div>
-                  <div class="item-label">Test 3</div>
-                </div>
-              </div>
+              <div class="dropdown-menu hide"></div>
             </div>
-            <div class="dropdown item item-dropdown">
-              <div class="dropdown-input">Tất cả phòng ban</div>
+            <div id="position" class="dropdown item item-dropdown">
+              <div class="dropdown-input">Tất cả vị trí</div>
               <div class="dropdown-toggle">
                 <i class="fas fa-chevron-down icon-16"></i>
               </div>
-              <div class="dropdown-menu hide">
-                <div id="item-1" class="dropdown-item checked">
-                  <div class="item-icon">
-                    <i class="icon-16 fas fa-check"></i>
-                  </div>
-                  <div class="item-label">Test 1</div>
-                </div>
-                <div id="item-2" class="dropdown-item">
-                  <div class="item-icon">
-                    <i class="icon-16 fas fa-check"></i>
-                  </div>
-                  <div class="item-label">Test 2</div>
-                </div>
-                <div id="item-3" class="dropdown-item">
-                  <div class="item-icon">
-                    <i class="icon-16 fas fa-check"></i>
-                  </div>
-                  <div class="item-label">Test 3</div>
-                </div>
-              </div>
-            </div>
-            <div class="toolbar-right">
-              <div class="btn-2"><div class="icon icon-refresh"></div></div>
+              <div class="dropdown-menu hide"></div>
             </div>
           </div>
+           <div class="toolbar-right">
+              <div class="btn-2"><div class="icon icon-refresh"></div></div>
+            </div>
         </div>
 
         <div class="list">
@@ -477,26 +439,7 @@
                   <div class="dropdown-toggle">
                     <i class="fas fa-chevron-down icon-16"></i>
                   </div>
-                  <div class="dropdown-menu hide">
-                    <div id="item-1" class="dropdown-item checked">
-                      <div class="item-icon">
-                        <i class="icon-16 fas fa-check"></i>
-                      </div>
-                      <div class="item-label">Test 1</div>
-                    </div>
-                    <div id="item-2" class="dropdown-item">
-                      <div class="item-icon">
-                        <i class="icon-16 fas fa-check"></i>
-                      </div>
-                      <div class="item-label">Test 2</div>
-                    </div>
-                    <div id="item-3" class="dropdown-item">
-                      <div class="item-icon">
-                        <i class="icon-16 fas fa-check"></i>
-                      </div>
-                      <div class="item-label">Test 3</div>
-                    </div>
-                  </div>
+                  <div class="dropdown-menu hide"></div>
                 </div>
               </div>
             </div>
@@ -650,4 +593,5 @@
   </body>
   <script src="../js/employees.js"></script>
   <script src="../js/dropdown.js"></script>
+  <script src="../js/modal.js"></script>
 </html>

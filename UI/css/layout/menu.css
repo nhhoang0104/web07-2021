@@ -41,6 +41,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  font-size: 13px;
 }
 
 .menu .menu-content .menu-item .menu-item-icon {
@@ -58,7 +59,7 @@
   color: #000;
 }
 
-.menu .menu-content .menu-item:focus {
+.menu .menu-content .menu-item:active {
   background-color: #019160;
   font-family: "GoogleSans-Medium";
   color: #fff;
