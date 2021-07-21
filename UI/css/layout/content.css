@@ -44,8 +44,6 @@
 }
 
 .content .content-header .content-header-right .icon {
-  width: 20px;
-  height: 20px;
   margin-right: 16px;
   margin-left: 16px;
 }
@@ -80,6 +78,7 @@
 .content .toolbar .toolbar-left .item {
   margin-right: 5px;
   width: 100%;
+  height: 40px;
 }
 .content .toolbar .toolbar-left .item-dropdown {
   width: 20%;
@@ -92,25 +91,21 @@
   justify-content: flex-end;
 }
 
-.content .toolbar .toolbar-right .btn-2 {
-  padding: 10px;
+.content .toolbar .toolbar-right button {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-}
-
-.content .toolbar .toolbar-right .btn-2 .icon {
-  height: 20px;
-  width: 20px;
+  padding: 10px;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .list {
-  padding: 0 16px 0 16px;
+  margin: 20px 16px 0 16px;
   overflow-y: auto;
   overflow-x: auto;
-  width: 100%;
+  width: calc(100%-16px);
   height: calc(100vh - 252px); /*60px + 72px 40px 20px 60px*/
-  margin-top: 20px;
   box-sizing: border-box;
 }
 
@@ -118,35 +113,35 @@
   border-collapse: collapse;
   width: 100%;
   font-size: 13px;
+  padding-right: 30px;
 }
 
 .list table thead th {
   background-color: #fff;
   position: sticky;
   top: 0px;
+  border-bottom: 1px solid #c5c5c5;
+  padding-right: 25px;
 }
 
 .list table tr {
   height: 40px;
 }
 
-.list table th {
-  border-bottom: 1px solid #c5c5c5;
-  padding-right: 25px;
+.list table td {
+  min-width: 100px;
+  white-space: nowrap;
 }
 
 .list table th:nth-child(1) {
   padding-left: 10px;
 }
+
 .list table td:nth-child(1) {
   padding-left: 10px;
 }
 
 .list table th:nth-last-child(1) {
-  padding-right: 0px;
-}
-
-.list table td:nth-last-child(1) {
   padding-right: 0px;
 }
 
@@ -159,20 +154,22 @@
   background-color: #e9ebee;
 }
 
-.text-align-right {
-  text-align: right;
+.list table tbody tr {
+  cursor: pointer;
 }
 
-.text-align-left {
-  text-align: left;
+.list table tbody tr:hover {
+  background-color: #c5c5c5;
 }
 
-.text-align-center {
-  text-align: center;
+.list table tbody tr:active {
+  background-color: #01b075;
+  color: #fff;
 }
 
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
   background-color: lightgray;
   border-radius: 2.5px;
 }

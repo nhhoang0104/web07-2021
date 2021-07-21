@@ -46,14 +46,18 @@
 .icon-close {
   background-image: url("../../assets/icon/x.svg");
 }
-.icon {
+
+.icon-20 {
   height: 20px;
   width: 20px;
-  background-repeat: no-repeat;
-  background-size: contain;
 }
 
 .icon-16 {
   height: 16px;
   width: 16px;
+}
+
+.icon-10 {
+  height: 10px;
+  width: 10px;
 }

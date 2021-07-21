@@ -11,6 +11,7 @@ button {
   border-radius: 20px;
   display: flex;
   align-items: center;
+  border: 1px solid #e5e5e5;
   justify-content: center;
   box-sizing: border-box;
   padding: 0px;
@@ -18,11 +19,12 @@ button {
 }
 
 .btn-circle:hover {
-  background-color: #2fbe8e;
+  background-color: #e5e5e5;
 }
 
 .btn-circle:active {
   background-color: #01b075;
+  color: #fff;
 }
 
 .btn {

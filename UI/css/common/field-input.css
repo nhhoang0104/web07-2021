@@ -35,3 +35,7 @@ input {
   background-size: 16px;
   padding-left: 40px;
 }
+
+.input-required {
+  border: 1px solid #ff0000;
+}
