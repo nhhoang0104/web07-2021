@@ -17,6 +17,8 @@ const formProp = [
   { id: "WorkStatus" },
 ];
 
+//load data from api
+
 function loadData() {
   let table = $("div.list > table > tbody");
 
@@ -56,7 +58,7 @@ function refreshData() {
 
 // handle click employee => display information. can change
 function handleEmployee() {
-  $("div.list table").on("click", "tbody tr", (e) => {
+  $("div.list table").on("dblclick", "tbody tr", (e) => {
     formMode = 0;
     const id = e.currentTarget.id;
 
@@ -77,8 +79,16 @@ function handleEmployee() {
         }
       });
 
+      $("div.form-employee").attr("id", id);
       openModal();
     });
+  });
+}
+
+//event click mouse right ---> delete employee
+function deleteEmployee() {
+  $("div.list table").on("mousedown", "tbody tr", (e) => {
+    if (e.which === 3) alert("1");
   });
 }
 
@@ -87,6 +97,21 @@ loadData();
 refreshData();
 
 handleEmployee();
+
+$("#add-new-employee").click((e) => {
+  formMode = 1;
+
+  clearForm();
+
+  getNewEmployeeCode().done((res) => {
+    $("div.item input[id=EmployeeCode]").val(res);
+    $("div.item input[id=EmployeeCode]").focus();
+  });
+
+  openModal();
+});
+
+deleteEmployee();
 
 // handle click toolbar
 let dropdownToolbar = $("div.toolbar-left div.dropdown");

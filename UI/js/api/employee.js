@@ -31,7 +31,7 @@ function newEmployee(data) {
 
 function changeEmployee(id, data) {
   return $.ajax({
-    url: "http://cukcuk.manhnv.net/v1/Employees",
+    url: `http://cukcuk.manhnv.net/v1/Employees/${id}`,
     method: "PUT",
     data: JSON.stringify(data),
     dataType: "json",

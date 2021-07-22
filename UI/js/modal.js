@@ -37,19 +37,6 @@ function clearForm() {
   $("div.item div.dropdown div.dropdown-input").html("");
 }
 
-$("#add-new-employee").click((e) => {
-  formMode = 1;
-
-  clearForm();
-
-  getNewEmployeeCode().done((res) => {
-    $("div.item input[id=EmployeeCode]").val(res);
-    $("div.item input[id=EmployeeCode]").focus();
-  });
-
-  openModal();
-});
-
 btnClose.click((e) => {
   closeModal();
 });
@@ -59,7 +46,7 @@ btnCancel.click((e) => {
 });
 
 btnSave.click((e) => {
-  createNewEmployee();
+  createNewEmployee($("div.form-employee").attr("id"));
 });
 
 $("input[required]").blur((e) => {
@@ -69,7 +56,11 @@ $("input[required]").blur((e) => {
   } else $(e.currentTarget).removeClass("input-required");
 });
 
-function createNewEmployee() {
+/*
+  if formmode = 1 ---> create new employee
+  else formode = 0 ----> change new employee  vs id 
+*/
+function createNewEmployee(id = null) {
   let tmp = dataSchema;
 
   formProp.forEach((item) => {
@@ -83,18 +74,32 @@ function createNewEmployee() {
       tmp[item.value || item.id] = prop.attr("value");
     }
   });
-
-  newEmployee(tmp)
-    .done((res) => {
-      alert("Done");
-      closeModal();
-      loadData();
-    })
-    .fail((err) => {
-      alert("Fail");
-      loadData();
-      closeModal();
-    });
+  if (formMode === 1) {
+    newEmployee(tmp)
+      .done((res) => {
+        alert("Done");
+        closeModal();
+        loadData();
+      })
+      .fail((err) => {
+        alert("Fail");
+        loadData();
+        closeModal();
+      });
+  } else {
+    console.log(id);
+    changeEmployee(id, tmp)
+      .done((res) => {
+        alert("Done");
+        closeModal();
+        loadData();
+      })
+      .fail((err) => {
+        alert("Fail");
+        loadData();
+        closeModal();
+      });
+  }
 }
 
 const dataSchema = {
