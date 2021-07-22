@@ -159,7 +159,7 @@
                 <div class="label">
                   Mã nhân viên (<span class="danger">*</span>)
                 </div>
-                 <span class="tooltiptext">Không được bỏ trống</span>
+                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="EmployeeCode"
                   required
@@ -171,6 +171,7 @@
                 <div class="label">
                   Họ và tên (<span class="danger">*</span>)
                 </div>
+                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="FullName"
                   required
@@ -200,6 +201,7 @@
                 <div class="label">
                   Số CMTND/ Căn cước (<span class="danger">*</span>)
                 </div>
+                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="IdentityNumber"
                   required
@@ -222,12 +224,14 @@
             <div class="row">
               <div class="item">
                 <div class="label">Email (<span class="danger">*</span>)</div>
+                <span class="tooltiptext">Không được bỏ trống</span>
                 <input id="Email" required type="text" class="item text-box" />
               </div>
               <div class="item">
                 <div class="label">
                   Số điện thoại (<span class="danger">*</span>)
                 </div>
+                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="PhoneNumber"
                   required
@@ -299,6 +303,18 @@
         </div>
       </div>
     </div>
+    <div class="pop-up">
+      <div class="btn-close"><i class="fas fa-times"></i></div>
+      <div class="popup-header">Xóa bản ghi A</div>
+      <div class="popup-content">
+        <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="label"></div>
+      </div>
+      <div class="popup-footer">
+        <div class="btn btn-left">Huỷ</div>
+        <div class="btn btn-right">Xóa</div>
+      </div>
+    </div>
   </body>
 
   <script src="../js/api/employee.js"></script>
@@ -310,6 +326,7 @@
   <script src="../js/utils/formatDate.js"></script>
 
   <script src="../js/dropdown.js"></script>
-  <script src="../js/employees.js"></script>
   <script src="../js/modal.js"></script>
+  <script src="../js/common/popup.js"></script>
+  <script src="../js/employees.js"></script>
 </html>

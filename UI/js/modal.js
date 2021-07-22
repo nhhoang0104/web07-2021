@@ -11,7 +11,6 @@ const formData = {
 };
 
 let form = $("div.form-employee");
-let modal = $("div.modal");
 
 let btnClose = $("div.form-employee div.btn-close");
 let btnSave = $("div.form-employee div.form-footer div.btn-save");
@@ -32,8 +31,12 @@ function closeModal() {
   form.hide();
 }
 
+// clear form before display form
+
 function clearForm() {
   $("div.item input").val(" ");
+  $("div.item input").removeClass("input-required");
+  $("div.item span.tooltiptext").removeClass("tooltiptext-active");
   $("div.item div.dropdown div.dropdown-input").html("");
 }
 
@@ -49,17 +52,33 @@ btnSave.click((e) => {
   createNewEmployee($("div.form-employee").attr("id"));
 });
 
+// show tooltip when input is empty
+
 $("input[required]").blur((e) => {
-  if ($(e.currentTarget).val() === "") {
+  let tooltip = $(e.currentTarget).siblings("span.tooltiptext");
+  if ($(e.currentTarget).val() === " ") {
     $(e.currentTarget).addClass("input-required");
-    $(e.currentTarget).attr("title", "Nhân viên không được để trống!");
-  } else $(e.currentTarget).removeClass("input-required");
+    tooltip.html("Nhân viên không được để trống!");
+    tooltip.addClass("tooltiptext-active");
+  } else {
+    $(e.currentTarget).removeClass("input-required");
+    tooltip.removeClass("tooltiptext-active");
+  }
+});
+
+// clear tooltip before new form
+
+$("input[required]").focus((e) => {
+  let tooltip = $(e.currentTarget).siblings("span.tooltiptext");
+  $(e.currentTarget).removeClass("input-required");
+  tooltip.removeClass("tooltiptext-active");
 });
 
 /*
   if formmode = 1 ---> create new employee
   else formode = 0 ----> change new employee  vs id 
 */
+
 function createNewEmployee(id = null) {
   let tmp = dataSchema;
 
@@ -74,6 +93,7 @@ function createNewEmployee(id = null) {
       tmp[item.value || item.id] = prop.attr("value");
     }
   });
+
   if (formMode === 1) {
     newEmployee(tmp)
       .done((res) => {
@@ -87,7 +107,6 @@ function createNewEmployee(id = null) {
         closeModal();
       });
   } else {
-    console.log(id);
     changeEmployee(id, tmp)
       .done((res) => {
         alert("Done");

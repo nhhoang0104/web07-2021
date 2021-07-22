@@ -142,7 +142,8 @@
   float: right;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
   box-sizing: border-box;
   background-color: #fff;
   color: #000;
@@ -153,10 +154,6 @@
 .form-employee .btn-close:hover {
   background-color: #bbb;
   border: none;
-}
-
-.form-employee .btn-close:active {
-  background-color: #f65454;
 }
 
 span.danger {

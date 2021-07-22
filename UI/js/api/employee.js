@@ -38,3 +38,12 @@ function changeEmployee(id, data) {
     contentType: "application/json",
   });
 }
+
+function deleteEmployee(id) {
+  return $.ajax({
+    url: `http://cukcuk.manhnv.net/v1/Employees/${id}`,
+    method: "DELETE",
+    dataType: "json",
+    contentType: "application/json",
+  });
+}

@@ -7,6 +7,7 @@
 @import url("../css/common/dropdown.css");
 @import url("../css/common/combo-box.css");
 @import url("../css/common/tooltip.css");
+@import url("../css/common/pop-up.css");
 
 body {
   font-family: "GoogleSans";

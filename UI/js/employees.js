@@ -27,7 +27,10 @@ function loadData() {
   getAllEmployees()
     .done((res) => {
       res.forEach((item) => {
-        const tmpHtml = `<tr id=${item.EmployeeId}>
+        const tmpHtml = `<tr id=${item.EmployeeId} employeeCode=${
+          item.EmployeeCode
+        }
+        }>
                 <td class="text-align-left">${item.EmployeeCode || ""}</td>
                 <td class="text-align-left">${item.FullName || ""}</td>
                 <td class="text-align-center">${formatDate(
@@ -50,14 +53,14 @@ function loadData() {
 }
 
 // Refresh data
-function refreshData() {
+function eventRefreshData() {
   let btnRefresh = $("div.toolbar-right button");
 
   btnRefresh.click((e) => loadData());
 }
 
 // handle click employee => display information. can change
-function handleEmployee() {
+function eventViewInfoEmployee() {
   $("div.list table").on("dblclick", "tbody tr", (e) => {
     formMode = 0;
     const id = e.currentTarget.id;
@@ -80,24 +83,39 @@ function handleEmployee() {
       });
 
       $("div.form-employee").attr("id", id);
+      $("div.item input").removeClass("input-required");
+      $("div.item span.tooltiptext").removeClass("tooltiptext-active");
       openModal();
     });
   });
 }
 
 //event click mouse right ---> delete employee
-function deleteEmployee() {
+function eventDeleteEmployee() {
   $("div.list table").on("mousedown", "tbody tr", (e) => {
-    if (e.which === 3) alert("1");
+    if (e.which === 3) {
+      $("div.pop-up div.popup-header").html("Xóa bản ghi");
+      $("div.pop-up div.popup-content div.label").html(
+        `Bạn có muốn chắc xóa <b>"Thông tin nhân viên củ nhân viên ${$(
+          e.currentTarget
+        ).attr("employeeCode")}"</b> hay không ?`
+      );
+
+      popup.attr("id", e.currentTarget.id);
+      showPopup();
+    }
   });
 }
 
 loadData();
 
-refreshData();
+eventRefreshData();
 
-handleEmployee();
+eventViewInfoEmployee();
 
+eventDeleteEmployee();
+
+// event add new employee
 $("#add-new-employee").click((e) => {
   formMode = 1;
 
@@ -111,9 +129,7 @@ $("#add-new-employee").click((e) => {
   openModal();
 });
 
-deleteEmployee();
-
-// handle click toolbar
+// vent click toolbar
 let dropdownToolbar = $("div.toolbar-left div.dropdown");
 dropdownToolbar.click((e) => {
   handleDropdown(e.currentTarget);
