@@ -8,7 +8,7 @@ input {
   font-size: 13px;
   font-family: "GoogleSans";
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 32px;
 }
 
 .label {
@@ -38,4 +38,16 @@ input {
 
 .input-required {
   border: 1px solid #ff0000;
+}
+
+input[id="Salary"] {
+  padding-right: 50px;
+}
+
+input[id="Salary"] + span::after {
+  position: absolute;
+  content: "VND";
+  right: 20px;
+  top: 31.5px;
+  color: #000;
 }

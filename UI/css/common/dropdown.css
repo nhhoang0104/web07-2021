@@ -58,6 +58,7 @@
   height: 35px;
   max-height: 40px;
   box-sizing: border-box;
+  z-index: 1;
 }
 
 div.dropdown-item[checked] {

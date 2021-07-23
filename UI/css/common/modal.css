@@ -19,7 +19,6 @@
   width: 900px;
   height: calc(100vh - 100px);
   border-radius: 5px;
-  z-index: 999;
   background-color: #ffffff;
   overflow: hidden;
 }
@@ -111,6 +110,7 @@
 }
 
 .form-footer {
+  z-index: 2;
   height: 60px;
   width: 100%;
   background-color: #e9ebee;

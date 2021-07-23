@@ -1,3 +1,4 @@
+/*
 function renderMenu(dropdown, data) {
   let menu = dropdown.children[2];
   let tmp = "";
@@ -92,7 +93,7 @@ function defectClickOutside(dropdown, positionCurr) {
     }
   }
 }
-
+*/
 let dropdown = document.querySelectorAll("div.dropdown");
 
 window.onclick = (event) => {

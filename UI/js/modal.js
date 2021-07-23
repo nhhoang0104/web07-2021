@@ -18,7 +18,7 @@ let btnCancel = $("div.form-employee div.form-footer div.btn-cancel");
 let dropdownForm = $("div.item div.dropdown");
 
 dropdownForm.click((e) => {
-  handleDropdown(e.currentTarget);
+  new Dropdown(e.currentTarget).handleDropdown();
 });
 
 function openModal() {
@@ -32,7 +32,6 @@ function closeModal() {
 }
 
 // clear form before display form
-
 function clearForm() {
   $("div.item input").val(" ");
   $("div.item input").removeClass("input-required");
@@ -40,38 +39,22 @@ function clearForm() {
   $("div.item div.dropdown div.dropdown-input").html("");
 }
 
-btnClose.click((e) => {
+btnClose.click(() => {
   closeModal();
 });
 
-btnCancel.click((e) => {
+btnCancel.click(() => {
   closeModal();
 });
 
-btnSave.click((e) => {
+btnSave.click(() => {
   createNewEmployee($("div.form-employee").attr("id"));
 });
 
-// show tooltip when input is empty
-
-$("input[required]").blur((e) => {
-  let tooltip = $(e.currentTarget).siblings("span.tooltiptext");
-  if ($(e.currentTarget).val() === " ") {
-    $(e.currentTarget).addClass("input-required");
-    tooltip.html("Nhân viên không được để trống!");
-    tooltip.addClass("tooltiptext-active");
-  } else {
-    $(e.currentTarget).removeClass("input-required");
-    tooltip.removeClass("tooltiptext-active");
-  }
-});
-
-// clear tooltip before new form
-
-$("input[required]").focus((e) => {
-  let tooltip = $(e.currentTarget).siblings("span.tooltiptext");
-  $(e.currentTarget).removeClass("input-required");
-  tooltip.removeClass("tooltiptext-active");
+$("input[required]").each(function () {
+  let input = new Input(this, "test1", "text", "mony");
+  input.blurInput();
+  input.clearTooltip();
 });
 
 /*

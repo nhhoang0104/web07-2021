@@ -67,18 +67,18 @@
         <div class="toolbar">
           <div class="toolbar-left">
             <input
-              type="text"
+              dataType="text"
               class="text-box text-box-icon icon-search item"
               placeholder="Tìm kiếm theo mã, tên hoặc số điện thoại"
             />
-            <div id="department" class="dropdown item item-dropdown">
+            <div key="department" class="dropdown item item-dropdown">
               <div class="dropdown-input">Tất cả phòng ban</div>
               <div class="dropdown-toggle">
                 <i class="fas fa-chevron-down icon-16"></i>
               </div>
               <div class="dropdown-menu"></div>
             </div>
-            <div id="position" class="dropdown item item-dropdown">
+            <div key="position" class="dropdown item item-dropdown">
               <div class="dropdown-input">Tất cả vị trí</div>
               <div class="dropdown-toggle">
                 <i class="fas fa-chevron-down icon-16"></i>
@@ -93,25 +93,7 @@
           </div>
         </div>
 
-        <div class="list">
-          <table>
-            <thead>
-              <tr>
-                <th class="text-align-left">Mã nhân viên</th>
-                <th class="text-align-left">Họ và tên</th>
-                <th class="text-align-center">Ngày sinh</th>
-                <th class="text-align-left">Giới tính</th>
-                <th class="text-align-left">Điện thoại</th>
-                <th class="text-align-left">Email</th>
-                <th class="text-align-left">Chức vụ</th>
-                <th class="text-align-left">Phòng ban</th>
-                <th class="text-align-right">Mức lức cơ bản</th>
-                <th class="text-align-left">Tình trạng công việc</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+        <div class="list"></div>
         <div class="pagination">
           <div class="pagination-left">
             <div>Hiển thị 1-10/1000 nhân viên</div>
@@ -164,6 +146,7 @@
                   id="EmployeeCode"
                   required
                   type="text"
+                  dataType="text"
                   class="item text-box"
                 />
               </div>
@@ -176,6 +159,7 @@
                   id="FullName"
                   required
                   type="text"
+                  dataType="text"
                   class="item text-box"
                 />
               </div>
@@ -183,7 +167,12 @@
             <div class="row">
               <div class="item" tabindex="3">
                 <div class="label">Ngày sinh</div>
-                <input id="DateOfBirth" type="date" class="item text-box" />
+                <input
+                  id="DateOfBirth"
+                  type="date"
+                  dataType="date"
+                  class="item text-box"
+                />
               </div>
               <div class="item">
                 <div class="label">Giới tính</div>
@@ -206,18 +195,29 @@
                   id="IdentityNumber"
                   required
                   type="text"
+                  dataType="text"
                   class="item text-box"
                 />
               </div>
               <div class="item" tabindex="6">
                 <div class="label">Ngày cấp</div>
-                <input id="IdentityDate" type="date" class="item text-box" />
+                <input
+                  id="IdentityDate"
+                  type="date"
+                  dataType="date"
+                  class="item text-box"
+                />
               </div>
             </div>
             <div class="row">
               <div class="item">
                 <div class="label">Nơi cấp</div>
-                <input id="IdentityPlace" type="text" class="item text-box" />
+                <input
+                  id="IdentityPlace"
+                  type="text"
+                  dataType="text"
+                  class="item text-box"
+                />
               </div>
               <div class="item"></div>
             </div>
@@ -225,7 +225,13 @@
               <div class="item">
                 <div class="label">Email (<span class="danger">*</span>)</div>
                 <span class="tooltiptext">Không được bỏ trống</span>
-                <input id="Email" required type="text" class="item text-box" />
+                <input
+                  id="Email"
+                  required
+                  type="email"
+                  dataType="email"
+                  class="item text-box"
+                />
               </div>
               <div class="item">
                 <div class="label">
@@ -236,6 +242,7 @@
                   id="PhoneNumber"
                   required
                   type="text"
+                  dataType="text"
                   class="item text-box"
                 />
               </div>
@@ -247,7 +254,7 @@
             <div class="row">
               <div class="item">
                 <div class="label">Vị trí</div>
-                <div id="position" class="dropdown">
+                <div id="PositionId" key="position" class="dropdown">
                   <div class="dropdown-input">Chọn vị trí</div>
                   <div class="dropdown-toggle">
                     <i class="fas fa-chevron-down icon-16"></i>
@@ -257,7 +264,7 @@
               </div>
               <div class="item">
                 <div class="label">Phòng ban</div>
-                <div id="department" class="dropdown">
+                <div id="DepartmentId" key="department" class="dropdown">
                   <div class="dropdown-input">Chọn phòng ban</div>
                   <div class="dropdown-toggle">
                     <i class="fas fa-chevron-down icon-16"></i>
@@ -269,11 +276,21 @@
             <div class="row">
               <div class="item">
                 <div class="label">Mã số thuế</div>
-                <input id="PersonalTaxCode" type="text" class="item text-box" />
+                <input
+                  id="PersonalTaxCode"
+                  type="text"
+                  dataType="text"
+                  class="item text-box"
+                />
               </div>
               <div class="item">
                 <div class="label">Mức lương cơ bản</div>
-                <input id="Salary" type="text" class="item text-box" />
+                <input
+                  id="Salary"
+                  type="text"
+                  class="item text-box"
+                  dataType="money"
+                /><span></span>
               </div>
             </div>
             <div class="row">
@@ -317,16 +334,18 @@
     </div>
   </body>
 
-  <script src="../js/api/employee.js"></script>
-  <script src="../js/api/department.js"></script>
-  <script src="../js/api/position.js"></script>
-
   <script src="../lib/jquery-3.6.0.min.js"></script>
-  <script src="../js/utils/formatMoney.js"></script>
-  <script src="../js/utils/formatDate.js"></script>
 
-  <script src="../js/dropdown.js"></script>
-  <script src="../js/modal.js"></script>
-  <script src="../js/common/popup.js"></script>
-  <script src="../js/employees.js"></script>
+  <script src="../js/api/Employee.js"></script>
+  <script src="../js/api/Department.js"></script>
+  <script src="../js/api/Position.js"></script>
+
+  <script src="../js/base/Common.js"></script>
+  <script src="../js/base/Popup.js"></script>
+  <script src="../js/base/Input.js"></script>
+  <script src="../js/base/Dropdown.js"></script>
+  <script src="../js/base/Form.js"></script>
+  <script src="../js/base/Table.js"></script>
+
+  <script src="../js/page/Employees.js"></script>
 </html>
