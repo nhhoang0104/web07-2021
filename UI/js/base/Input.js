@@ -60,7 +60,7 @@ class Input {
     if (self.Format === "money") {
       let tmp = value.replaceAll(".", "");
       tmp = tmp.replaceAll(" ", "");
-      this.Value = formatMoney(tmp);
+      this.Value = Common.formatMoney(tmp);
     }
   }
 

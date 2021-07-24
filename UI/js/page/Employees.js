@@ -64,13 +64,14 @@ $("#add-new-employee").click((e) => {
   new Form("div.form-employee");
 });
 
-// event click toolbar
-let dropdownToolbar = $("div.toolbar-left div.dropdown");
+// event click dropdown toolbar
+let dropdownToolbar = $("div.toolbar-left dropdown");
 
-dropdownToolbar.click((e) => {
-  new Dropdown(e.currentTarget);
+dropdownToolbar.each((index, item) => {
+  new Dropdown(item);
 });
 
+// event click outside dropdown
 let dropdown = document.querySelectorAll("div.dropdown");
 
 window.onclick = (event) => {

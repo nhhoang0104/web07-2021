@@ -1,5 +1,5 @@
 class Form {
-  static dataSchema = {
+  static DataSchema = {
     CreatedDate: "2021-07-21T08:58:26.162Z",
     CreatedBy: "John Wick",
     ModifiedDate: "2021-07-21T08:58:26.162Z",
@@ -36,25 +36,31 @@ class Form {
   static modal = $("div.modal");
 
   constructor(form, id, formMode = 1, data = null) {
-    this.Form = $(form);
+    this.Form = form;
     this.FormMode = formMode;
+
     this.Id = id;
     this.BtnClose = $(`${form} div.btn-close`);
     this.BtnSave = $(`${form} div.form-footer div.btn-save`);
     this.BtnCancel = $(`${form} div.form-footer div.btn-cancel`);
-    this.Dropdown = $("div.item div.dropdown");
+    this.Dropdown = $("div.item dropdown");
 
     this.loadData(data);
-    this.initEvent(data);
+    this.initEvent();
   }
 
   initEvent() {
-    this.BtnClose.click(() => {
-      this.closeForm();
+    let self = this;
+    self.BtnClose.click(() => {
+      self.closeForm();
     });
 
-    this.BtnCancel.click(() => {
-      this.closeForm();
+    self.BtnCancel.click(() => {
+      self.closeForm();
+    });
+
+    self.BtnSave.click(() => {
+      self.handleSave();
     });
   }
 
@@ -78,32 +84,83 @@ class Form {
   }
 
   initDropdown(data) {
-    if (data)
-      this.Dropdown.each(function (index, item) {
-        $(item).attr("value", data[item.id]);
-      });
-
-    this.Dropdown.click((e) => {
-      new Dropdown(e.currentTarget);
+    this.Dropdown.each(function (index, item) {
+      new Dropdown(item, data ? data[item.id] : null);
     });
   }
 
   openForm() {
-    this.Form.show();
+    $($(this.Form)).show();
     Form.modal.show();
   }
 
   closeForm() {
-    this.Form.hide();
+    $(this.Form).hide();
     Form.modal.hide();
+    let dropdown = this.Dropdown;
+
+    $("div.item div.dropdown").each(function (index, item) {
+      $(item).replaceWith(dropdown[index]);
+    });
   }
 
   clearForm() {
     $("div.item input").val(" ");
     $("div.item input").removeClass("input-required");
     $("div.item span.tooltiptext").removeClass("tooltiptext-active");
-    $("div.item div.dropdown div.dropdown-input").html("");
   }
 
-  handleSave() {}
+  handleSave() {
+    let dataSchema = Form.DataSchema;
+
+    let props = $(
+      `${this.Form} div.form-body div.form-body-right div.row div.item`
+    );
+
+    props.each(function (index, item) {
+      let tmp = $($(item).children()[1]);
+      let prop = tmp.attr("id");
+
+      if (tmp.attr("class") === "dropdown") {
+        dataSchema[prop] = tmp.attr("value");
+      }
+
+      if (tmp.attr("class") && tmp.attr("class").includes("text-box")) {
+        let dataType = tmp.attr("dataType");
+        switch (dataType) {
+          case "money":
+            dataSchema[prop] = tmp.val().replace(".", "");
+            break;
+          case "date":
+            dataSchema[prop] = Common.formatDateInput(tmp.val());
+            break;
+          default:
+            dataSchema[prop] = tmp.val();
+            break;
+        }
+      }
+    });
+
+    if (this.FormMode === 1) {
+      newEmployee(dataSchema)
+        .done((res) => {
+          this.closeForm();
+          alert("Done");
+        })
+        .fail((err) => {
+          this.closeForm();
+          alert("Fail");
+        });
+    } else {
+      changeEmployee(this.Id, dataSchema)
+        .done((res) => {
+          this.closeForm();
+          alert("Done");
+        })
+        .fail((err) => {
+          this.closeForm();
+          alert("Fail");
+        });
+    }
+  }
 }

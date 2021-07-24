@@ -71,20 +71,12 @@
               class="text-box text-box-icon icon-search item"
               placeholder="Tìm kiếm theo mã, tên hoặc số điện thoại"
             />
-            <div key="department" class="dropdown item item-dropdown">
-              <div class="dropdown-input">Tất cả phòng ban</div>
-              <div class="dropdown-toggle">
-                <i class="fas fa-chevron-down icon-16"></i>
-              </div>
-              <div class="dropdown-menu"></div>
-            </div>
-            <div key="position" class="dropdown item item-dropdown">
-              <div class="dropdown-input">Tất cả vị trí</div>
-              <div class="dropdown-toggle">
-                <i class="fas fa-chevron-down icon-16"></i>
-              </div>
-              <div class="dropdown-menu"></div>
-            </div>
+            <dropdown key="department" className="dropdown item item-dropdown"
+              >Tất cả phòng ban</dropdown
+            >
+            <dropdown key="position" className="dropdown item item-dropdown"
+              >Tất cả vị trí</dropdown
+            >
           </div>
           <div class="toolbar-right">
             <button class="btn-2">
@@ -141,7 +133,6 @@
                 <div class="label">
                   Mã nhân viên (<span class="danger">*</span>)
                 </div>
-                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="EmployeeCode"
                   required
@@ -149,19 +140,19 @@
                   dataType="text"
                   class="item text-box"
                 />
+                <span class="tooltiptext">Không được bỏ trống</span>
               </div>
               <div class="item" tabindex="2">
                 <div class="label">
                   Họ và tên (<span class="danger">*</span>)
                 </div>
-                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="FullName"
                   required
                   type="text"
                   dataType="text"
                   class="item text-box"
-                />
+                /><span class="tooltiptext">Không được bỏ trống</span>
               </div>
             </div>
             <div class="row">
@@ -176,13 +167,9 @@
               </div>
               <div class="item">
                 <div class="label">Giới tính</div>
-                <div id="Gender" class="dropdown" tabindex="4">
-                  <div class="dropdown-input">Chọn giới tính</div>
-                  <div class="dropdown-toggle">
-                    <i class="fas fa-chevron-down icon-16"></i>
-                  </div>
-                  <div class="dropdown-menu hide"></div>
-                </div>
+                <dropdown key="Gender" id="Gender" className="dropdown"
+                  >Chọn giới tính</dropdown
+                >
               </div>
             </div>
             <div class="row">
@@ -190,7 +177,6 @@
                 <div class="label">
                   Số CMTND/ Căn cước (<span class="danger">*</span>)
                 </div>
-                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="IdentityNumber"
                   required
@@ -198,6 +184,7 @@
                   dataType="text"
                   class="item text-box"
                 />
+                <span class="tooltiptext">Không được bỏ trống</span>
               </div>
               <div class="item" tabindex="6">
                 <div class="label">Ngày cấp</div>
@@ -224,7 +211,6 @@
             <div class="row">
               <div class="item">
                 <div class="label">Email (<span class="danger">*</span>)</div>
-                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="Email"
                   required
@@ -232,12 +218,12 @@
                   dataType="email"
                   class="item text-box"
                 />
+                <span class="tooltiptext">Không được bỏ trống</span>
               </div>
               <div class="item">
                 <div class="label">
                   Số điện thoại (<span class="danger">*</span>)
                 </div>
-                <span class="tooltiptext">Không được bỏ trống</span>
                 <input
                   id="PhoneNumber"
                   required
@@ -245,6 +231,7 @@
                   dataType="text"
                   class="item text-box"
                 />
+                <span class="tooltiptext">Không được bỏ trống</span>
               </div>
             </div>
           </div>
@@ -254,23 +241,18 @@
             <div class="row">
               <div class="item">
                 <div class="label">Vị trí</div>
-                <div id="PositionId" key="position" class="dropdown">
-                  <div class="dropdown-input">Chọn vị trí</div>
-                  <div class="dropdown-toggle">
-                    <i class="fas fa-chevron-down icon-16"></i>
-                  </div>
-                  <div class="dropdown-menu hide"></div>
-                </div>
+                <dropdown id="PositionId" key="position" className="dropdown"
+                  >Chọn vị trí</dropdown
+                >
               </div>
               <div class="item">
                 <div class="label">Phòng ban</div>
-                <div id="DepartmentId" key="department" class="dropdown">
-                  <div class="dropdown-input">Chọn phòng ban</div>
-                  <div class="dropdown-toggle">
-                    <i class="fas fa-chevron-down icon-16"></i>
-                  </div>
-                  <div class="dropdown-menu hide"></div>
-                </div>
+                <dropdown
+                  id="DepartmentId"
+                  key="department"
+                  className="dropdown"
+                  >Chọn phòng ban</dropdown
+                >
               </div>
             </div>
             <div class="row">
@@ -300,13 +282,9 @@
               </div>
               <div class="item">
                 <div class="label">Tình trạng công việc</div>
-                <div id="WorkStatus" class="dropdown">
-                  <div class="dropdown-input">Chọn trạng thái</div>
-                  <div class="dropdown-toggle">
-                    <i class="fas fa-chevron-down icon-16"></i>
-                  </div>
-                  <div class="dropdown-menu hide"></div>
-                </div>
+                <dropdown id="WorkStatus" key="WorkStatus" className="dropdown"
+                  >Chọn trạng thái</dropdown
+                >
               </div>
             </div>
           </div>
