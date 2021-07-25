@@ -32,7 +32,10 @@ class Table {
           ).attr("employeeCode")}"</b> hay không ?`
         );
 
-        new Popup("div.pop-up", () => deleteEmployee(e.currentTarget.id));
+        new Popup(
+          "div.pop-up",
+          async () => await deleteEmployee(e.currentTarget.id)
+        );
       }
     });
   }

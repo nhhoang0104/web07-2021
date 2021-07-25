@@ -41,7 +41,20 @@ class Common {
     );
   }
 
-  //Tìm kiếm
+  /*
+      Validate email
+  */
+
+  static validateEmail(email) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  /*
+    Tìm kiếm
+  */
+
   static search(textSearch, data) {
     let result = [];
     textSearch = textSearch.toLocaleLowerCase();

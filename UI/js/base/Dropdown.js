@@ -56,6 +56,8 @@ class Dropdown {
     } else this.Data = formData[key];
   }
 
+  /*  render dropdown */
+
   renderDropdown() {
     let dropdown = this.Dropdown;
     let dropdownHtml = "";
@@ -72,6 +74,8 @@ class Dropdown {
     $(dropdown).replaceWith(dropdownHtml);
     this.Dropdown = dropdownHtml;
   }
+
+  /* ẩn hiện menu */
 
   changeMenu() {
     let dropdown = $(this.Dropdown);
@@ -91,6 +95,8 @@ class Dropdown {
       $(menu).hide();
     }
   }
+
+  /* render menu */
 
   renderMenu() {
     let dropdown = $(this.Dropdown);
@@ -124,6 +130,8 @@ class Dropdown {
       $(menu).append(tmp);
     });
   }
+
+  /* Phát hiện khi click outside của dropdown*/
 
   static defectClickOutside(dropdown, positionCurr) {
     let toggle = dropdown.children[1].children[0];

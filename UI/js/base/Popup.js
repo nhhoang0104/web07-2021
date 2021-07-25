@@ -18,15 +18,18 @@ class Popup {
     });
 
     $(`${this.Popup} div.popup-footer div.btn-right`).click((e) => {
-      this.Func()
-        .done((res) => {
-          alert("done");
-          this.closePopup();
-        })
-        .fail((err) => {
-          alert("fail");
-          this.closePopup();
-        });
+      try {
+        this.Func();
+        alert("done");
+        this.closePopup();
+      } catch (error) {
+        if (error.status >= 500) {
+          alert("Liên hệ Misa để biết thêm chi tiết");
+          this.closeForm();
+        } else {
+          alert("Vui lòng khách hàng xem các thông tin điền");
+        }
+      }
     });
   }
 

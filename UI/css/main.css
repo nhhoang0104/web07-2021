@@ -1,13 +1,13 @@
-@import url("../css/common/text.css");
-@import url("../css/common/icon.css");
-@import url("../css/common/button.css");
-@import url("../css/common/field-input.css");
-@import url("../css/common/pagination.css");
-@import url("../css/common/modal.css");
-@import url("../css/common/dropdown.css");
-@import url("../css/common/combo-box.css");
-@import url("../css/common/tooltip.css");
-@import url("../css/common/pop-up.css");
+@import url("../css/common/Text.css");
+@import url("../css/common/Icon.css");
+@import url("../css/common/Button.css");
+@import url("../css/common/Field-Input.css");
+@import url("../css/common/Pagination.css");
+@import url("../css/common/Modal.css");
+@import url("../css/common/Dropdown.css");
+@import url("../css/common/Combo-Box.css");
+@import url("../css/common/Tooltip.css");
+@import url("../css/common/Pop-Up.css");
 
 body {
   font-family: "GoogleSans";

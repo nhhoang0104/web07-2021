@@ -10,6 +10,8 @@ const formData = {
   ],
 };
 
+// thuộc tính của bảng
+
 const tableProp = [
   { label: "Mã nhân viên", id: "EmployeeCode", className: "text-align-left" },
   { label: "Họ và tên", id: "Fullname", className: "text-align-left" },
@@ -26,6 +28,8 @@ const tableProp = [
     className: "text-align-left",
   },
 ];
+
+// các trường của form
 
 const formProp = [
   { id: "EmployeeCode" },
@@ -45,6 +49,7 @@ const formProp = [
   { id: "WorkStatus" },
 ];
 
+// formMode = 1 -> thêm mới, 0 -> sửa
 var formMode = 1;
 
 let table = new Table("div.list", tableProp, getAllEmployees, deleteEmployee);

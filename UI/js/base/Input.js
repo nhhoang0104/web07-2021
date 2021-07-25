@@ -1,21 +1,31 @@
 class Input {
-  constructor(input, id, format, required = false) {
+  constructor(input, id, format, valueDefault = null, required = false) {
     this.Input = input;
     this.Id = id;
     this.Format = format;
     this.Required = required;
+    this.ValueDefault = valueDefault;
 
+    this.loadData();
     this.clearTooltip();
     this.blurInput();
     this.onChangeInput();
   }
 
   get Value() {
-    return $(this).value;
+    return $(this).Value;
   }
 
   set Value(value) {
     $(this.Input).val(value);
+  }
+
+  loadData() {
+    this.Value = this.ValueDefault;
+
+    if (this.Id === "EmployeeCode") {
+      $(this.Input).focus();
+    }
   }
 
   /*
@@ -30,15 +40,19 @@ class Input {
         let tooltip = $(input).siblings("span.tooltiptext");
 
         if ($(input).val() === " " || $(input).val() === "") {
-          $(input).addClass("input-required");
-          tooltip.html("Nhân viên không được để trống!");
-          tooltip.addClass("tooltiptext-active");
+          showTooltip();
         } else {
           $(input).removeClass("input-required");
           tooltip.removeClass("tooltiptext-active");
         }
       });
     }
+  }
+
+  showTooltip(error = "Nhân viên không được để trống!") {
+    $(this.Input).addClass("input-required");
+    tooltip.html(error);
+    tooltip.addClass("tooltiptext-active");
   }
 
   /*
@@ -76,6 +90,4 @@ class Input {
       tooltip.removeClass("tooltiptext-active");
     });
   }
-
-  validate() {}
 }

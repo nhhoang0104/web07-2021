@@ -43,8 +43,8 @@ class Form {
     this.BtnClose = $(`${form} div.btn-close`);
     this.BtnSave = $(`${form} div.form-footer div.btn-save`);
     this.BtnCancel = $(`${form} div.form-footer div.btn-cancel`);
-    this.Dropdown = $("div.item dropdown");
-
+    this.DropdownList = [];
+    this.InputList = [];
     this.loadData(data);
     this.initEvent();
   }
@@ -71,28 +71,48 @@ class Form {
     this.openForm();
   }
 
+  /*
+    Khởi tạo các input có trong form, set giá trị mặc định nếu cố.
+  */
+
   initInput(data) {
+    let self = this;
     $("div.item input").each(function (index, item) {
-      let input = new Input(
-        this,
-        item.id,
-        $(item).attr("dataType"),
-        item.required
+      self.InputList.push(
+        new Input(
+          this,
+          item.id,
+          $(item).attr("dataType"),
+          data ? data[item.id] : null,
+          item.required
+        )
       );
-      input.Value = data ? data[item.id] : null;
     });
   }
 
+  /*
+    Khởi tạo các dropdown có trong form, set giá trị mặc định nếu cố.
+  */
+
   initDropdown(data) {
-    this.Dropdown.each(function (index, item) {
-      new Dropdown(item, data ? data[item.id] : null);
+    let self = this;
+    $("div.item dropdown").each(function (index, item) {
+      self.DropdownList.push(new Dropdown(item, data ? data[item.id] : null));
     });
   }
+
+  /* 
+    Mở form
+  */
 
   openForm() {
     $($(this.Form)).show();
     Form.modal.show();
   }
+
+  /* 
+    Đóng form
+  */
 
   closeForm() {
     $(this.Form).hide();
@@ -104,13 +124,21 @@ class Form {
     });
   }
 
+  /*
+    reset form trước khi mở
+  */
+
   clearForm() {
     $("div.item input").val(" ");
     $("div.item input").removeClass("input-required");
     $("div.item span.tooltiptext").removeClass("tooltiptext-active");
   }
 
-  handleSave() {
+  /*
+      Xử lý khi sự kiện btnSave: thay đổi dư liệu hoặc thêm mới dl
+  */
+
+  async handleSave() {
     let dataSchema = Form.DataSchema;
 
     let props = $(
@@ -119,7 +147,11 @@ class Form {
 
     props.each(function (index, item) {
       let tmp = $($(item).children()[1]);
+
       let prop = tmp.attr("id");
+
+      if ($(tmp).attr("required")) {
+      }
 
       if (tmp.attr("class") === "dropdown") {
         dataSchema[prop] = tmp.attr("value");
@@ -142,25 +174,38 @@ class Form {
     });
 
     if (this.FormMode === 1) {
-      newEmployee(dataSchema)
-        .done((res) => {
+      try {
+        await newEmployee(dataSchema);
+        alert("Done");
+        this.closeForm();
+      } catch (error) {
+        if (error.status >= 500) {
+          alert("Liên hệ Misa để biết thêm chi tiết");
           this.closeForm();
-          alert("Done");
-        })
-        .fail((err) => {
-          this.closeForm();
-          alert("Fail");
-        });
+        } else {
+          alert("Vui lòng khách hàng xem các thông tin điền");
+        }
+      }
     } else {
-      changeEmployee(this.Id, dataSchema)
-        .done((res) => {
+      try {
+        await changeEmployee(this.Id, dataSchema);
+        this.closeForm();
+      } catch (error) {
+        if (error.status >= 500) {
+          alert("Liên hệ Misa để biết thêm chi tiết");
           this.closeForm();
-          alert("Done");
-        })
-        .fail((err) => {
-          this.closeForm();
-          alert("Fail");
-        });
+        } else {
+          alert("Vui lòng xem các thông tin điền");
+        }
+      }
     }
+  }
+
+  /*
+      Validate các trường bắt buộc trước khi lưu
+  */
+
+  validateForm() {
+    console.log(this.Form);
   }
 }
