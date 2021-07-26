@@ -77,6 +77,7 @@
             <dropdown key="position" className="dropdown item item-dropdown"
               >Tất cả vị trí</dropdown
             >
+            <combobox key="position" className="combo-box item item-dropdown"></combobox>
           </div>
           <div class="toolbar-right">
             <button class="btn-2">
@@ -227,7 +228,7 @@
                 <input
                   id="PhoneNumber"
                   required
-                  type="text"
+                  type="tel"
                   dataType="text"
                   class="item text-box"
                 />
@@ -298,18 +299,7 @@
         </div>
       </div>
     </div>
-    <div class="pop-up">
-      <div class="btn-close"><i class="fas fa-times"></i></div>
-      <div class="popup-header">Xóa bản ghi A</div>
-      <div class="popup-content">
-        <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
-        <div class="label"></div>
-      </div>
-      <div class="popup-footer">
-        <div class="btn btn-left">Huỷ</div>
-        <div class="btn btn-right">Xóa</div>
-      </div>
-    </div>
+    <popup></popup>
   </body>
 
   <script src="../lib/jquery-3.6.0.min.js"></script>
@@ -322,6 +312,7 @@
   <script src="../js/base/Popup.js"></script>
   <script src="../js/base/Input.js"></script>
   <script src="../js/base/Dropdown.js"></script>
+  <script src="../js/base/Combobox.js"></script>
   <script src="../js/base/Form.js"></script>
   <script src="../js/base/Table.js"></script>
 

@@ -117,7 +117,7 @@ class Form {
   closeForm() {
     $(this.Form).hide();
     Form.modal.hide();
-    let dropdown = this.Dropdown;
+    let dropdown = this.DropdownList;
 
     $("div.item div.dropdown").each(function (index, item) {
       $(item).replaceWith(dropdown[index]);
@@ -139,6 +139,8 @@ class Form {
   */
 
   async handleSave() {
+    if (!this.validateForm()) return;
+
     let dataSchema = Form.DataSchema;
 
     let props = $(
@@ -206,6 +208,15 @@ class Form {
   */
 
   validateForm() {
-    console.log(this.Form);
+    let isAuth = true;
+    this.InputList.forEach((item) => {
+      let { isPassed, errorMessage } = item.validate();
+      if (!isPassed) {
+        item.showTooltip(errorMessage);
+        isAuth = false;
+      }
+    });
+
+    return isAuth;
   }
 }

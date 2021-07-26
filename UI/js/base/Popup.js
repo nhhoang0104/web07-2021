@@ -1,9 +1,13 @@
 class Popup {
-  constructor(popup, func) {
+  constructor(popup, header, content, func) {
     this.Popup = popup;
+    this.Header = header;
+    this.Content = content;
+
     this.Modal = "div.modal";
     this.Func = func;
 
+    this.renderPopup();
     this.openPopup();
     this.initEvent();
   }
@@ -31,6 +35,25 @@ class Popup {
         }
       }
     });
+  }
+
+  renderPopup() {
+    let self = this;
+    let tmpHtml = $(`<div class="pop-up">
+      <div class="btn-close"><i class="fas fa-times"></i></div>
+      <div class="popup-header">${self.Header}</div>
+      <div class="popup-content">
+        <div class="icon"><i class="fas fa-exclamation-triangle"></i></div>
+        <div class="label">${self.Content}</div>
+      </div>
+      <div class="popup-footer">
+        <div class="btn btn-left">Huỷ</div>
+        <div class="btn btn-right">Xóa</div>
+      </div>
+    </div>`);
+
+    $(this.Popup).replaceWith(tmpHtml);
+    this.Popup = "div.pop-up";
   }
 
   closePopup() {

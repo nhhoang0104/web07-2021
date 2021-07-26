@@ -1,11 +1,12 @@
 class Dropdown {
-  constructor(dropdown, itemSelected = null) {
+  constructor(dropdown, itemSelected = null, required = false) {
     this.Dropdown = dropdown;
     this.Key = $(dropdown).attr("key");
     this.ClassName = $(dropdown).attr("className");
     this.Id = $(dropdown).attr("id");
     this.Label = $(dropdown).html();
     this.ItemSelected = itemSelected;
+    this.Required = required;
     this.Data = null;
 
     this.loadData();
@@ -140,6 +141,7 @@ class Dropdown {
 
     if (!dropdown.contains(positionCurr)) {
       if (!toggleIcon.contains("fa-chevron-down")) {
+        console.log(1);
         $(dropdown).css("borderColor", "#bbb");
         toggleIcon.add("fa-chevron-down");
         toggleIcon.remove("fa-chevron-up");

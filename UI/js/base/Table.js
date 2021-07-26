@@ -25,15 +25,15 @@ class Table {
     // event remove employee
     $(`${this.Table} table`).on("mousedown", "tbody tr", (e) => {
       if (e.which === 3) {
-        $("div.pop-up div.popup-header").html("Xóa bản ghi");
-        $("div.pop-up div.popup-content div.label").html(
-          `Bạn có muốn chắc xóa <b>"Thông tin nhân viên củ nhân viên ${$(
-            e.currentTarget
-          ).attr("employeeCode")}"</b> hay không ?`
-        );
+        let header = "Xóa bản ghi";
+        let content = `Bạn có muốn chắc xóa <b>"Thông tin nhân viên củ nhân viên ${$(
+          e.currentTarget
+        ).attr("employeeCode")}"</b> hay không ?`;
 
         new Popup(
-          "div.pop-up",
+          "popup",
+          header,
+          content,
           async () => await deleteEmployee(e.currentTarget.id)
         );
       }

@@ -87,11 +87,8 @@
   box-sizing: border-box;
 }
 
-.hide {
-  display: none;
-}
-
 .combo-box-menu {
+  display: none;
   background-color: #fff;
   width: 100%;
   position: absolute;
@@ -115,18 +112,22 @@
   box-sizing: border-box;
 }
 
-.combo-box-menu .combo-box-item.checked {
+.combo-box-menu .combo-box-item[checked] {
   background-color: #019160;
   color: #fff;
   font-family: "GoogleSans";
 }
 
-.combo-box-menu .combo-box-item:hover {
-  background-color: #e9ebee;
+.combo-box-menu .combo-box-item[checked]:hover {
+  background-color: #019160;
 }
 
-.combo-box-menu .combo-box-item.checked:hover {
-  background-color: #019160;
+.combo-box-menu .combo-box-item[checked] .item-icon i {
+  display: block;
+}
+
+.combo-box-menu .combo-box-item:hover {
+  background-color: #e9ebee;
 }
 
 .combo-box-menu .combo-box-item:hover .combo-box {
