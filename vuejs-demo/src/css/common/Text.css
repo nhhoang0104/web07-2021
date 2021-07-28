@@ -1,0 +1,29 @@
+@import url("../common/Variables.css");
+
+.text {
+  font-size: 13px;
+  font-family: "GoogleSans";
+  color: var(--color-black);
+}
+
+.text.text--title {
+  font-size: 20px;
+  font-family: "GoogleSans-Bold";
+}
+
+.text.text--heading {
+  font-size: 24px;
+  font-family: "GoogleSans-Bold";
+}
+
+.text.text--left {
+  text-align: left;
+}
+
+.text.text--right {
+  text-align: right;
+}
+
+.text.text--center {
+  text-align: center;
+}

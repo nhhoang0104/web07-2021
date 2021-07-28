@@ -1,0 +1,30 @@
+@import url("../common/Variables.css");
+@import url("../common/Text.css");
+@import url("../../assets/font/fontawesome-5.15.1/css/all.min.css");
+
+body {
+  font-family: "GoogleSans";
+  font-size: 13;
+  color: var(--color-black);
+  margin: 0px;
+}
+
+@font-face {
+  font-family: "GoogleSans";
+  src: url("../../assets/font/GoogleSans-Regular.otf");
+}
+
+@font-face {
+  font-family: "GoogleSans-Italic";
+  src: url("../../assets/font/GoogleSans-Italic.otf");
+}
+
+@font-face {
+  font-family: "GoogleSans-Bold";
+  src: url("../../assets/font/GoogleSans-Bold.otf");
+}
+
+@font-face {
+  font-family: "GoogleSans-Medium";
+  src: url("../../assets/font/GoogleSans-Medium.otf");
+}

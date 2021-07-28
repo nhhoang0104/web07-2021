@@ -1,0 +1,11 @@
+:root {
+  --color-primary: #01b075;
+  --color-primary-hover: #2fbe8e;
+  --color-primary-default: #019160;
+  --color-primary-focus: #ebf9f4;
+  --color-black: #000;
+  --color-border-cus: #e4e4e4;
+  --color-bg: #e5e5e5;
+  --color-white: #fff;
+  --color-bg-hover: #e9ebee;
+}

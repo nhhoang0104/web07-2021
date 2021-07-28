@@ -1,0 +1,30 @@
+@import url("../../css/common/Text.css");
+
+.content {
+  width: calc(100% - 220px);
+  float: left;
+}
+
+.content .content__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.content .content__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
+}
+
+.content .content__toolbar .content__toolbar__left {
+  width: 100%;
+}
+
+.content .content__toolbar .content__toolbar__right {
+  width: 100%;
+}
