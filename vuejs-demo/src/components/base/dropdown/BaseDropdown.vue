@@ -3,10 +3,15 @@
     :class="classNameDropdown"
     :valueSelected="valueSelected"
     @click="clickDropdown"
+    @blur="outFocus"
+    tabindex="0"
   >
     <div class="dropdown__label">{{ label }}</div>
     <div class="dropdown__toggle">
-      <i class="fas fa-chevron-down icon icon--16"></i>
+      <i
+        class="fas fa-chevron-down icon icon--16"
+        :class="isShowed ? 'rotate--180' : ''"
+      ></i>
     </div>
     <div :class="classNameDropdownMenu">
       <slot name="dropdown-options"></slot>
@@ -54,6 +59,10 @@ export default {
 
     clickDropdown() {
       this.isShowed = !this.isShowed;
+    },
+
+    outFocus() {
+      this.isShowed = false;
     },
   },
 };

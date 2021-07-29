@@ -1,0 +1,43 @@
+<template>
+  <div
+    class="combo-box__option"
+    :value="value"
+    :checked="checked"
+    @click="selectItem(value)"
+  >
+    <div class="combo-box__option__check">
+      <i class="fas fa-check icon icon--13"></i>
+    </div>
+    <div class="combo-box__option__label">{{ label }}</div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "combo-box-option",
+  emits: ["select-item"],
+  props: {
+    label: {
+      type: String,
+      requied: true,
+    },
+    value: {
+      type: String,
+      requied: true,
+    },
+    checked: {
+      type: Boolean,
+      requied: false,
+      default: true,
+    },
+  },
+  methods: {
+    /*
+      Xử lý chọn option trong dropdown
+    */
+    selectItem(id) {
+      this.$emit("select-item", id);
+    },
+  },
+};
+</script>

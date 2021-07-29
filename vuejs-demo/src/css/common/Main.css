@@ -9,6 +9,10 @@ body {
   margin: 0px;
 }
 
+.rotate--180 {
+  transform: rotateZ(180deg);
+}
+
 @font-face {
   font-family: "GoogleSans";
   src: url("../../assets/font/GoogleSans-Regular.otf");

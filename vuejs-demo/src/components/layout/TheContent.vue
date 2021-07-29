@@ -8,21 +8,22 @@
     </div>
     <div class="content__toolbar">
       <div class="conntent__toolbar__left">
-        <dropdown
+        <combo-box
           :label="itemSelected.label || 'Chọn giới tính'"
           :valueSelected="itemSelected.value"
+          @onchangeinput="search"
         >
-          <template v-slot:dropdown-options>
-            <dropdown-option
+          <template v-slot:combo-box-options>
+            <combo-box-option
               v-for="item in gender"
               :key="item.id"
               :value="item.id"
               :label="item.label"
               :checked="item.checked"
               @select-item="selectItem"
-            ></dropdown-option>
+            ></combo-box-option>
           </template>
-        </dropdown>
+        </combo-box>
       </div>
       <div class="conntent__toolbar__right"></div>
     </div>
@@ -79,6 +80,10 @@ export default {
           item.checked = false;
         }
       });
+    },
+
+    search(value) {
+      console.log(value);
     },
   },
   created() {

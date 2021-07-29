@@ -1,9 +1,8 @@
 @import url("../../css/common/Variables.css");
 
-.dropdown {
+.combo-box {
   position: relative;
   width: 100%;
-  height: 100%;
   width: 342px;
   height: 40px;
   display: flex;
@@ -15,12 +14,28 @@
   cursor: pointer;
 }
 
-.dropdown .dropdown__label {
-  max-width: 298px;
+.combo-box .combo-box__label {
   width: 100%;
+  height: 100%;
+  border-right: 1px solid #e5e5e5;
+  outline: none;
+  box-sizing: border-box;
 }
 
-.dropdown .dropdown__toggle {
+.combo-box .combo-box__label input {
+  width: 100%;
+  height: 100%;
+  font-family: "GoogleSans";
+  color: #000;
+  font-size: 13px;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.combo-box .combo-box__toggle {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,19 +46,19 @@
   box-sizing: border-box;
 }
 
-.dropdown .dropdown__toggle i {
+.combo-box .combo-box__toggle i {
   transition: 0.2s all ease-in-out;
 }
 
-.dropdown:active {
+.combo-box:active {
   border-color: var(--color-primary-default);
 }
 
-.dropdown.dropdown--active {
+.combo-box.combo-box--active {
   border-color: var(--color-primary-default);
 }
 
-.dropdown .dropdown__select {
+.combo-box .combo-box__select {
   position: absolute;
   background-color: #fff;
   width: 100%;
@@ -58,11 +73,11 @@
   overflow: hidden;
 }
 
-.dropdown .dropdown__select.dropdown__select--hide {
+.combo-box .combo-box__select.combo-box__select--hide {
   display: none;
 }
 
-.dropdown .dropdown__select .dropdown__option {
+.combo-box .combo-box__select .combo-box__option {
   display: flex;
   align-items: center;
   width: 100%;
@@ -74,7 +89,7 @@
   transition: 0.2s all ease-in-out;
 }
 
-.dropdown .dropdown__select .dropdown__option .dropdown__option__check {
+.combo-box .combo-box__select .combo-box__option .combo-box__option__check {
   display: flex;
   align-items: center;
   width: 13px;
@@ -84,40 +99,40 @@
   box-sizing: border-box;
 }
 
-.dropdown .dropdown__select .dropdown__option:hover {
+.combo-box .combo-box__select .combo-box__option:hover {
   background-color: var(--color-bg-hover);
 }
 
-.dropdown .dropdown__select .dropdown__option:active {
+.combo-box .combo-box__select .combo-box__option:active {
   background-color: #019160;
   color: #fff;
 }
 
-.dropdown
-  .dropdown__select
-  .dropdown__option:active
-  .dropdown__option__check
+.combo-box
+  .combo-box__select
+  .combo-box__option:active
+  .combo-box__option__check
   i {
   display: block;
 }
 
-.dropdown .dropdown__select .dropdown__option[checked="true"] {
+.combo-box .combo-box__select .combo-box__option[checked="true"] {
   background-color: #019160;
   color: #fff;
 }
 
-.dropdown .dropdown__select .dropdown__option[checked="true"]:hover {
+.combo-box .combo-box__select .combo-box__option[checked="true"]:hover {
   background-color: #019160;
 }
 
-.dropdown .dropdown__select .dropdown__option .dropdown__option__check i {
+.combo-box .combo-box__select .combo-box__option .combo-box__option__check i {
   display: none;
 }
 
-.dropdown
-  .dropdown__select
-  .dropdown__option[checked="true"]
-  .dropdown__option__check
+.combo-box
+  .combo-box__select
+  .combo-box__option[checked="true"]
+  .combo-box__option__check
   i {
   display: block;
 }
