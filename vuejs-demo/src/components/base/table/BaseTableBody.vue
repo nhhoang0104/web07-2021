@@ -3,7 +3,7 @@
     <tr-cus
       v-for="item in data"
       :key="item.id"
-      :column="column"
+      :columns="columns"
       :data="item"
     ></tr-cus>
   </tbody>
@@ -22,7 +22,7 @@ export default {
       type: Array,
       required: true,
     },
-    column: {
+    columns: {
       type: Array,
       required: true,
     },

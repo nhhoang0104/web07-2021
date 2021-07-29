@@ -32,6 +32,9 @@ export default {
     },
   },
   methods: {
+    /*
+      Xử lý chọn option trong dropdown
+    */
     selectItem(id) {
       this.$emit("select-item", id);
     },

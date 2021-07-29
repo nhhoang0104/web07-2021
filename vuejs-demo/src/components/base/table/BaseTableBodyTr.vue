@@ -1,22 +1,39 @@
 <template>
   <tr :id="data.id">
-    <td v-for="item in column" :key="item.id" :class="item.className">
-      {{ data[item.id] }}
+    <td v-for="col in columns" :key="col.id" :class="col.className">
+      {{ formatText(col, data[col.id]) }}
     </td>
   </tr>
 </template>
 
 <script>
+import Common from "@/utils/Common.js";
+
 export default {
   name: "base-tr",
   props: {
-    column: {
+    columns: {
       type: Array,
       required: true,
     },
     data: {
       type: Object,
       required: true,
+    },
+  },
+  methods: {
+    formatText(col, item) {
+      let tmp = item;
+
+      if (col.format === "date") {
+        tmp = Common.formatDate(tmp);
+      }
+
+      if (col.format === "money") {
+        tmp = Common.formatMoney(tmp);
+      }
+
+      return tmp;
     },
   },
 };

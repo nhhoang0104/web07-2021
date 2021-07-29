@@ -27,20 +27,25 @@
       <div class="conntent__toolbar__right"></div>
     </div>
     <div class="content__body">
-      <base-table>
-        <template v-slot:thead>
-          <base-table-head :column="column"></base-table-head>
-        </template>
-        <template v-slot:tbody>
-          <base-table-body :column="column" :data="data"></base-table-body>
-        </template>
-      </base-table>
+      <div class="content__body__grid">
+        <base-table>
+          <template v-slot:thead>
+            <base-table-head :columns="columns"></base-table-head>
+          </template>
+          <template v-slot:tbody>
+            <base-table-body :columns="columns" :data="data"></base-table-body>
+          </template>
+        </base-table>
+      </div>
     </div>
     <div class="conntent__footer"></div>
   </div>
 </template>
 
 <script>
+import EmployeesAPI from "@/api/components/EmployeesAPI.js";
+import { columns } from "@/page/employee/Column.js";
+
 export default {
   name: "the-content",
 
@@ -55,113 +60,15 @@ export default {
         label: null,
         value: null,
       },
-      column: [
-        { id: "name", label: "Ten", className: "text text--left" },
-        { id: "date", label: "Ngay sinh", className: "text text--center" },
-        { id: "money", label: "Tien", className: "text text--left" },
-        { id: "position", label: "Vi tri", className: "text text--left" },
-      ],
-      data: [
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-        {
-          name: "hoang",
-          date: "12/12/1212",
-          money: "1312312",
-          position: "testasasa",
-        },
-      ],
+      columns: columns,
+      data: [],
     };
   },
   methods: {
+    /*
+        Xử lý chọn option trong dropdown
+     */
+
     selectItem(id) {
       this.gender.forEach((item) => {
         if (item.id === id) {
@@ -173,6 +80,16 @@ export default {
         }
       });
     },
+  },
+  created() {
+    /* 
+        Lấy dữ liệu nhân viên từ dropdown
+    */
+    EmployeesAPI.getAll()
+      .then((res) => {
+        this.data = res.data;
+      })
+      .catch((err) => console.log(err));
   },
 };
 </script>

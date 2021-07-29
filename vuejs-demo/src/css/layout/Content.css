@@ -28,3 +28,17 @@
 .content .content__toolbar .content__toolbar__right {
   width: 100%;
 }
+
+.content .content__body {
+  padding-left: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content .content__body .content__body__grid {
+  overflow-y: auto;
+  overflow-x: auto;
+  width: calc(100% - 16px);
+  height: calc(100vh - 200px); /**/
+  box-sizing: border-box;
+}

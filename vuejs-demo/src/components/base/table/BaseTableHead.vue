@@ -1,9 +1,9 @@
 <template>
   <thead>
     <tr>
-      <td v-for="item in column" :key="item.id" :class="item.className">
-        {{ item.label }}
-      </td>
+      <th v-for="col in columns" :key="col.id" :class="col.className">
+        {{ col.label }}
+      </th>
     </tr>
   </thead>
 </template>
@@ -12,7 +12,7 @@
 export default {
   name: "base-table-head",
   props: {
-    column: {
+    columns: {
       type: Array,
       required: true,
     },

@@ -48,6 +48,10 @@ export default {
     },
   },
   methods: {
+    /*
+      xử lý sự kiện đóng hoặc mở dropdown.
+    */
+
     clickDropdown() {
       this.isShowed = !this.isShowed;
     },
