@@ -3,6 +3,7 @@
 .combo-box {
   position: relative;
   width: 100%;
+  background-color: var(--color-white);
   width: 342px;
   height: 40px;
   display: flex;

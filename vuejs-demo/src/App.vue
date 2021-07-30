@@ -5,6 +5,7 @@
     </the-menu>
     <the-header></the-header>
     <the-content></the-content>
+    <base-modal></base-modal>
   </div>
 </template>
 

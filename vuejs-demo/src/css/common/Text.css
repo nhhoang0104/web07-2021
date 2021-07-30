@@ -6,6 +6,10 @@
   color: var(--color-black);
 }
 
+.text.text--color-white {
+  color: var(--color-white);
+}
+
 .text.text--title {
   font-size: 20px;
   font-family: "GoogleSans-Bold";

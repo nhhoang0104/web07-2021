@@ -1,0 +1,32 @@
+@import url("./Variables.css");
+
+.btn {
+  background-color: var(--color-primary-default);
+  height: 40px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn i {
+  margin-right: 8px;
+  color: #fff;
+}
+
+.btn:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn:active {
+  background-color: var(--color-primary);
+  border: none;
+}
+
+.btn.btn--circle {
+  border-radius: 50%;
+  min-width: 35px;
+  max-height: 35px;
+}

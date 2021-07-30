@@ -40,7 +40,7 @@ table th:nth-last-child(1) {
 }
 
 table tbody tr:nth-child(odd) {
-  background-color: #e9ebee;
+  background-color: var(--color-white);
 }
 
 table tbody tr {

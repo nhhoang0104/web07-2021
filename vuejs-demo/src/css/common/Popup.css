@@ -1,0 +1,125 @@
+.pop-up {
+  display: block;
+  opacity: 1;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  height: 150px;
+  border-radius: 5px;
+  z-index: 999;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.pop-up.pop-up--hidden {
+  display: none;
+}
+
+.pop-up .pop-up__close {
+  padding: 2px;
+  box-sizing: border-box;
+  height: 24px;
+  width: 24px;
+  padding: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 5px;
+  text-align: center;
+  float: right;
+  cursor: pointer;
+}
+
+.pop-up .pop-up__close i {
+  font-size: 20px;
+  color: #454545;
+}
+
+.pop-up .pop-up__close:hover {
+  background-color: #e9ebee;
+}
+
+.pop-up .pop-up__header {
+  width: calc(500px - 122px);
+  height: 40px;
+  padding: 24px 24px 0px 24px;
+  padding-right: 24px;
+  box-sizing: border-box;
+  font-size: 15px;
+  color: #000;
+  font-family: "GoogleSans-Bold";
+}
+
+.pop-up .pop-up__content {
+  display: flex;
+  height: 50px;
+  width: calc(450px - 48px);
+  align-items: center;
+  margin: 24px;
+  box-sizing: border-box;
+}
+
+.pop-up .pop-up__content .pop-up__content__icon {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #e9ebee;
+  box-sizing: border-box;
+}
+
+.pop-up .pop-up__content .pop-up__content__icon i {
+  font-size: 20px;
+  box-sizing: border-box;
+  color: red;
+}
+
+.pop-up .pop-up__content .pop-up__content__label {
+  font-size: 13px;
+  width: calc(450px - 40px - 48px);
+  color: #000;
+  font-family: "GoogleSans";
+  padding-left: 10px;
+  box-sizing: border-box;
+}
+
+.pop-up .pop-up__footer {
+  background-color: #e9ebee;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 24px 10px 24px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-sizing: border-box;
+}
+
+.pop-up .pop-up__footer .pop-up__footer__btn {
+  height: 40px;
+  min-width: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pop-up .pop-up__footer .pop-up__footer__btn.btn--cancel {
+  margin-right: 16px;
+  background-color: #e9ebee;
+  color: #000;
+}
+
+.pop-up .pop-up__footer .pop-up__footer__btn.btn--cancel:hover {
+  background-color: #bbb;
+}
+
+.pop-up .pop-up__footer .pop-up__footer__btn.btn--done {
+  color: #fff;
+  background-color: #f65454;
+}

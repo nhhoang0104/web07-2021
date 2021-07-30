@@ -4,7 +4,14 @@
       <div class="content__header__left">
         <div class="text text--heading">Danh sách nhân viên</div>
       </div>
-      <div class="conetent__header__right"></div>
+      <div class="conetent__header__right">
+        <base-button className="padding-left--16 padding-right--16">
+          <i class="fas fa-user icon icon--13"></i>
+          <div class="text text--color-white text--center">
+            Click Me
+          </div></base-button
+        >
+      </div>
     </div>
     <div class="content__toolbar">
       <div class="conntent__toolbar__left">
@@ -39,13 +46,15 @@
         </base-table>
       </div>
     </div>
-    <div class="conntent__footer"></div>
+    <div class="content__footer">
+      <base-pagination></base-pagination>
+    </div>
   </div>
 </template>
 
 <script>
 import EmployeesAPI from "@/api/components/EmployeesAPI.js";
-import { columns } from "@/page/employee/Column.js";
+import { columns } from "@/pages/employee/Column.js";
 
 export default {
   name: "the-content",

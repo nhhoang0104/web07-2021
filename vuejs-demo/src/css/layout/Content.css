@@ -2,6 +2,7 @@
 
 .content {
   width: calc(100% - 220px);
+  background-color: var(--color-bg-hover);
   float: left;
 }
 
@@ -18,6 +19,7 @@
   align-items: center;
   padding-left: 16px;
   padding-right: 16px;
+  margin-bottom: 10px;
   box-sizing: border-box;
 }
 
@@ -31,7 +33,6 @@
 
 .content .content__body {
   padding-left: 16px;
-  width: 100%;
   box-sizing: border-box;
 }
 
@@ -39,6 +40,11 @@
   overflow-y: auto;
   overflow-x: auto;
   width: calc(100% - 16px);
-  height: calc(100vh - 200px); /**/
+  height: calc(100vh - 226px); /*48 + 72 + 50 + 56*/
   box-sizing: border-box;
+}
+
+.content .content__footer {
+  width: 100%;
+  height: 56px;
 }
