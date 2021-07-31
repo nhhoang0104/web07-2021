@@ -3,7 +3,7 @@
     class="combo-box__option"
     :value="value"
     :checked="checked"
-    @click="selectItem(value)"
+    @click="selectItem($event, value)"
   >
     <div class="combo-box__option__check">
       <i class="fas fa-check icon icon--13"></i>
@@ -16,6 +16,7 @@
 export default {
   name: "combo-box-option",
   emits: ["select-item"],
+  inject: ["pkey"],
   props: {
     label: {
       type: String,
@@ -35,8 +36,8 @@ export default {
     /*
       Xử lý chọn option trong dropdown
     */
-    selectItem(id) {
-      this.$emit("select-item", id);
+    selectItem(event, value) {
+      this.$emit("select-item", { key: this.pkey, id: value });
     },
   },
 };

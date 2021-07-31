@@ -14,9 +14,11 @@
     </div>
   </div>
 </template>
+
 <script>
 export default {};
 </script>
+
 <style lang="css">
 @import url("../../css/common/Popup.css");
 </style>

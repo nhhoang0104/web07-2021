@@ -1,5 +1,11 @@
 <template>
   <tr :id="data.id">
+    <td>
+      <div class="container">
+        <input type="checkbox" :checked="data.checked ? true : false" />
+        <span class="checkmark"></span>
+      </div>
+    </td>
     <td v-for="col in columns" :key="col.id" :class="col.className">
       {{ formatText(col, data[col.id]) }}
     </td>

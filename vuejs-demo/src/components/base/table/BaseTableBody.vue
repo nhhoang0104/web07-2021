@@ -2,9 +2,10 @@
   <tbody>
     <tr-cus
       v-for="item in data"
-      :key="item.id"
+      :key="item.EmployeeId"
       :columns="columns"
       :data="item"
+      @click="checkBox(item.EmployeeId)"
     ></tr-cus>
   </tbody>
 </template>
@@ -17,6 +18,7 @@ export default {
   components: {
     "tr-cus": BaseTableBodyTr,
   },
+  emits: ["check-box"],
   props: {
     data: {
       type: Array,
@@ -25,6 +27,11 @@ export default {
     columns: {
       type: Array,
       required: true,
+    },
+  },
+  methods: {
+    checkBox(id) {
+      this.$emit("check-box", id);
     },
   },
 };

@@ -1,6 +1,7 @@
 <template>
   <thead>
     <tr>
+      <th>#</th>
       <th v-for="col in columns" :key="col.id" :class="col.className">
         {{ col.label }}
       </th>

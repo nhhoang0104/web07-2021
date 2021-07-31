@@ -14,6 +14,8 @@ import { BaseButton } from "./components/base/button";
 import BaseModal from "./components/base/BaseModal.vue";
 import BasePopup from "./components/base/BasePopup.vue";
 import BasePagination from "./components/base/BasePagination.vue";
+import { BaseInput, BaseInputIcon } from "./components/base/input";
+import BaseToastMessage from "./components/base/BaseToastMessage.vue";
 
 app.component("base-table", BaseTable);
 app.component("base-table-head", BaseTableHead);
@@ -31,5 +33,10 @@ app.component("base-modal", BaseModal);
 app.component("base-popup", BasePopup);
 
 app.component("base-pagination", BasePagination);
+
+app.component("base-input", BaseInput);
+app.component("base-input-icon", BaseInputIcon);
+
+app.component("base-toast-message", BaseToastMessage);
 
 app.mount("#app");

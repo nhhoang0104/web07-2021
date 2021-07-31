@@ -1,7 +1,7 @@
-@import url("../../css/common/Text.css");
+@import url("../common/Text.css");
 
 .content {
-  width: calc(100% - 220px);
+  width: 100%;
   background-color: var(--color-bg-hover);
   float: left;
 }
@@ -11,6 +11,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
+}
+
+.content .content__header .content__header__right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .content .content__toolbar {
@@ -25,6 +31,12 @@
 
 .content .content__toolbar .content__toolbar__left {
   width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.content .content__toolbar .content__toolbar__left > div {
+  width: 250px;
 }
 
 .content .content__toolbar .content__toolbar__right {
@@ -40,7 +52,7 @@
   overflow-y: auto;
   overflow-x: auto;
   width: calc(100% - 16px);
-  height: calc(100vh - 226px); /*48 + 72 + 50 + 56*/
+  height: calc(100vh - 230px); /*48 + 72 + 50 + 56*/
   box-sizing: border-box;
 }
 

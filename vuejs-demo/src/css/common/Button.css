@@ -9,11 +9,30 @@
   justify-content: center;
   cursor: pointer;
   box-sizing: border-box;
+  transition: 0.2s all ease-in-out;
+}
+
+.btn.btn--hidden {
+  display: none;
+}
+
+.btn.btn--danger {
+  background-color: var(--color-danger);
 }
 
 .btn i {
   margin-right: 8px;
   color: #fff;
+}
+
+.btn.btn--danger:hover {
+  background-color: var(--color-danger);
+  opacity: 70%;
+}
+
+.btn.btn--danger:active {
+  opacity: 80%;
+  background-color: var(--color-danger);
 }
 
 .btn:hover {

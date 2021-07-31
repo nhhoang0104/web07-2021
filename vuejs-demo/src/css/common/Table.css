@@ -25,30 +25,34 @@ table td {
   white-space: nowrap;
   border-bottom: 1px solid #c5c5c5;
   padding-right: 25px;
+  background-color: var(--color-white);
 }
 
 table th:nth-child(1) {
   padding-left: 10px;
+  min-width: 20px;
+  z-index: 99;
 }
 
 table td:nth-child(1) {
   padding-left: 10px;
+  min-width: 20px;
 }
 
 table th:nth-last-child(1) {
   padding-right: 0px;
 }
 
-table tbody tr:nth-child(odd) {
+/* table tbody tr:nth-child(odd) {
   background-color: var(--color-white);
-}
+} */
 
 table tbody tr {
   cursor: pointer;
 }
 
-table tbody tr:hover {
-  background-color: #c5c5c5;
+table tbody tr:hover td {
+  background-color: #e9ebee;
 }
 
 table tbody tr:active td {
@@ -66,4 +70,63 @@ table tbody tr:active td {
 ::-webkit-scrollbar-thumb {
   background-color: grey;
   border-radius: 2.5px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  z-index: 99;
+}
+
+.checkmark {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #019160;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }

@@ -25,12 +25,12 @@
         ><div class="text">4</div>
       </base-button>
       <base-button
-        className="color-bg padding-left--10 padding-right--10  margin-left--10"
+        className="color-bg padding-left--10 padding-right--10 margin-left--10"
       >
         <div class="icon icon--20 icon--nextpage"></div>
       </base-button>
       <base-button
-        className="color-bg padding-left--10 padding-right--10  margin-left--10"
+        className="color-bg padding-left--10 padding-right--10 margin-left--10"
       >
         <div class="icon icon--20 icon--lastpage"></div>
       </base-button>

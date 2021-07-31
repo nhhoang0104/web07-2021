@@ -1,14 +1,9 @@
 <template>
-  <div
-    :class="classNameComboBox"
-    :valueSelected="valueSelected"
-    @blur="outFocus"
-    tabindex="0"
-  >
+  <div :class="classNameComboBox" @blur="outFocus" tabindex="0">
     <div class="combo-box__label">
       <input
         type="text"
-        :label="label"
+        :value="label"
         @focus="onFocusInput"
         @blur="outFocus"
         @input="$emit('onchangeinput', $event.target.value)"
@@ -34,11 +29,15 @@ export default {
       type: String,
       required: true,
     },
-    valueSelected: {
+    id: {
       type: String,
-      required: false,
-      value: null,
+      required: true,
     },
+  },
+  provide() {
+    return {
+      pkey: this.$props.id,
+    };
   },
   emits: ["onchangeinput"],
   data() {

@@ -55,8 +55,8 @@
   padding-bottom: 5px;
   top: 40px;
   left: -1px;
-  z-index: 1;
   overflow: hidden;
+  z-index: 1;
 }
 
 .dropdown .dropdown__select.dropdown__select--hide {
