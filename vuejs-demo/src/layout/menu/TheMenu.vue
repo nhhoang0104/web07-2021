@@ -52,5 +52,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-@import "../../../css/layout/Menu.css";
+@import "../../css/layout/Menu.css";
 </style>

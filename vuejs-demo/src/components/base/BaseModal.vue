@@ -1,10 +1,17 @@
 <template>
-  <div class="modal modal--hidden"></div>
+  <div class="modal" v-show="show"></div>
 </template>
 
 <script>
 export default {
   name: "base-modal",
+  props: {
+    show: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+  },
 };
 </script>
 

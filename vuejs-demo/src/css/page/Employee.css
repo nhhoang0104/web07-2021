@@ -2,7 +2,7 @@
 
 .content {
   width: 100%;
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-white);
   float: left;
 }
 
@@ -36,11 +36,13 @@
 }
 
 .content .content__toolbar .content__toolbar__left > div {
-  width: 250px;
+  width: 30%;
+  max-width: 342px;
+  margin-right: 5px;
 }
 
-.content .content__toolbar .content__toolbar__right {
-  width: 100%;
+.content .content__toolbar .content__toolbar__left > div.combo-box {
+  max-width: 200px;
 }
 
 .content .content__body {
@@ -52,7 +54,7 @@
   overflow-y: auto;
   overflow-x: auto;
   width: calc(100% - 16px);
-  height: calc(100vh - 230px); /*48 + 72 + 50 + 56*/
+  height: calc(100vh - 226px); /*48 + 72 + 50 + 56*/
   box-sizing: border-box;
 }
 

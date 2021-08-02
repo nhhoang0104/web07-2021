@@ -16,6 +16,7 @@
 export default {
   name: "dropdown-option",
   emits: ["select-item"],
+  inject: ["pkey"],
   props: {
     label: {
       type: String,
@@ -27,16 +28,17 @@ export default {
     },
     checked: {
       type: Boolean,
-      requied: false,
-      default: true,
+      requied: true,
     },
   },
+
   methods: {
     /*
       Xử lý chọn option trong dropdown
     */
-    selectItem(id) {
-      this.$emit("select-item", id);
+
+    selectItem(value) {
+      this.$emit("select-item", { key: this.pkey, id: value });
     },
   },
 };

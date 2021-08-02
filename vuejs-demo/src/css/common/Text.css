@@ -15,6 +15,11 @@
   font-family: "GoogleSans-Bold";
 }
 
+.text.text--title-2 {
+  font-size: 15px;
+  font-family: "GoogleSans";
+}
+
 .text.text--heading {
   font-size: 24px;
   font-family: "GoogleSans-Bold";

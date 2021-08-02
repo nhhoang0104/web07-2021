@@ -23,13 +23,13 @@ export default class BaseAPI {
    * @param {*} body
    */
   update(id, body) {
-    return BaseAPIConfig.update(`${this.controller}/update/${id}`, body);
+    return BaseAPIConfig.put(`${this.controller}/${id}`, body);
   }
   /**
    * Hàm xóa bản ghi
    * @param {*} id
    */
   delete(id) {
-    return BaseAPIConfig.delete(`${this.controller}/delete/${id}`);
+    return BaseAPIConfig.delete(`${this.controller}/${id}`);
   }
 }

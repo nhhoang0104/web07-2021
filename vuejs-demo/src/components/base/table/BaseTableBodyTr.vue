@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import Common from "@/utils/Common.js";
+import FormatData from "@/utils/FormatData.js";
 
 export default {
   name: "base-tr",
@@ -32,11 +32,11 @@ export default {
       let tmp = item;
 
       if (col.format === "date") {
-        tmp = Common.formatDate(tmp);
+        tmp = FormatData.formatDate(tmp);
       }
 
       if (col.format === "money") {
-        tmp = Common.formatMoney(tmp);
+        tmp = FormatData.formatMoney(tmp);
       }
 
       return tmp;

@@ -1,5 +1,7 @@
 @import url("../common/Variables.css");
 @import url("../common/Text.css");
+@import url("../common/Padding.css");
+@import url("../common/Margin.css");
 @import url("../../assets/font/fontawesome-5.15.1/css/all.min.css");
 
 body {

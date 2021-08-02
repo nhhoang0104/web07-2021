@@ -5,7 +5,7 @@
   background-color: var(--color-white);
   width: 100%;
   height: 100%;
-  width: 342px;
+  max-width: 342px;
   height: 40px;
   display: flex;
   align-items: center;
@@ -14,9 +14,21 @@
   padding-left: 16px;
   box-sizing: border-box;
   cursor: pointer;
+  border: 1px solid #bbb;
 }
 
-.dropdown .dropdown__label {
+.dropdown__label {
+  display: flex;
+  font-family: "GoogleSans";
+  size: 13px;
+  padding-bottom: 4px;
+}
+
+.dropdown .dropdown__label .dropdown__label__required span {
+  color: #ff0000;
+}
+
+.dropdown .dropdown__content {
   max-width: 298px;
   width: 100%;
 }
@@ -69,10 +81,10 @@
   width: 100%;
   height: 40px;
   box-sizing: border-box;
-  z-index: 1;
   cursor: pointer;
   box-sizing: border-box;
   transition: 0.2s all ease-in-out;
+  z-index: 1;
 }
 
 .dropdown .dropdown__select .dropdown__option .dropdown__option__check {

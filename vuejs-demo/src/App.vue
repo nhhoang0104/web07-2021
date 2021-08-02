@@ -1,18 +1,15 @@
 <template>
   <div>
-    <the-menu>
-      <div></div>
-    </the-menu>
+    <the-menu></the-menu>
     <the-header></the-header>
     <the-content></the-content>
-    <base-modal></base-modal>
   </div>
 </template>
 
 <script>
-import TheHeader from "./components/layout/TheHeader.vue";
-import TheMenu from "./components/layout/menu/TheMenu.vue";
-import TheContent from "./components/layout/TheContent.vue";
+import TheHeader from "./layout/TheHeader.vue";
+import TheMenu from "./layout/menu/TheMenu.vue";
+import TheContent from "./layout/TheContent.vue";
 
 export default {
   components: {

@@ -1,0 +1,116 @@
+.dialog {
+  display: block;
+  opacity: 1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: calc(100vh - 100px);
+  border-radius: 5px;
+  background-color: var(--color-white);
+  box-sizing: border-box;
+}
+
+.dialog .dialog__header {
+  padding: 10px 10px 10px 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.dialog .dialog__header .dialog__header__close {
+  border-radius: 5px;
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+}
+
+.dialog .dialog__header .dialog__header__close i:hover {
+  background-color: #bbb;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dialog .dialog__body {
+  height: calc(100vh - 234px); /*100 10 10 54 60*/
+  display: flex;
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+  overflow: auto;
+  z-index: 1;
+}
+
+.dialog .dialog__body .dialog__avatar {
+  background-image: url("../../assets/img/default-avatar.jpg");
+  height: 200px;
+  width: 200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  border: 1px solid #bdbec0;
+  display: block;
+  margin-left: 10px;
+  float: left;
+  box-sizing: border-box;
+}
+
+.dialog .dialog__body .separator {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 4px;
+  width: 75px;
+  background-color: #019160;
+}
+
+.dialog .dialog__body .dialog__body__item {
+  width: 50%;
+  height: 64px;
+  padding-right: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  float: left;
+}
+
+.dialog .dialog__footer {
+  box-sizing: border-box;
+  background-color: #e9ebee;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px 24px 10px 24px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-sizing: border-box;
+}
+
+.dialog .dialog__footer .dialog__footer__btn {
+  height: 40px;
+  min-width: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog .dialog__footer .dialog__footer__btn.btn--cancel {
+  margin-right: 16px;
+  background-color: #e9ebee;
+  color: #000;
+}
+
+.dialog .dialog__footer .dialog__footer__btn.btn--cancel:hover {
+  background-color: #bbb;
+}
+
+.dialog .dialog__footer .dialog__footer__btn.btn--done {
+  color: #fff;
+  background-color: #f65454;
+}

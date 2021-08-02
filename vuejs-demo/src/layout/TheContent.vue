@@ -5,12 +5,13 @@
 </template>
 
 <script>
-import EmployeeList from "../../pages/employee/EmployeeList.vue";
+import EmployeeList from "../views/employee/EmployeeList.vue";
+
 export default {
   components: { EmployeeList },
 };
 </script>
 
 <style lang="css">
-@import url("../../css/layout/Page.css");
+@import url("../css/layout/Page.css");
 </style>

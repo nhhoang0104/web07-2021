@@ -12,16 +12,24 @@
       >
         <div class="icon icon--20 icon--prevpage"></div>
       </base-button>
-      <base-button :circle="true" className="color-bg margin-left--10"
+      <base-button
+        :circle="true"
+        className="btn--border color-bg margin-left--10"
         ><div class="text">1</div>
       </base-button>
-      <base-button :circle="true" className="color-bg margin-left--10"
+      <base-button
+        :circle="true"
+        className="btn--border color-bg margin-left--10"
         ><div class="text">2</div>
       </base-button>
-      <base-button :circle="true" className="color-bg margin-left--10"
+      <base-button
+        :circle="true"
+        className="btn--border color-bg margin-left--10"
         ><div class="text">3</div>
       </base-button>
-      <base-button :circle="true" className="color-bg margin-left--10"
+      <base-button
+        :circle="true"
+        className="btn--border color-bg margin-left--10"
         ><div class="text">4</div>
       </base-button>
       <base-button
@@ -54,11 +62,11 @@ export default {
 @import url("../../css/common/Margin.css");
 @import url("../../css/common/Icon.css");
 .color-bg {
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-white);
 }
 
 div.btn:hover {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-hover);
 }
 
 div.btn:active {

@@ -1,5 +1,6 @@
 .input {
   width: 100%;
+  height: 100%;
   position: relative;
 }
 
@@ -11,9 +12,14 @@
 }
 
 .input .input__label {
-  font-family: "GoogleSans-Medium";
+  display: flex;
+  font-family: "GoogleSans";
   size: 13px;
   padding-bottom: 4px;
+}
+
+.input .input__label .input__label__required span {
+  color: #ff0000;
 }
 
 .input .input__clear {
@@ -37,6 +43,7 @@
 .input input {
   width: 100%;
   max-width: 342px;
+  height: 100%;
   height: 40px;
   outline: none;
   border-radius: 4px;
@@ -48,6 +55,10 @@
   color: var(--color-black);
   padding-left: 16px;
   padding-right: 32px;
+}
+
+.input input[type="date"] {
+  padding-right: 16px;
 }
 
 .input input::-webkit-input-placeholder {

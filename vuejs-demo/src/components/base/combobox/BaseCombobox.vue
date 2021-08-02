@@ -3,13 +3,17 @@
     <div class="combo-box__label">
       <input
         type="text"
-        :value="label"
+        :value="content"
         @focus="onFocusInput"
         @blur="outFocus"
         @input="$emit('onchangeinput', $event.target.value)"
       />
     </div>
-    <div class="combo-box__toggle" @click="show">
+    <div
+      class="combo-box__toggle"
+      :class="isShowed ? 'combo-box__toggle--active' : ''"
+      @click="show"
+    >
       <i
         class="fas fa-chevron-down icon icon--16"
         :class="isShowed ? 'rotate--180' : ''"
@@ -22,15 +26,20 @@
 </template>
 
 <script>
+import _ from "lodash";
 export default {
   name: "combo-box",
   props: {
-    label: {
+    value: {
       type: String,
       required: true,
     },
     id: {
       type: String,
+      required: true,
+    },
+    data: {
+      type: Array,
       required: true,
     },
   },
@@ -45,6 +54,7 @@ export default {
       isShowed: false,
       classNameComboBox: "combo-box",
       classNameComboBoxMenu: "combo-box__select combo-box__select--hide",
+      content: "",
     };
   },
   watch: {
@@ -57,6 +67,10 @@ export default {
         this.classNameComboBox = "combo-box combo-box--active";
         this.classNameComboBoxMenu = "combo-box__select";
       }
+    },
+    value(newVal) {
+      let index = _.findIndex(this.data, (item) => item.id === newVal);
+      this.content = this.data[index].label;
     },
   },
   methods: {

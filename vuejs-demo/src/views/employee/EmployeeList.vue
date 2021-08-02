@@ -8,15 +8,19 @@
         <base-button
           :className="
             `btn--danger padding-left--16 padding-right--16 margin-right--10 ${
-              dataRemove.length === 0 ? 'btn--hidden' : ''
+              employeeIdList.length === 0 ? 'btn--hidden' : ''
             }`
           "
+          @onclick="removeEmployee"
         >
           <div class="text text--color-white text--center">
             Xóa nhân viên
           </div>
         </base-button>
-        <base-button className="padding-left--16 padding-right--16">
+        <base-button
+          className="padding-left--16 padding-right--16"
+          @onclick="showForm"
+        >
           <div class="icon icon--13 icon--add" style="margin-right:8px"></div>
           <div class="text text--color-white text--center">
             Thêm nhân viên
@@ -26,10 +30,14 @@
     </div>
     <div class="content__toolbar">
       <div class="content__toolbar__left">
-        <base-input></base-input>
+        <base-input
+          icon="icon--search"
+          placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại"
+        ></base-input>
         <combo-box
-          :label="departmentSelected.label"
-          @onchangeinput="search"
+          :data="department"
+          :value="search['departmentId']"
+          @onchangeinput="searchText"
           id="department"
         >
           <template v-slot:combo-box-options>
@@ -38,14 +46,15 @@
               :key="item.id"
               :value="item.id"
               :label="item.label"
-              :checked="item.checked"
+              :checked="item.id === search.departmentId"
               @select-item="selectItem"
             ></combo-box-option>
           </template>
         </combo-box>
         <combo-box
-          :label="positionSelected.label"
-          @onchangeinput="search"
+          :value="search['positionId']"
+          :data="position"
+          @onchangeinput="searchText"
           id="position"
         >
           <template v-slot:combo-box-options>
@@ -54,13 +63,20 @@
               :key="item.id"
               :value="item.id"
               :label="item.label"
-              :checked="item.checked"
+              :checked="item.id === search['positionId']"
               @select-item="selectItem"
             ></combo-box-option>
           </template>
         </combo-box>
       </div>
-      <div class="content__toolbar__right"></div>
+      <div class="content__toolbar__right">
+        <base-button
+          className="btn--secondary padding-left--10 padding-right--10"
+          @onclick="loadData"
+        >
+          <div class="icon icon--24 icon--refresh"></div>
+        </base-button>
+      </div>
     </div>
     <div class="content__body">
       <div class="content__body__grid">
@@ -71,7 +87,7 @@
           <template v-slot:tbody>
             <base-table-body
               :columns="columns"
-              :data="data"
+              :data="employeeList"
               @check-box="checkbox"
             ></base-table-body>
           </template>
@@ -81,6 +97,14 @@
     <div class="content__footer">
       <base-pagination></base-pagination>
     </div>
+    <EmployeeDetail
+      :is-showed="isShowed"
+      :form-mode="forMode"
+      :department="[]"
+      :position="[]"
+      :employee-id="employeeId"
+      @show-form="showForm"
+    />
   </div>
 </template>
 
@@ -88,32 +112,36 @@
 import EmployeesAPI from "@/api/components/EmployeesAPI.js";
 import PositionAPI from "@/api/components/PositionAPI.js";
 import DepartmentAPI from "@/api/components/DepartmentAPI.js";
-import { columns } from "@/pages/employee/Column.js";
+import { columns } from "@/views/employee/Column.js";
+import EmployeeDetail from "@/views/employee/EmployeeDetail";
+import _ from "lodash";
 
 export default {
+  components: { EmployeeDetail },
+
   data() {
     return {
       columns: columns,
-      data: [],
-      dataRemove: [],
-      gender: [
-        { id: "0", label: "Nữ", checked: false },
-        { id: "1", label: "Nam", checked: false },
-        { id: "2", label: "Không xác định", checked: false },
-      ],
+      employeeList: [],
+      employeeIdList: [],
       department: [],
       position: [],
-      departmentSelected: {
-        value: "1",
-        label: "Tất cả phòng ban",
+      departmentForm: [],
+      positionForm: [],
+      search: {
+        departmentId: "1",
+        positionId: "1",
+        textSearch: "",
       },
-      positionSelected: {
-        value: "1",
-        label: "Tất cả vị trí",
-      },
+      employeeId: null,
+      isShowed: false,
+      forMode: 1,
     };
   },
   created() {
+    /*
+        Lấy dữ liệu các vị trí từ api
+    */
     PositionAPI.getAll().then((res) => {
       let tmp = res.data.map(({ PositionId, PositionName }) => ({
         id: PositionId,
@@ -125,6 +153,9 @@ export default {
       this.position = tmp;
     });
 
+    /*
+        Lấy dữ liệu các phòng ban từ api
+    */
     DepartmentAPI.getAll().then((res) => {
       let tmp = res.data.map(({ DepartmentId, DepartmentName }) => ({
         id: DepartmentId,
@@ -135,64 +166,88 @@ export default {
       tmp.push({ id: "1", label: "Tất cả phòng ban", checked: true });
       this.department = tmp;
     });
-  },
-  methods: {
-    /*
-        Xử lý chọn option trong cac combobox
-    */
-    selectItem(item) {
-      let tmp = [];
-      let itemSelected = {};
-      let id = item.id;
 
-      switch (item.key) {
-        case "department":
-          tmp = this.department;
-          itemSelected = this.departmentSelected;
-          break;
-        case "position":
-          tmp = this.position;
-          itemSelected = this.positionSelected;
-          break;
-      }
-
-      tmp.forEach((e) => {
-        if (e.id === id) {
-          e.checked = true;
-          itemSelected.value = id;
-          itemSelected.label = e.label;
-        } else {
-          e.checked = false;
-        }
-      });
-    },
-
-    search(value) {
-      console.log(value);
-    },
-
-    checkbox(id) {
-      let tmp = this.data.find((item) => item.EmployeeId == id);
-      tmp.checked = !tmp.checked;
-      if (tmp.checked) this.dataRemove.push(id);
-      else {
-        const index = this.dataRemove.indexOf(id);
-        if (index > -1) {
-          this.dataRemove.splice(index, 1);
-        }
-      }
-    },
-  },
-
-  mounted() {
     /*
         Lấy dữ liệu nhân viên từ api
     */
-    EmployeesAPI.getAll()
-      .then((res) => {
-        this.data = res.data;
-      })
-      .catch((err) => console.log(err));
+    this.loadData();
+  },
+
+  watch: {
+    employeeList: {
+      deep: true,
+      handler() {},
+    },
+  },
+
+  methods: {
+    /*
+        Lấy dữ liệu nhân viên từ api
+    */
+    loadData() {
+      EmployeesAPI.getAll().then((res) => {
+        this.employeeList = res.data;
+      });
+    },
+
+    /*
+      Xử lý chọn option trong cac combobox
+    */
+    selectItem(item) {
+      this.search[item.key] = item.id;
+    },
+
+    /*
+      Tìm kiếm text trong combobox
+    */
+    searchText(value) {
+      console.log(_.trim(value));
+    },
+
+    /*
+     check box vào nhân viên
+    */
+    checkbox(id) {
+      let tmp = this.employeeList.find((item) => item.EmployeeId == id);
+      tmp.checked = !tmp.checked;
+      if (tmp.checked) this.employeeIdList.push(id);
+      else {
+        const index = this.employeeIdList.indexOf(id);
+        if (index > -1) {
+          this.employeeIdList.splice(index, 1);
+        }
+      }
+    },
+
+    /*
+      Xóa nhân viên
+    */
+    removeEmployee() {
+      let promiseList = [];
+      this.employeeIdList.forEach((employeeId) =>
+        promiseList.push(EmployeesAPI.delete(employeeId))
+      );
+
+      Promise.all(promiseList)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          this.employeeIdList = [];
+          this.loadData();
+        });
+    },
+
+    /*
+      Mở form Employee Detail
+      * @param:  formMode = 1 -> tạo mới nhân viên
+                formMode = 0 -> hiện chi tiết nhân viên và có thể chỉnh sửa nhân viên
+    */
+    showForm(show = true) {
+      //formMode = 1, employeeId = null
+      this.isShowed = show;
+    },
   },
 };
 </script>

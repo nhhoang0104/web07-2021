@@ -1,5 +1,9 @@
 <template>
-  <div class="btn" :class="[className, circle ? 'btn--circle' : '']">
+  <div
+    class="btn"
+    :class="[className, circle ? 'btn--circle' : '']"
+    @click="$emit('onclick')"
+  >
     <slot></slot>
   </div>
 </template>
@@ -7,6 +11,7 @@
 <script>
 export default {
   name: "base-button",
+  emits: ["onclick"],
   props: {
     className: {
       default: "",

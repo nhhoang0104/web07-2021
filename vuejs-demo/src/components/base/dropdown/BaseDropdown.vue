@@ -1,41 +1,66 @@
 <template>
-  <div
-    :class="classNameDropdown"
-    :valueSelected="valueSelected"
-    @click="clickDropdown"
-    @blur="outFocus"
-    tabindex="0"
-  >
-    <div class="dropdown__label">{{ label }}</div>
-    <div class="dropdown__toggle">
-      <i
-        class="fas fa-chevron-down icon icon--16"
-        :class="isShowed ? 'rotate--180' : ''"
-      ></i>
+  <div>
+    <div class="dropdown__label" v-show="label">
+      {{ label }}
+      <div class="dropdown__label__required" v-show="required">
+        &nbsp;(<span>*</span>)
+      </div>
     </div>
-    <div :class="classNameDropdownMenu">
-      <slot name="dropdown-options"></slot>
+    <div
+      :class="classNameDropdown"
+      @click="clickDropdown"
+      @blur="outFocus"
+      tabindex="0"
+    >
+      <div class="dropdown__content">{{ content }}</div>
+      <div class="dropdown__toggle">
+        <i
+          class="fas fa-chevron-down icon icon--16"
+          :class="isShowed ? 'rotate--180' : ''"
+        ></i>
+      </div>
+      <div :class="classNameDropdownMenu">
+        <slot name="dropdown-options"></slot>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
 export default {
   name: "dropdown",
   props: {
-    label: {
+    id: {
       type: String,
       required: true,
     },
-    valueSelected: {
+    label: {
       type: String,
       required: false,
-      value: null,
+    },
+    required: {
+      type: Boolean,
+      required: false,
+    },
+    value: {
+      type: [String, Number],
+      required: true,
+      default: "0",
+    },
+    data: {
+      type: Array,
+      required: true,
     },
   },
-
+  provide() {
+    return {
+      pkey: this.$props.id,
+    };
+  },
   data() {
     return {
+      content: "",
       isShowed: false,
       classNameDropdown: "dropdown",
       classNameDropdownMenu: "dropdown__select dropdown__select--hide",
@@ -50,6 +75,10 @@ export default {
         this.classNameDropdown = "dropdown dropdown--active";
         this.classNameDropdownMenu = "dropdown__select ";
       }
+    },
+    value(newVal) {
+      let index = _.findIndex(this.data, (item) => item.id === newVal);
+      this.content = this.data[index].label;
     },
   },
   methods: {

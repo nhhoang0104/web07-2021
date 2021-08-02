@@ -12,6 +12,10 @@
   transition: 0.2s all ease-in-out;
 }
 
+.btn.btn--border {
+  border: 1px solid var(--color-border-cus);
+}
+
 .btn.btn--hidden {
   display: none;
 }
@@ -20,9 +24,19 @@
   background-color: var(--color-danger);
 }
 
+.btn.btn--secondary {
+  background-color: var(--color-white);
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+}
+
 .btn i {
   margin-right: 8px;
   color: #fff;
+}
+
+.btn:hover {
+  background-color: var(--color-primary-hover);
 }
 
 .btn.btn--danger:hover {
@@ -30,18 +44,25 @@
   opacity: 70%;
 }
 
-.btn.btn--danger:active {
-  opacity: 80%;
-  background-color: var(--color-danger);
-}
-
-.btn:hover {
-  background-color: var(--color-primary-hover);
+.btn.btn--secondary:hover {
+  background-color: var(--color-bg-hover);
+  border: none;
 }
 
 .btn:active {
   background-color: var(--color-primary);
   border: none;
+}
+
+.btn.btn--danger:active {
+  opacity: 80%;
+  background-color: var(--color-danger);
+}
+
+.btn.btn--secondary:active {
+  background-color: var(--color-primary);
+  border: none;
+  color: var(--color-white);
 }
 
 .btn.btn--circle {

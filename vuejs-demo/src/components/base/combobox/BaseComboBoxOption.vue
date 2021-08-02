@@ -3,7 +3,7 @@
     class="combo-box__option"
     :value="value"
     :checked="checked"
-    @click="selectItem($event, value)"
+    @click="selectItem(value)"
   >
     <div class="combo-box__option__check">
       <i class="fas fa-check icon icon--13"></i>
@@ -36,7 +36,7 @@ export default {
     /*
       Xử lý chọn option trong dropdown
     */
-    selectItem(event, value) {
+    selectItem(value) {
       this.$emit("select-item", { key: this.pkey, id: value });
     },
   },
