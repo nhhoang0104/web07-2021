@@ -1,19 +1,65 @@
 <template>
-  <div class="container__toast">
-    <div class="toast">
-      <div class="toast__respoense"></div>
-      <div class="toast__message">Tétasdasdasi</div>
-      <div class="toast__close">
-        <i class="fas fa-times"></i>
+  <div
+    class="container__toast"
+    :class="isShowed ? '' : 'container__toast--hidden'"
+  >
+    <div class="toast" :class="style.color">
+      <div class="toast__icon">
+        <i class="icon icon--24 icon--circle fas" :class="style.icon"></i>
+      </div>
+      <div class="toast__message">{{ message }}</div>
+      <div class="toast__close" @click="this.$emit('close')">
+        <i class="icon icon--24 fas fa-times"></i>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "base-toast-message",
+  props: {
+    type: {
+      type: String,
+      required: true,
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+    isShowed: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: ["close"],
+  data() {
+    return {
+      style: {
+        icon: "fa-check-circle",
+        color: "toast--done",
+      },
+    };
+  },
+  watch: {
+    type: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal === "done") {
+          this.style.icon = "fa-check-circle";
+          this.style.color = "toast--done";
+        }
+
+        if (newVal === "danger") {
+          this.style.icon = "fa-exclamation-triangle";
+          this.style.color = "toast--danger";
+        }
+      },
+    },
+  },
+};
 </script>
 
-<style lang="css" sc>
+<style lang="css">
 @import url("../../css/common/Toast.css");
 </style>

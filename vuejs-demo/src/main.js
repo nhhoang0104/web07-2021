@@ -17,6 +17,9 @@ import BasePagination from "./components/base/BasePagination.vue";
 import BaseInput from "./components/base/BaseInput.vue";
 import BaseToastMessage from "./components/base/BaseToastMessage.vue";
 import BaseDialog from "./components/base/BaseDialog.vue";
+import BaseLoader from "./components/base/BaseLoader.vue";
+
+app.component("base-loader", BaseLoader);
 
 app.component("base-table", BaseTable);
 app.component("base-table-head", BaseTableHead);

@@ -36,8 +36,12 @@
         ></base-input>
         <combo-box
           :data="department"
-          :value="search['departmentId']"
-          @onchangeinput="searchText"
+          :value="
+            departmentSearch !== null
+              ? departmentSearch
+              : search['departmentId']
+          "
+          @onchangeinput="searchTextComboxbox"
           id="department"
         >
           <template v-slot:combo-box-options>
@@ -54,7 +58,7 @@
         <combo-box
           :value="search['positionId']"
           :data="position"
-          @onchangeinput="searchText"
+          @onchangeinput="searchTextComboxbox"
           id="position"
         >
           <template v-slot:combo-box-options>
@@ -97,14 +101,21 @@
     <div class="content__footer">
       <base-pagination></base-pagination>
     </div>
+    <base-loader :is-loading="true"></base-loader>
     <EmployeeDetail
       :is-showed="isShowed"
-      :form-mode="forMode"
-      :department="[]"
-      :position="[]"
+      :form-mode="formMode"
+      :department="department"
+      :position="position"
       :employee-id="employeeId"
       @show-form="showForm"
     />
+    <base-toast-message
+      :type="toast.type"
+      :message="toast.message"
+      :isShowed="toast.isShowed"
+      @close="showToast"
+    ></base-toast-message>
   </div>
 </template>
 
@@ -133,52 +144,78 @@ export default {
         positionId: "1",
         textSearch: "",
       },
+      positionSearch: null,
+      departmentSearch: null,
       employeeId: null,
+      isLoading: false,
       isShowed: false,
-      forMode: 1,
+      formMode: 1,
+      toast: {
+        type: "done",
+        message: "Tải dữ liệu thành công",
+        isShowed: false,
+      },
     };
   },
   created() {
-    /*
-        Lấy dữ liệu các vị trí từ api
-    */
-    PositionAPI.getAll().then((res) => {
-      let tmp = res.data.map(({ PositionId, PositionName }) => ({
-        id: PositionId,
-        label: PositionName,
-        checked: false,
-      }));
+    // /*
+    //     Lấy dữ liệu các vị trí từ api
+    // */
+    // PositionAPI.getAll().then((res) => {
+    //   let tmp = res.data.map(({ PositionId, PositionName }) => ({
+    //     id: PositionId,
+    //     label: PositionName,
+    //     checked: false,
+    //   }));
 
-      tmp.push({ id: "1", label: "Tất cả vị trí", checked: true });
-      this.position = tmp;
-    });
+    //   tmp.push({ id: "1", label: "Tất cả vị trí", checked: true });
+    //   this.position = tmp;
+    // });
 
-    /*
-        Lấy dữ liệu các phòng ban từ api
-    */
-    DepartmentAPI.getAll().then((res) => {
-      let tmp = res.data.map(({ DepartmentId, DepartmentName }) => ({
-        id: DepartmentId,
-        label: DepartmentName,
-        checked: false,
-      }));
+    // /*
+    //     Lấy dữ liệu các phòng ban từ api
+    // */
+    // DepartmentAPI.getAll().then((res) => {
+    //   let tmp = res.data.map(({ DepartmentId, DepartmentName }) => ({
+    //     id: DepartmentId,
+    //     label: DepartmentName,
+    //     checked: false,
+    //   }));
 
-      tmp.push({ id: "1", label: "Tất cả phòng ban", checked: true });
-      this.department = tmp;
-    });
+    //   tmp.push({ id: "1", label: "Tất cả phòng ban", checked: true });
+    //   this.department = tmp;
+    // });
 
-    /*
-        Lấy dữ liệu nhân viên từ api
-    */
-    this.loadData();
+    // /*
+    //     Lấy dữ liệu nhân viên từ api
+    // */
+    // this.loadData();
+    this.isLoading = true;
+    Promise.all([
+      PositionAPI.getAll(),
+      DepartmentAPI.getAll(),
+      EmployeesAPI.getAll(),
+    ])
+      .then((res) => {
+        console.log(res);
+      })
+      .catch(() => {
+        this.toast.type = "danger";
+        this.toast.message = "Tải dữ liệu thất bại!";
+        this.toast.isShowed = true;
+      });
   },
 
   watch: {
-    employeeList: {
-      deep: true,
-      handler() {},
+    isLoading(newVal) {
+      if (newVal === true) {
+        this.departmentForm = _.cloneDeep(this.department);
+        this.positionForm = _.cloneDeep(this.position);
+      }
     },
   },
+
+  computed: {},
 
   methods: {
     /*
@@ -198,10 +235,16 @@ export default {
     },
 
     /*
-      Tìm kiếm text trong combobox
+      Tìm kiếm theo text trong combobox
     */
-    searchText(value) {
-      console.log(_.trim(value));
+    searchTextComboxbox({ value, key }) {
+      let text = _.trim(value);
+
+      if (text === "" || text === undefined || text === null) {
+        return _.cloneDeep(this[key]);
+      } else {
+        return _.filter(this[key], (item) => item.VAL.indexOf(text) > -1);
+      }
     },
 
     /*
@@ -247,6 +290,13 @@ export default {
     showForm(show = true) {
       //formMode = 1, employeeId = null
       this.isShowed = show;
+    },
+
+    /*
+      Đóng mở toast message
+    */
+    showToast() {
+      this.toast.isShowed = !this.toast.isShowed;
     },
   },
 };

@@ -5,8 +5,7 @@
         type="text"
         :value="content"
         @focus="onFocusInput"
-        @blur="outFocus"
-        @input="$emit('onchangeinput', $event.target.value)"
+        @input="$emit('onchangeinput', { value: $event.target.value, key: id })"
       />
     </div>
     <div
@@ -68,9 +67,13 @@ export default {
         this.classNameComboBoxMenu = "combo-box__select";
       }
     },
-    value(newVal) {
-      let index = _.findIndex(this.data, (item) => item.id === newVal);
-      this.content = this.data[index].label;
+    value: {
+      immediate: true,
+      handler(newVal) {
+        let index = _.findIndex(this.data, (item) => item.id === newVal);
+        if (index !== -1) this.content = this.data[index].label;
+        else this.content = newVal;
+      },
     },
   },
   methods: {
