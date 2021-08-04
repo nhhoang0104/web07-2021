@@ -8,7 +8,7 @@
         <i class="icon icon--24 icon--circle fas" :class="style.icon"></i>
       </div>
       <div class="toast__message">{{ message }}</div>
-      <div class="toast__close" @click="this.$emit('close')">
+      <div class="toast__close" @click="this.$emit('close', false)">
         <i class="icon icon--24 fas fa-times"></i>
       </div>
     </div>
@@ -33,14 +33,6 @@ export default {
     },
   },
   emits: ["close"],
-  data() {
-    return {
-      style: {
-        icon: "fa-check-circle",
-        color: "toast--done",
-      },
-    };
-  },
   watch: {
     type: {
       immediate: true,
@@ -56,6 +48,21 @@ export default {
         }
       },
     },
+    isShowed(newVal) {
+      if (newVal === true) {
+        setTimeout(() => {
+          this.$emit("close", false);
+        }, 6000);
+      }
+    },
+  },
+  data() {
+    return {
+      style: {
+        icon: "fa-check-circle",
+        color: "toast--done",
+      },
+    };
   },
 };
 </script>

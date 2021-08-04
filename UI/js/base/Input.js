@@ -29,7 +29,11 @@ class Input {
   }
 
   loadData() {
-    this.Value = this.ValueDefault;
+    if (this.Format === "date")
+      this.Value = Common.formatDateInput(this.ValueDefault);
+    else if (this.Format === "money")
+      this.Value = Common.formatMoney(this.ValueDefault);
+    else this.Value = this.ValueDefault;
 
     if (this.Id === "EmployeeCode") {
       $(this.Input).focus();

@@ -19,12 +19,21 @@
             <div class="text text--title-2">A. THÔNG TIN CHUNG:</div>
             <div class="separator"></div>
             <div class="dialog__body__item">
-              <base-input label="Mã nhân viên" required></base-input>
+              <base-input
+                label="Mã nhân viên"
+                id="EmployeeCode"
+                @handle-input="onChangeInput"
+                :value="model['EmployeeCode']"
+                required
+              ></base-input>
             </div>
             <div class="dialog__body__item">
               <base-input
                 label="Họ và tên"
                 placeholder="Nguyễn Văn A"
+                id="FullName"
+                @handle-input="onChangeInput"
+                :value="model['FullName']"
                 required
               ></base-input>
             </div>
@@ -33,6 +42,9 @@
                 label="Ngày sinh"
                 type="date"
                 format="date"
+                id="DateOfBirth"
+                :value="model['DateOfBirth']"
+                @handle-input="onChangeInput"
               ></base-input>
             </div>
             <div class="dialog__body__item">
@@ -58,6 +70,9 @@
               <base-input
                 label="Số CMTND/ Căn cước"
                 placeholder="001200012345"
+                id="IdentityNumber"
+                :value="model['IdentityNumber']"
+                @handle-input="onChangeInput"
                 required
               ></base-input>
             </div>
@@ -66,10 +81,19 @@
                 label="Ngày cấp"
                 type="date"
                 format="date"
+                id="IdentityDate"
+                :value="model['IdentityDate']"
+                @handle-input="onChangeInput"
               ></base-input>
             </div>
             <div class="dialog__body__item">
-              <base-input label="Nơi cấp" placeholder="Hà Nội"></base-input>
+              <base-input
+                label="Nơi cấp"
+                placeholder="Hà Nội"
+                id="IdentityPlace"
+                :value="model['IdentityPlace']"
+                @handle-input="onChangeInput"
+              ></base-input>
             </div>
             <div class="dialog__body__item"></div>
             <div class="dialog__body__item">
@@ -77,6 +101,9 @@
                 label="Email"
                 placeholder="example@gamil.com"
                 format="email"
+                :value="model['Email']"
+                id="Email"
+                @handle-input="onChangeInput"
                 required
               ></base-input>
             </div>
@@ -84,6 +111,9 @@
               <base-input
                 label="Số điện thoại"
                 placeholder="0375783126"
+                id="PhoneNumber"
+                @handle-input="onChangeInput"
+                :value="model['PhoneNumber']"
                 required
               ></base-input>
             </div>
@@ -93,18 +123,18 @@
             <div class="separator"></div>
             <div class="dialog__body__item">
               <dropdown
-                label="Giới tính"
-                :value="model['Gender']"
-                :data="gender"
-                id="Gender"
+                label="Vị trí"
+                :value="model['PositionId']"
+                :data="position"
+                id="PositionId"
               >
-                <template v-slot:dropdown-options>
+                <template #dropdown-options="{ options }">
                   <dropdown-option
-                    v-for="item in gender"
+                    v-for="item in options"
                     :key="item.id"
                     :value="item.id"
                     :label="item.label"
-                    :checked="item.id == model['Gender']"
+                    :checked="item.id == model['PositionId']"
                     @select-item="selectItem"
                   ></dropdown-option>
                 </template>
@@ -112,18 +142,18 @@
             </div>
             <div class="dialog__body__item">
               <dropdown
-                label="Giới tính"
-                :value="model['Gender']"
-                :data="gender"
-                id="Gender"
+                label="Phòng ban"
+                :value="model['DepartmentId']"
+                :data="department"
+                id="DepartmentId"
               >
-                <template v-slot:dropdown-options>
+                <template #dropdown-options="{options}">
                   <dropdown-option
-                    v-for="item in gender"
+                    v-for="item in options"
                     :key="item.id"
                     :value="item.id"
                     :label="item.label"
-                    :checked="item.id == model['Gender']"
+                    :checked="item.id == model['DepartmentId']"
                     @select-item="selectItem"
                   ></dropdown-option>
                 </template>
@@ -133,12 +163,19 @@
               <base-input
                 label="Mã số thuế cá nhân"
                 placeholder="54222457754"
+                id="PersonalTaxCode"
+                :value="model['PersonalTaxCode']"
+                @handle-input="onChangeInput"
               ></base-input>
             </div>
             <div class="dialog__body__item">
               <base-input
                 label="Mức lương cơ bản"
                 placeholder="25.000.000"
+                format="money"
+                :value="model['Salary']"
+                id="Salary"
+                @handle-input="onChangeInput"
               ></base-input>
             </div>
             <div class="dialog__body__item">
@@ -146,18 +183,21 @@
                 label="Ngày gia nhập công tin"
                 type="date"
                 format="date"
+                :value="model['JoinDate']"
+                id="JoinDate"
+                @handle-input="onChangeInput"
               ></base-input>
             </div>
             <div class="dialog__body__item">
               <dropdown
-                label="Giới tính"
+                label="Trạng tháu công việc"
                 :value="model['WorkStatus']"
                 :data="workStatus"
                 id="WorkStatus"
               >
-                <template v-slot:dropdown-options>
+                <template #dropdown-options="{options}">
                   <dropdown-option
-                    v-for="item in workStatus"
+                    v-for="item in options"
                     :key="item.id"
                     :value="item.id"
                     :label="item.label"
@@ -177,11 +217,8 @@
         >
           Huỷ
         </div>
-        <div
-          class="dialog__footer__btn btn--done"
-          @click="$emit('show-form', false)"
-        >
-          Xóa
+        <div class="dialog__footer__btn btn--done" @click="handleSubmit">
+          Lưu
         </div>
       </template>
     </base-dialog>
@@ -190,6 +227,7 @@
 
 <script>
 import { EmployeeModel } from "../../models/EmployeeModel";
+import EmployeesAPI from "@/api/components/EmployeesAPI.js";
 import _ from "lodash";
 
 export default {
@@ -200,7 +238,9 @@ export default {
     department: { type: Array, required: true },
     position: { type: Array, required: true },
   },
-  emits: ["show-form"],
+
+  emits: ["show-form", "submit-form"],
+
   data() {
     return {
       model: _.cloneDeep(EmployeeModel),
@@ -213,18 +253,87 @@ export default {
         { id: "0", label: "Thất nghiệp", checked: false },
         { id: "1", label: "Đang làm việc", checked: false },
       ],
-      departmentForm: _.cloneDeep(this.department),
-      positionForm: _.cloneDeep(this.position),
-      dataForm: {},
       isShow: false,
     };
   },
+
+  watch: {
+    isShowed(newVal) {
+      if (newVal === true) {
+        if (this.formMode === 1) {
+          this.getNewEmployeeCode();
+        }
+        if (this.formMode === 0) {
+          this.getEmployeeInfo();
+        }
+      }
+
+      if (newVal === false) {
+        this.model = _.cloneDeep(EmployeeModel);
+      }
+    },
+
+    model: {
+      deep: true,
+      handler() {},
+    },
+  },
+
   methods: {
+    /*
+      Lấy mã nhân viên mới
+    */
+    getNewEmployeeCode() {
+      EmployeesAPI.getNewEmployeeCode()
+        .then((res) => {
+          this.model.EmployeeCode = res.data;
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    },
+
+    /*
+      Lấy thông tin mã nhân viên theo id
+    */
+    getEmployeeInfo() {
+      EmployeesAPI.getById(this.employeeId).then((res) => {
+        this.model = res.data;
+      });
+    },
+
     /*
         Xử lý chọn option trong cac combobox
     */
     selectItem(item) {
       this.model[item.key] = item.id;
+    },
+
+    /*
+    ` Xử lý onchangeinput
+    */
+    onChangeInput({ id, value }) {
+      this.model[id] = value;
+    },
+
+    /*
+      Xử lý submit form
+      Thêm mới nhân viên hoặc chỉnh sửa thông tin nhân viên
+      trả về promise tương ứng để thực hiện ở Component EmployeeList
+    */
+
+    handleSubmit() {
+      let promise = null;
+
+      if (this.formMode === 1) {
+        promise = EmployeesAPI.add(this.model);
+      }
+
+      if (this.formMode === 0) {
+        promise = EmployeesAPI.update(this.employeeId, this.model);
+      }
+
+      this.$emit("submit-form", { action: promise, type: this.formMode });
     },
   },
 };

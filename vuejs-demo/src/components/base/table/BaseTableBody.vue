@@ -6,6 +6,7 @@
       :columns="columns"
       :data="item"
       @click="checkBox(item.EmployeeId)"
+      @dblclick="doubleClick(item.EmployeeId)"
     ></tr-cus>
   </tbody>
 </template>
@@ -18,7 +19,7 @@ export default {
   components: {
     "tr-cus": BaseTableBodyTr,
   },
-  emits: ["check-box"],
+  emits: ["check-box", "dblclick"],
   props: {
     data: {
       type: Array,
@@ -30,8 +31,17 @@ export default {
     },
   },
   methods: {
+    /*
+      check box row
+    */
     checkBox(id) {
       this.$emit("check-box", id);
+    },
+    /*
+      xử lý double click vào row để xem thông tin chi tiết
+    */
+    doubleClick(id) {
+      this.$emit("dblclick", id);
     },
   },
 };

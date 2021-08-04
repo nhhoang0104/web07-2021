@@ -77,13 +77,18 @@ class Form {
 
   initInput(data) {
     let self = this;
-    $("div.item input").each(function (index, item) {
+    $("div.item input").each(async function (index, item) {
+      let valueDefault = data ? data[item.id] : null;
+
+      if (item.id === "EmployeeCode" && self.FormMode === 1) {
+        valueDefault = await getNewEmployeeCode();
+      }
       self.InputList.push(
         new Input(
           this,
           item.id,
           $(item).attr("dataType"),
-          data ? data[item.id] : null,
+          valueDefault,
           item.required
         )
       );
@@ -120,7 +125,9 @@ class Form {
     let dropdown = this.DropdownList;
 
     $("div.item div.dropdown").each(function (index, item) {
-      $(item).replaceWith(dropdown[index]);
+      $(item).replaceWith(
+        `<dropdown key=${dropdown[index].Key} id=${dropdown[index].Id} className=${dropdown[index].ClassName}></dropdown>`
+      );
     });
   }
 

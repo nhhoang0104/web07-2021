@@ -32,8 +32,8 @@ class Common {
   */
 
   static formatMoney(n, currency = "") {
-    if (n === " ") return "";
-
+    if (n === " " || n === null || n === undefined) return "";
+    if (typeof n === "number") n = n.toFixed();
     return (
       n.replace(/./g, function (c, i, a) {
         return i > 0 && (a.length - i) % 3 === 0 ? "." + c : c;

@@ -1,12 +1,7 @@
 <template>
   <div :class="classNameComboBox" @blur="outFocus" tabindex="0">
     <div class="combo-box__label">
-      <input
-        type="text"
-        :value="content"
-        @focus="onFocusInput"
-        @input="$emit('onchangeinput', { value: $event.target.value, key: id })"
-      />
+      <input type="text" @focus="onFocusInput" v-model="textSearch" />
     </div>
     <div
       class="combo-box__toggle"
@@ -19,7 +14,7 @@
       ></i>
     </div>
     <div :class="classNameComboBoxMenu" @click="show">
-      <slot name="combo-box-options"></slot>
+      <slot name="combo-box-options" :options="dataClone"></slot>
     </div>
   </div>
 </template>
@@ -47,40 +42,84 @@ export default {
       pkey: this.$props.id,
     };
   },
-  emits: ["onchangeinput"],
   data() {
     return {
       isShowed: false,
       classNameComboBox: "combo-box",
       classNameComboBoxMenu: "combo-box__select combo-box__select--hide",
-      content: "",
+      dataClone: _.cloneDeep(this.data),
+      textSearch: "",
     };
   },
   watch: {
+    /*
+      Xử lý style combobox khi đóng(hoặc mở) combobox
+    */
     isShowed(value) {
       if (!value) {
         this.classNameComboBox = "combo-box";
         this.classNameComboBoxMenu =
           "combo-box__select combo-box__select--hide";
       } else {
+        this.dataClone = _.cloneDeep(this.data);
         this.classNameComboBox = "combo-box combo-box--active";
         this.classNameComboBoxMenu = "combo-box__select";
       }
     },
+    data: {
+      deep: true,
+      handler(newVal) {
+        this.dataClone = newVal;
+        let tmp = this.dataClone.find((item) => item.id === this.value);
+
+        if (tmp) this.textSearch = tmp.label;
+      },
+    },
+
+    /*
+      Lấy label theo props.value từ dataClone
+    */
     value: {
       immediate: true,
       handler(newVal) {
-        let index = _.findIndex(this.data, (item) => item.id === newVal);
-        if (index !== -1) this.content = this.data[index].label;
-        else this.content = newVal;
+        let tmp = this.dataClone.find((item) => item.id === newVal);
+        if (tmp) this.textSearch = tmp.label;
       },
+    },
+    textSearch(newVal) {
+      const text = _.trim(newVal);
+
+      if (text === "" || text === undefined || text === null) {
+        this.dataClone = _.cloneDeep(this.data);
+      } else {
+        this.dataClone = _.filter(
+          this.data,
+          (item) => item.label.toLowerCase().indexOf(text.toLowerCase()) > -1
+        );
+      }
+    },
+  },
+  computed: {
+    /*
+      Tìm kiếm các option theo text search từ dataClone.
+    */
+    getOptions() {
+      const text = _.trim(this.textSearch);
+
+      if (text === "" || text === undefined || text === null) {
+        return _.cloneDeep(this.dataClone);
+      } else {
+        return _.filter(
+          this.dataClone,
+          (item) => item.label.toLowerCase().indexOf(text.toLowerCase()) > -1
+        );
+      }
     },
   },
   methods: {
     /*
       xử lý sự kiện đóng hoặc mở combo-box.
     */
-
     show() {
       this.isShowed = !this.isShowed;
     },

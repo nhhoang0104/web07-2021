@@ -19,7 +19,7 @@
         </base-button>
         <base-button
           className="padding-left--16 padding-right--16"
-          @onclick="showForm"
+          @onclick="addNewEmployee"
         >
           <div class="icon icon--13 icon--add" style="margin-right:8px"></div>
           <div class="text text--color-white text--center">
@@ -33,20 +33,17 @@
         <base-input
           icon="icon--search"
           placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại"
+          value=""
+          id="searchText"
         ></base-input>
         <combo-box
-          :data="department"
-          :value="
-            departmentSearch !== null
-              ? departmentSearch
-              : search['departmentId']
-          "
-          @onchangeinput="searchTextComboxbox"
-          id="department"
+          :data="departmentCbb"
+          :value="search['departmentId']"
+          id="departmentId"
         >
-          <template v-slot:combo-box-options>
+          <template #combo-box-options="{options}">
             <combo-box-option
-              v-for="item in department"
+              v-for="item in options"
               :key="item.id"
               :value="item.id"
               :label="item.label"
@@ -57,13 +54,12 @@
         </combo-box>
         <combo-box
           :value="search['positionId']"
-          :data="position"
-          @onchangeinput="searchTextComboxbox"
-          id="position"
+          :data="positionCbb"
+          id="positionId"
         >
-          <template v-slot:combo-box-options>
+          <template #combo-box-options="{options}">
             <combo-box-option
-              v-for="item in position"
+              v-for="item in options"
               :key="item.id"
               :value="item.id"
               :label="item.label"
@@ -93,6 +89,7 @@
               :columns="columns"
               :data="employeeList"
               @check-box="checkbox"
+              @dblclick="viewInfo"
             ></base-table-body>
           </template>
         </base-table>
@@ -101,14 +98,15 @@
     <div class="content__footer">
       <base-pagination></base-pagination>
     </div>
-    <base-loader :is-loading="true"></base-loader>
+    <base-loader :is-loading="isLoading"></base-loader>
     <EmployeeDetail
-      :is-showed="isShowed"
-      :form-mode="formMode"
+      :is-showed="dialog.isShowed"
+      :form-mode="dialog.formMode"
       :department="department"
       :position="position"
-      :employee-id="employeeId"
+      :employee-id="dialog.employeeId"
       @show-form="showForm"
+      @submit-form="handleSubmitForm"
     />
     <base-toast-message
       :type="toast.type"
@@ -137,19 +135,15 @@ export default {
       employeeIdList: [],
       department: [],
       position: [],
-      departmentForm: [],
-      positionForm: [],
+      departmentCbb: [],
+      positionCbb: [],
       search: {
         departmentId: "1",
         positionId: "1",
         textSearch: "",
       },
-      positionSearch: null,
-      departmentSearch: null,
-      employeeId: null,
       isLoading: false,
-      isShowed: false,
-      formMode: 1,
+      dialog: { employeeId: null, isShowed: false, formMode: 1 },
       toast: {
         type: "done",
         message: "Tải dữ liệu thành công",
@@ -157,52 +151,45 @@ export default {
       },
     };
   },
+
   created() {
-    // /*
-    //     Lấy dữ liệu các vị trí từ api
-    // */
-    // PositionAPI.getAll().then((res) => {
-    //   let tmp = res.data.map(({ PositionId, PositionName }) => ({
-    //     id: PositionId,
-    //     label: PositionName,
-    //     checked: false,
-    //   }));
-
-    //   tmp.push({ id: "1", label: "Tất cả vị trí", checked: true });
-    //   this.position = tmp;
-    // });
-
-    // /*
-    //     Lấy dữ liệu các phòng ban từ api
-    // */
-    // DepartmentAPI.getAll().then((res) => {
-    //   let tmp = res.data.map(({ DepartmentId, DepartmentName }) => ({
-    //     id: DepartmentId,
-    //     label: DepartmentName,
-    //     checked: false,
-    //   }));
-
-    //   tmp.push({ id: "1", label: "Tất cả phòng ban", checked: true });
-    //   this.department = tmp;
-    // });
-
-    // /*
-    //     Lấy dữ liệu nhân viên từ api
-    // */
-    // this.loadData();
+    /*
+        Lấy dữ liệu các vị trí, các phòng ban, nhân viên từ api
+    */
     this.isLoading = true;
+
     Promise.all([
+      EmployeesAPI.getAll(),
       PositionAPI.getAll(),
       DepartmentAPI.getAll(),
-      EmployeesAPI.getAll(),
     ])
       .then((res) => {
-        console.log(res);
+        this.employeeList = res[0].data;
+
+        this.position = res[1].data.map(({ PositionId, PositionName }) => ({
+          id: PositionId,
+          label: PositionName,
+        }));
+
+        this.department = res[2].data.map(
+          ({ DepartmentId, DepartmentName }) => ({
+            id: DepartmentId,
+            label: DepartmentName,
+          })
+        );
+
+        // Khởi tạo data cho combobox
+        this.positionCbb = _.cloneDeep(this.position);
+        this.positionCbb.push({ id: "1", label: "Tất cả vị trí" });
+
+        this.departmentCbb = _.cloneDeep(this.department);
+        this.departmentCbb.push({ id: "1", label: "Tất cả phòng ban" });
+        this.isLoading = false;
+        this.setToast("done", "Tải dữ liệu thành công");
       })
-      .catch(() => {
-        this.toast.type = "danger";
-        this.toast.message = "Tải dữ liệu thất bại!";
-        this.toast.isShowed = true;
+      .catch((err) => {
+        console.log(err.message);
+        this.setToast("danger", "Tải dữ liệu thất bại");
       });
   },
 
@@ -213,18 +200,40 @@ export default {
         this.positionForm = _.cloneDeep(this.position);
       }
     },
-  },
 
-  computed: {},
+    department: {
+      deep: true,
+      handler() {},
+    },
+
+    position: {
+      deep: true,
+      handler() {},
+    },
+
+    toast: {
+      deep: true,
+      handler() {},
+    },
+
+    dialog: {
+      deep: true,
+      handler() {},
+    },
+  },
 
   methods: {
     /*
         Lấy dữ liệu nhân viên từ api
     */
     loadData() {
-      EmployeesAPI.getAll().then((res) => {
-        this.employeeList = res.data;
-      });
+      this.isLoading = true;
+      EmployeesAPI.getAll()
+        .then((res) => {
+          this.employeeList = res.data;
+          this.isLoading = false;
+        })
+        .catch((err) => console.log(err));
     },
 
     /*
@@ -232,19 +241,6 @@ export default {
     */
     selectItem(item) {
       this.search[item.key] = item.id;
-    },
-
-    /*
-      Tìm kiếm theo text trong combobox
-    */
-    searchTextComboxbox({ value, key }) {
-      let text = _.trim(value);
-
-      if (text === "" || text === undefined || text === null) {
-        return _.cloneDeep(this[key]);
-      } else {
-        return _.filter(this[key], (item) => item.VAL.indexOf(text) > -1);
-      }
     },
 
     /*
@@ -270,16 +266,33 @@ export default {
       this.employeeIdList.forEach((employeeId) =>
         promiseList.push(EmployeesAPI.delete(employeeId))
       );
-
+      this.isLoading = true;
       Promise.all(promiseList)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          this.setToast("done", "Xóa nhân viên thành công");
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err.message);
+          this.setToast("danger", "Xóa nhân viên thất bại!");
+        })
         .finally(() => {
           this.employeeIdList = [];
           this.loadData();
         });
+    },
+
+    /*
+      Xem thông tin chi tiết nhân viên
+    */
+    viewInfo(id) {
+      this.dialog = { employeeId: id, formMode: 0, isShowed: true };
+    },
+
+    /*
+      Thêm mới nhân viên
+    */
+    addNewEmployee() {
+      this.dialog = { formMode: 1, isShowed: true };
     },
 
     /*
@@ -289,14 +302,52 @@ export default {
     */
     showForm(show = true) {
       //formMode = 1, employeeId = null
-      this.isShowed = show;
+      this.dialog.isShowed = show;
+    },
+
+    /*
+        Truyền nội dùng toast message
+    */
+
+    setToast(type, message) {
+      this.toast.type = type;
+      this.toast.message = message;
+      this.showToast(true);
     },
 
     /*
       Đóng mở toast message
     */
-    showToast() {
-      this.toast.isShowed = !this.toast.isShowed;
+    showToast(isShowed) {
+      this.toast.isShowed = isShowed;
+    },
+
+    /*
+        Xử lý khi ấn submit của form
+    */
+    handleSubmitForm({ action, type }) {
+      action
+        .then(() => {
+          this.setToast(
+            "done",
+            type === "1"
+              ? "Thêm mới nhân viên thành công"
+              : "Chỉnh sửa thông tin thành công"
+          );
+        })
+        .catch((err) => {
+          console.log(err.message);
+          this.setToast(
+            "danger",
+            type === "1"
+              ? "Thêm mới nhân viên thất bại"
+              : "Chỉnh sửa thông tin thất bại"
+          );
+        })
+        .finally(() => {
+          this.showForm(false);
+          this.loadData();
+        });
     },
   },
 };

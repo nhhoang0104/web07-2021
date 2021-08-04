@@ -10,6 +10,7 @@
   border-radius: 5px;
   background-color: var(--color-white);
   box-sizing: border-box;
+  z-index: 3;
 }
 
 .dialog .dialog__header {
@@ -61,7 +62,7 @@
 
 .dialog .dialog__body .separator {
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
   height: 4px;
   width: 75px;
   background-color: #019160;
@@ -112,5 +113,5 @@
 
 .dialog .dialog__footer .dialog__footer__btn.btn--done {
   color: #fff;
-  background-color: #f65454;
+  background-color: var(--color-primary);
 }
