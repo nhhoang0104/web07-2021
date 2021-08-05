@@ -22,6 +22,7 @@
               <base-input
                 label="Mã nhân viên"
                 id="EmployeeCode"
+                ref="EmployeeCode"
                 @handle-input="onChangeInput"
                 :value="model['EmployeeCode']"
                 required
@@ -30,6 +31,7 @@
             <div class="dialog__body__item">
               <base-input
                 label="Họ và tên"
+                ref="FullName"
                 placeholder="Nguyễn Văn A"
                 id="FullName"
                 @handle-input="onChangeInput"
@@ -43,6 +45,7 @@
                 type="date"
                 format="date"
                 id="DateOfBirth"
+                ref="DateOfBirth"
                 :value="model['DateOfBirth']"
                 @handle-input="onChangeInput"
               ></base-input>
@@ -53,6 +56,7 @@
                 :value="model['Gender']"
                 :data="gender"
                 id="Gender"
+                ref="Gender"
               >
                 <template v-slot:dropdown-options>
                   <dropdown-option
@@ -73,6 +77,7 @@
                 id="IdentityNumber"
                 :value="model['IdentityNumber']"
                 @handle-input="onChangeInput"
+                ref="IdentityNumber"
                 required
               ></base-input>
             </div>
@@ -84,12 +89,14 @@
                 id="IdentityDate"
                 :value="model['IdentityDate']"
                 @handle-input="onChangeInput"
+                ref="IdentityDate"
               ></base-input>
             </div>
             <div class="dialog__body__item">
               <base-input
                 label="Nơi cấp"
                 placeholder="Hà Nội"
+                ref="IdentityPlace"
                 id="IdentityPlace"
                 :value="model['IdentityPlace']"
                 @handle-input="onChangeInput"
@@ -103,6 +110,7 @@
                 format="email"
                 :value="model['Email']"
                 id="Email"
+                ref="Email"
                 @handle-input="onChangeInput"
                 required
               ></base-input>
@@ -114,6 +122,7 @@
                 id="PhoneNumber"
                 @handle-input="onChangeInput"
                 :value="model['PhoneNumber']"
+                ref="PhoneNumber"
                 required
               ></base-input>
             </div>
@@ -127,6 +136,7 @@
                 :value="model['PositionId']"
                 :data="position"
                 id="PositionId"
+                ref="PositionId"
               >
                 <template #dropdown-options="{ options }">
                   <dropdown-option
@@ -146,6 +156,7 @@
                 :value="model['DepartmentId']"
                 :data="department"
                 id="DepartmentId"
+                ref="DepartmentId"
               >
                 <template #dropdown-options="{options}">
                   <dropdown-option
@@ -166,12 +177,14 @@
                 id="PersonalTaxCode"
                 :value="model['PersonalTaxCode']"
                 @handle-input="onChangeInput"
+                ref="PersonalTaxCode"
               ></base-input>
             </div>
             <div class="dialog__body__item">
               <base-input
                 label="Mức lương cơ bản"
                 placeholder="25.000.000"
+                ref="Salary"
                 format="money"
                 :value="model['Salary']"
                 id="Salary"
@@ -185,6 +198,7 @@
                 format="date"
                 :value="model['JoinDate']"
                 id="JoinDate"
+                ref="JoinDate"
                 @handle-input="onChangeInput"
               ></base-input>
             </div>
@@ -194,6 +208,7 @@
                 :value="model['WorkStatus']"
                 :data="workStatus"
                 id="WorkStatus"
+                ref="WorkStatus"
               >
                 <template #dropdown-options="{options}">
                   <dropdown-option
@@ -260,6 +275,7 @@ export default {
   watch: {
     isShowed(newVal) {
       if (newVal === true) {
+        this.clearDialog();
         if (this.formMode === 1) {
           this.getNewEmployeeCode();
         }
@@ -298,7 +314,7 @@ export default {
     */
     getEmployeeInfo() {
       EmployeesAPI.getById(this.employeeId).then((res) => {
-        this.model = res.data;
+        if (typeof res.data === "object") this.model = res.data;
       });
     },
 
@@ -316,24 +332,43 @@ export default {
       this.model[id] = value;
     },
 
-    /*
+    /**
       Xử lý submit form
       Thêm mới nhân viên hoặc chỉnh sửa thông tin nhân viên
+      Nếu isValidted thì submit, ngược lại thì hiện thị tooltip lỗi
       trả về promise tương ứng để thực hiện ở Component EmployeeList
     */
-
     handleSubmit() {
-      let promise = null;
+      let isValidated = true;
 
-      if (this.formMode === 1) {
-        promise = EmployeesAPI.add(this.model);
+      Object.keys(this.$refs).forEach((el) => {
+        this.$refs[el].validate();
+        if (!this.$refs[el].isValidated)
+          isValidated = this.$refs[el].isValidated;
+      });
+
+      if (isValidated) {
+        let promise = null;
+
+        if (this.formMode === 1) {
+          promise = EmployeesAPI.add(this.model);
+        }
+
+        if (this.formMode === 0) {
+          promise = EmployeesAPI.update(this.employeeId, this.model);
+        }
+
+        this.$emit("submit-form", { action: promise, type: this.formMode });
       }
+    },
 
-      if (this.formMode === 0) {
-        promise = EmployeesAPI.update(this.employeeId, this.model);
-      }
-
-      this.$emit("submit-form", { action: promise, type: this.formMode });
+    /**
+     * Clear tooltip, danger khi mở dialog
+     */
+    clearDialog() {
+      Object.keys(this.$refs).forEach((el) => {
+        this.$refs[el].clearTooltip();
+      });
     },
   },
 };

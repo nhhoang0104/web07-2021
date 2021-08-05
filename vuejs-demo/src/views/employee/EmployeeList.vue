@@ -11,7 +11,7 @@
               employeeIdList.length === 0 ? 'btn--hidden' : ''
             }`
           "
-          @onclick="removeEmployee"
+          @onclick="preRemoveEmployee"
         >
           <div class="text text--color-white text--center">
             Xóa nhân viên
@@ -114,6 +114,7 @@
       :isShowed="toast.isShowed"
       @close="showToast"
     ></base-toast-message>
+    <base-popup :popup="popup" @show="showPopup"></base-popup>
   </div>
 </template>
 
@@ -148,6 +149,14 @@ export default {
         type: "done",
         message: "Tải dữ liệu thành công",
         isShowed: false,
+      },
+      popup: {
+        type: "done",
+        title: "Xoa nhan vien",
+        content: "Tải dữ liệu thành công",
+        isShowed: false,
+        action: null,
+        cancel: null,
       },
     };
   },
@@ -259,13 +268,27 @@ export default {
     },
 
     /*
+        Hiện cảnh báo(popup) muốn thực hiện hành đọng hay không
+    */
+
+    preRemoveEmployee() {
+      this.setPopup(
+        "Xóa các nhân viên",
+        "Bạn có chắc chắn muốn xóa các nhân viên đã chọn không?",
+        this.removeEmployees,
+        this.uncheckEmployees
+      );
+    },
+
+    /*
       Xóa nhân viên
     */
-    removeEmployee() {
+    removeEmployees() {
       let promiseList = [];
       this.employeeIdList.forEach((employeeId) =>
         promiseList.push(EmployeesAPI.delete(employeeId))
       );
+
       this.isLoading = true;
       Promise.all(promiseList)
         .then(() => {
@@ -279,6 +302,13 @@ export default {
           this.employeeIdList = [];
           this.loadData();
         });
+    },
+
+    /*
+      Bỏ tất cả các các checkbox của các nhân viên đã chọn
+    */
+    uncheckEmployees() {
+      // this.employeeIdList = [];
     },
 
     /*
@@ -308,11 +338,8 @@ export default {
     /*
         Truyền nội dùng toast message
     */
-
     setToast(type, message) {
-      this.toast.type = type;
-      this.toast.message = message;
-      this.showToast(true);
+      this.toast = { type: type, message: message, isShowed: true };
     },
 
     /*
@@ -323,6 +350,20 @@ export default {
     },
 
     /*
+        Truyền nội dung popup
+    */
+    setPopup(title, content, action, cancel) {
+      this.popup = { title, content, isShowed: true, action, cancel };
+    },
+
+    /*
+      Đóng mở popup
+    */
+    showPopup(isShowed) {
+      this.popup.isShowed = isShowed;
+    },
+
+    /*
         Xử lý khi ấn submit của form
     */
     handleSubmitForm({ action, type }) {
@@ -330,7 +371,7 @@ export default {
         .then(() => {
           this.setToast(
             "done",
-            type === "1"
+            type === 1
               ? "Thêm mới nhân viên thành công"
               : "Chỉnh sửa thông tin thành công"
           );
@@ -339,7 +380,7 @@ export default {
           console.log(err.message);
           this.setToast(
             "danger",
-            type === "1"
+            type === 1
               ? "Thêm mới nhân viên thất bại"
               : "Chỉnh sửa thông tin thất bại"
           );

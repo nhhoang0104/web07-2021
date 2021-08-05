@@ -11,6 +11,10 @@
   padding-left: 40px;
 }
 
+.input input.input__danger {
+  border-color: var(--color-danger);
+}
+
 .input .input__label {
   display: flex;
   font-family: "GoogleSans";
@@ -73,12 +77,13 @@
 
 input[format="money"] {
   padding-right: 50px;
+  text-align: right;
 }
 
 input[format="money"] + span::after {
   position: absolute;
   content: "VND";
-  right: 20px;
-  top: 31.5px;
+  right: 10px;
+  top: 35px;
   color: #000;
 }

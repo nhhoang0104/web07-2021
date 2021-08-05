@@ -48,10 +48,6 @@
   transition: 0.2s all ease-in-out;
 }
 
-.dropdown:active {
-  border-color: var(--color-primary-default);
-}
-
 .dropdown.dropdown--active {
   border-color: var(--color-primary-default);
 }
@@ -69,6 +65,7 @@
   left: -1px;
   overflow: hidden;
   z-index: 99;
+  box-sizing: border-box;
 }
 
 .dropdown .dropdown__select.dropdown__select--hide {

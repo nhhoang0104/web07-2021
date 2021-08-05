@@ -23,6 +23,7 @@
         <slot name="dropdown-options" :options="data"></slot>
       </div>
     </div>
+    <base-tooltip :tooltip="tooltip"></base-tooltip>
   </div>
 </template>
 
@@ -69,9 +70,14 @@ export default {
   data() {
     return {
       content: "",
+      isValidated: true,
       isShowed: false,
       classNameDropdown: "dropdown",
       classNameDropdownMenu: "dropdown__select dropdown__select--hide",
+      tooltip: {
+        active: false,
+        message: "Không được bỏ trống",
+      },
     };
   },
 
@@ -89,26 +95,14 @@ export default {
     value: {
       immediate: true,
       handler(newVal) {
-        if (newVal === null) this.content = "";
-        let index = _.findIndex(
-          this.data,
-          (item) => item.id.toString() === newVal.toString()
-        );
-
-        if (index !== -1) this.content = this.data[index].label;
-        else this.content = "";
+        this.search(this.data, newVal);
       },
     },
 
     data: {
       deep: true,
       handler(newVal) {
-        let index = _.findIndex(
-          newVal,
-          (item) => item.id.toString() === this.value.toString()
-        );
-
-        if (index !== -1) this.content = this.data[index].label;
+        this.search(newVal, this.valueCLone);
       },
     },
   },
@@ -117,13 +111,37 @@ export default {
     /*
       xử lý sự kiện đóng hoặc mở dropdown.
     */
-
     clickDropdown() {
       this.isShowed = !this.isShowed;
     },
 
     outFocus() {
       this.isShowed = false;
+    },
+
+    /*
+        Validate value đúng theo validation chưa khi Blur
+    */
+    validate() {},
+
+    /*
+      clear tooltip
+    */
+    clearTooltip() {
+      this.tooltip.active = false;
+      this.isValidated = true;
+    },
+
+    search(data, value) {
+      if (value === null) this.content = "";
+      else {
+        let tmp = value;
+        if (typeof value === "number") tmp = value.toString();
+
+        let index = _.findIndex(data, (item) => item.id.toString() === tmp);
+        if (index !== -1) this.content = data[index].label;
+        else this.content = "";
+      }
     },
   },
 };

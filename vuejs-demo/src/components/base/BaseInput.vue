@@ -7,12 +7,18 @@
       </div>
     </div>
     <input
+      ref="input"
       :type="type"
-      :class="icon ? `icon input--icon ${icon} ` : ''"
+      :class="styleInput"
       :value="valueClone"
+      :format="format"
       :placeholder="placeholder"
       @input="onChangeInput"
+      @blur="validate"
+      @focus="focusInput"
     />
+    <span></span>
+    <base-tooltip :tooltip="tooltip"></base-tooltip>
     <div class="input__clear input__clear--hidden">
       <i class="fas fa-times icon icon--16"></i>
     </div>
@@ -22,6 +28,7 @@
 <script>
 import EnumDataType from "@/constants/EnumDataType.js";
 import FormatData from "@/utils/FormatData.js";
+import Validation from "@/utils/Validation.js";
 
 export default {
   name: "base-input",
@@ -33,7 +40,7 @@ export default {
     },
     value: {
       type: [String, Number],
-      required: true,
+      required: false,
       default: "",
     },
     label: {
@@ -65,20 +72,54 @@ export default {
       required: false,
     },
   },
-  
+
   emits: ["handle-input"],
 
   data() {
-    return { valueClone: "" };
+    return {
+      valueClone: "",
+      isValidated: true,
+      styleInput: "",
+      tooltip: {
+        active: false,
+        message: "Không được bỏ trống",
+      },
+    };
   },
 
   watch: {
     value(newVal) {
       this.valueClone = this.formatData(this.format, newVal);
     },
+
+    isValidated: {
+      immediate: true,
+      handler(newVal) {
+        let tmp = `${this.icon ? "icon input--icon" + this.icon : ""} ${
+          newVal ? "" : " input__danger"
+        }`;
+        this.styleInput = tmp;
+      },
+    },
   },
 
   methods: {
+    /*
+      focus input
+    */
+    focusInput() {
+      this.tooltip.active = false;
+      this.$refs.input.focus();
+    },
+
+    /*
+      clear tooltip
+    */
+    clearTooltip() {
+      this.tooltip.active = false;
+      this.isValidated = true;
+    },
+    
     /*
       Xử lý thay đổi dữ liệu
     */
@@ -106,6 +147,25 @@ export default {
       }
 
       return value;
+    },
+
+    /*
+        Validate value đúng theo validation chưa khi Blur
+    */
+    validate() {
+      if (this.required === true) {
+        let { isValidated, message } = Validation.validate(
+          this.format,
+          this.valueClone
+        );
+
+        this.tooltip = {
+          active: !isValidated,
+          message,
+        };
+
+        this.isValidated = isValidated;
+      }
     },
   },
 };
