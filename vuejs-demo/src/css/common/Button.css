@@ -46,12 +46,10 @@
 
 .btn.btn--secondary:hover {
   background-color: var(--color-bg-hover);
-  border: none;
 }
 
 .btn:active {
   background-color: var(--color-primary);
-  border: none;
 }
 
 .btn.btn--danger:active {
@@ -61,7 +59,6 @@
 
 .btn.btn--secondary:active {
   background-color: var(--color-primary);
-  border: none;
   color: var(--color-white);
 }
 

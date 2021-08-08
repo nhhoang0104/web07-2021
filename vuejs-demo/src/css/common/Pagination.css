@@ -8,15 +8,44 @@
   box-sizing: border-box;
 }
 
-.pagination__left {
+.pagination .pagination__left {
   font-size: 10px;
 }
 
-.pagination__right {
+.pagination .pagination__right {
   font-size: 10px;
 }
 
-.pagination__center {
+.pagination .pagination__right select {
+  padding: 5px;
+  height: 30px;
+  font-family: "GoogleSans";
+  border-radius: 5px;
+  border: none;
+  border: 1px solid var(--color-white);
+  box-sizing: border-box;
+}
+
+.pagination .pagination__right select:focus-visible {
+  outline: none;
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+}
+
+.pagination .pagination__right select:active {
+  border: 1px solid #bbb;
+  box-sizing: border-box;
+}
+
+.pagination .pagination__right select option {
+  padding: 5px;
+  height: 30px;
+  font-family: "GoogleSans";
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.pagination .pagination__center {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

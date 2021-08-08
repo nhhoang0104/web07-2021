@@ -13,6 +13,9 @@
           "
           @onclick="preRemoveEmployee"
         >
+          <div style="margin-right:8px">
+            <i class="icon icon--13 far fa-trash-alt"></i>
+          </div>
           <div class="text text--color-white text--center">
             Xóa nhân viên
           </div>

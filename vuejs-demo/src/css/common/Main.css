@@ -11,6 +11,10 @@ body {
   margin: 0px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .rotate--180 {
   transform: rotateZ(180deg);
 }

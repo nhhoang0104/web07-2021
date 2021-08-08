@@ -6,6 +6,7 @@
 
 <script>
 export default {
+  name: "base-tooltip",
   props: {
     tooltip: {
       type: Object,

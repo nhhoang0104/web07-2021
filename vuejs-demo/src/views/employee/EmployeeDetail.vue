@@ -8,9 +8,9 @@
         </div>
       </template>
       <template #body>
-        <div style="width:25%">
+        <div style="width:25%; padding-right:10px;box-sizing: border-box">
           <div class="dialog__avatar"></div>
-          <div style="text-align:center">
+          <div class="text text--placeholder text--center">
             (Vui lòng chọn ảnh có định dạng .jpg, .jpeg,.png, .gif. )
           </div>
         </div>
@@ -209,6 +209,7 @@
                 :data="workStatus"
                 id="WorkStatus"
                 ref="WorkStatus"
+                className="dropdown__select--top"
               >
                 <template #dropdown-options="{options}">
                   <dropdown-option
@@ -275,10 +276,15 @@ export default {
   watch: {
     isShowed(newVal) {
       if (newVal === true) {
+        // Clear dialog and auto focus vào input nhập mã nhân viên
+
         this.clearDialog();
+        this.$refs.EmployeeCode.focusInput();
+
         if (this.formMode === 1) {
           this.getNewEmployeeCode();
         }
+
         if (this.formMode === 0) {
           this.getEmployeeInfo();
         }
@@ -374,4 +380,4 @@ export default {
 };
 </script>
 
-<style lang="css"></style>
+<style lang="css" scoped></style>

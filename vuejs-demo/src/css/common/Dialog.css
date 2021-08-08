@@ -7,6 +7,8 @@
   transform: translate(-50%, -50%);
   width: 900px;
   height: calc(100vh - 100px);
+  min-height: 600px;
+  max-height: 850px;
   border-radius: 5px;
   background-color: var(--color-white);
   box-sizing: border-box;
@@ -37,13 +39,14 @@
 }
 
 .dialog .dialog__body {
-  height: calc(100vh - 234px); /*100 10 10 54 60*/
+  height: calc(100% - 134px); /*74 60*/
+  min-height: 426px;
+  max-height: 716px;
   display: flex;
   padding-left: 10px;
   padding-right: 10px;
   box-sizing: border-box;
   overflow: auto;
-  z-index: 1;
 }
 
 .dialog .dialog__body .dialog__avatar {

@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div :class="className">
     <div class="header__left">
       <div class="header__left__text">
         <div class="text text--title">Nhà hàng Biển Đông</div>
@@ -22,6 +22,12 @@
 <script>
 export default {
   name: "the-header",
+  props: {
+    className: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 

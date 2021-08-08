@@ -17,6 +17,7 @@ table thead th {
 
 table tr {
   height: 48px;
+  background-color: var(--color-white);
 }
 
 table td {
@@ -42,10 +43,6 @@ table th:nth-last-child(1) {
 
 table tbody tr {
   cursor: pointer;
-}
-
-table tbody tr:nth-child(odd) {
-  background-color: var(--color-bg-hover);
 }
 
 table tbody tr:hover {

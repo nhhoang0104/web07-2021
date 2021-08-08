@@ -86,6 +86,7 @@ export default {
         if (tmp) this.textSearch = tmp.label;
       },
     },
+    
     textSearch(newVal) {
       const text = _.trim(newVal);
 

@@ -8,6 +8,11 @@
   border-right: 1px solid var(--color-border-cus);
   box-sizing: border-box;
   float: left;
+  transition: 0.2s all ease-in-out;
+}
+
+.menu.menu--minimize {
+  width: 50px;
 }
 
 .menu .menu__header {
@@ -15,6 +20,7 @@
   height: 48px;
   display: flex;
   align-items: center;
+  transition: 0.2s all ease-in-out;
 }
 
 .menu .menu__header .menu__header__toggle {
@@ -24,6 +30,8 @@
   background-image: url("../../assets/img/toggle.png");
   background-size: contain;
   background-repeat: no-repeat;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
 }
 
 .menu .menu__header .menu__header__logo {
@@ -46,6 +54,7 @@
   align-items: center;
   cursor: pointer;
   box-sizing: border-box;
+  transition: 0.2s all ease-in-out;
 }
 
 .menu .menu__content .menu__item .menu__item__icon {
@@ -67,11 +76,20 @@
   font-family: "GoogleSans";
 }
 
-.menu .menu__content .menu__item:focus {
+.menu .menu__content .menu__item.menu__item--active {
   background-color: var(--color-primary-default);
 }
 
-.menu .menu__content .menu__item:focus .menu__item__text {
+.menu .menu__content .menu__item.menu__item--active .menu__item__text {
+  color: #fff;
+  font-family: "GoogleSans-Medium";
+}
+
+.menu .menu__content .menu__item.menu__item--active:hover {
+  background-color: var(--color-primary-default);
+}
+
+.menu .menu__content .menu__item.menu__item--active:hover .menu__item__text {
   color: #fff;
   font-family: "GoogleSans-Medium";
 }

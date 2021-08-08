@@ -1,14 +1,17 @@
 <template>
-  <div class="page">
-    <EmployeeList />
+  <div :class="className">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import EmployeeList from "../views/employee/EmployeeList.vue";
-
 export default {
-  components: { EmployeeList },
+  props: {
+    className: {
+      type: String,
+      required: true,
+    },
+  },
 };
 </script>
 

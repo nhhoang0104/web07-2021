@@ -1,7 +1,7 @@
 <template>
   <div class="pagination">
     <div class="pagination__left">
-      <div>Hiển thị 1-10/1000 nhân viên</div>
+      <div>Hiển thị <b>1-10/1000</b> nhân viên</div>
     </div>
     <div class="pagination__center">
       <base-button className="color-bg padding-left--10 padding-right--10">
@@ -44,7 +44,7 @@
       </base-button>
     </div>
     <div class="pagination__right">
-      <div>10 nhân viên/trang</div>
+      10 nhân viên/trang
     </div>
   </div>
 </template>
@@ -62,11 +62,13 @@ export default {
 @import url("../../css/common/Margin.css");
 @import url("../../css/common/Icon.css");
 .color-bg {
-  background-color: var(--color-white);
+  background-color: var(--color-bg-hover);
+  border-color: #bbb;
 }
 
 div.btn:hover {
-  background-color: var(--color-bg-hover);
+  background-color: var(--color-white);
+  border: none;
 }
 
 div.btn:active {

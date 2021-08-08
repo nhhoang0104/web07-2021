@@ -1,3 +1,4 @@
+import moment from "moment";
 export default class FormatData {
   /*
     định dạng ngày tháng năm để render lên table
@@ -6,12 +7,7 @@ export default class FormatData {
   static formatDate(date) {
     if (!date) return "";
 
-    let tmp = new Date(date);
-
-    let day = `${tmp.getDate() > 9 ? "" : "0"}${tmp.getDate()}`;
-    let month = `${tmp.getMonth() > 8 ? "" : "0"}${tmp.getMonth() + 1}`;
-
-    return `${day}/${month}/${tmp.getFullYear()}`;
+    return moment(new Date(date)).format("DD/MM/YYYY");
   }
 
   /*
@@ -20,12 +16,8 @@ export default class FormatData {
 
   static formatDateInput(date) {
     if (!date) return null;
-    var tmp = new Date(date);
 
-    var day = ("0" + tmp.getDate()).slice(-2);
-    var month = ("0" + (tmp.getMonth() + 1)).slice(-2);
-
-    return tmp.getFullYear() + "-" + month + "-" + day;
+    return moment(new Date(date)).format("YYYY-MM-DD");
   }
 
   /*

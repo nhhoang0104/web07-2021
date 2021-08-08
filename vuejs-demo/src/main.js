@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import router from "./router";
 import App from "./App.vue";
 
 const app = createApp(App);
@@ -7,7 +8,7 @@ import {
   BaseTable,
   BaseTableHead,
   BaseTableBody,
-} from "./components/base/table";
+} from "@/components/base/table";
 import { BaseDropdown, BaseDropdownOption } from "@/components/base/dropdown";
 import { BaseComboBox, BaseComboBoxOption } from "@/components/base/comboBox";
 import { BaseButton } from "@/components/base/button";
@@ -20,30 +21,32 @@ import BaseDialog from "@/components/base/BaseDialog.vue";
 import BaseLoader from "@/components/base/BaseLoader.vue";
 import BaseTooltip from "@/components/base/BaseTooltip.vue";
 
-app.component("base-loader", BaseLoader);
+app.use(router);
 
-app.component("base-table", BaseTable);
-app.component("base-table-head", BaseTableHead);
-app.component("base-table-body", BaseTableBody);
+app.component(BaseLoader.name, BaseLoader);
 
-app.component("dropdown", BaseDropdown);
-app.component("dropdown-option", BaseDropdownOption);
+app.component(BaseTable.name, BaseTable);
+app.component(BaseTableHead.name, BaseTableHead);
+app.component(BaseTableBody.name, BaseTableBody);
 
-app.component("combo-box", BaseComboBox);
-app.component("combo-box-option", BaseComboBoxOption);
+app.component(BaseDropdown.name, BaseDropdown);
+app.component(BaseDropdownOption.name, BaseDropdownOption);
 
-app.component("base-button", BaseButton);
+app.component(BaseComboBox.name, BaseComboBox);
+app.component(BaseComboBoxOption.name, BaseComboBoxOption);
 
-app.component("base-modal", BaseModal);
-app.component("base-popup", BasePopup);
+app.component(BaseButton.name, BaseButton);
 
-app.component("base-tooltip", BaseTooltip);
-app.component("base-input", BaseInput);
+app.component(BaseModal.name, BaseModal);
+app.component(BasePopup.name, BasePopup);
 
-app.component("base-toast-message", BaseToastMessage);
+app.component(BaseTooltip.name, BaseTooltip);
+app.component(BaseInput.name, BaseInput);
 
-app.component("base-dialog", BaseDialog);
+app.component(BaseToastMessage.name, BaseToastMessage);
 
-app.component("base-pagination", BasePagination);
+app.component(BaseDialog.name, BaseDialog);
+
+app.component(BasePagination.name, BasePagination);
 
 app.mount("#app");

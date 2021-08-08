@@ -15,7 +15,7 @@
 import BaseTableBodyTr from "./BaseTableBodyTr";
 
 export default {
-  name: "base-table-tbody",
+  name: "base-table-body",
   components: {
     "tr-cus": BaseTableBodyTr,
   },

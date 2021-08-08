@@ -1,5 +1,5 @@
 <template>
-  <div class="input">
+  <div class="input" :tabindex="tabIndex">
     <div class="input__label" v-show="label">
       {{ label }}
       <div class="input__label__required" v-if="required">
@@ -7,15 +7,16 @@
       </div>
     </div>
     <input
-      ref="input"
+      ref="focusMe"
       :type="type"
       :class="styleInput"
       :value="valueClone"
       :format="format"
       :placeholder="placeholder"
+      :max="`${type === 'date' ? '2100-12-31' : null}`"
       @input="onChangeInput"
       @blur="validate"
-      @focus="focusInput"
+      @focus="clearTool"
     />
     <span></span>
     <base-tooltip :tooltip="tooltip"></base-tooltip>
@@ -38,38 +39,51 @@ export default {
       type: String,
       required: true,
     },
+
     value: {
       type: [String, Number],
       required: false,
       default: "",
     },
+
     label: {
       type: String,
       required: false,
     },
+
     type: {
       type: String,
       required: false,
       default: EnumDataType.TEXT,
     },
+
     format: {
       type: String,
       required: false,
       default: EnumDataType.TEXT,
     },
+
     icon: {
       type: String,
       required: false,
     },
+
     placeholder: {
       type: String,
       default: "",
       required: false,
     },
+
     required: {
       type: Boolean,
       default: false,
       required: false,
+    },
+
+    tabIndex: {
+      type: Number,
+      required: false,
+      default: 1,
     },
   },
 
@@ -105,11 +119,18 @@ export default {
 
   methods: {
     /*
+      clear tooltip, danger when focus input
+    */
+    clearTool() {
+      this.tooltip.active = false;
+    },
+
+    /*
       focus input
     */
+
     focusInput() {
-      this.tooltip.active = false;
-      this.$refs.input.focus();
+      this.$nextTick(() => this.$refs.focusMe.focus());
     },
 
     /*
@@ -119,7 +140,7 @@ export default {
       this.tooltip.active = false;
       this.isValidated = true;
     },
-    
+
     /*
       Xử lý thay đổi dữ liệu
     */
@@ -138,12 +159,12 @@ export default {
       định dạng dữ liệu
     */
     formatData(type, value) {
-      if (type === EnumDataType.DATE) {
-        return FormatData.formatDateInput(value);
-      }
-
       if (type === EnumDataType.MONEY) {
         return FormatData.formatMoney(value);
+      }
+
+      if (type === EnumDataType.DATE) {
+        return FormatData.formatDateInput(value);
       }
 
       return value;

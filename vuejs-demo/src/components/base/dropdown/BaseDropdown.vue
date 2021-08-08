@@ -9,6 +9,7 @@
     <div
       :class="classNameDropdown"
       @click="clickDropdown"
+      @keydown.enter="clickDropdown"
       @blur="outFocus"
       tabindex="0"
     >
@@ -50,14 +51,20 @@ export default {
     },
 
     value: {
-      type: [String, Number, null],
+      type: [String, Number],
       required: true,
-      default: null,
+      default: "",
     },
 
     data: {
       type: Array,
       required: true,
+    },
+
+    className: {
+      type: String,
+      required: false,
+      default: "",
     },
   },
 
@@ -88,7 +95,7 @@ export default {
         this.classNameDropdownMenu = "dropdown__select dropdown__select--hide";
       } else {
         this.classNameDropdown = "dropdown dropdown--active";
-        this.classNameDropdownMenu = "dropdown__select ";
+        this.classNameDropdownMenu = "dropdown__select " + this.className;
       }
     },
 
@@ -102,7 +109,7 @@ export default {
     data: {
       deep: true,
       handler(newVal) {
-        this.search(newVal, this.valueCLone);
+        this.search(newVal, this.value);
       },
     },
   },
@@ -133,14 +140,19 @@ export default {
     },
 
     search(data, value) {
-      if (value === null) this.content = "";
-      else {
-        let tmp = value;
-        if (typeof value === "number") tmp = value.toString();
+      try {
+        if (value === null || value === undefined) this.content = "";
+        else {
+          let tmp = value;
+          if (typeof value === "number") tmp = value.toString();
 
-        let index = _.findIndex(data, (item) => item.id.toString() === tmp);
-        if (index !== -1) this.content = data[index].label;
-        else this.content = "";
+          let index = _.findIndex(data, (item) => item.id === tmp);
+
+          if (index !== -1) this.content = data[index].label;
+          else this.content = "";
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
   },
