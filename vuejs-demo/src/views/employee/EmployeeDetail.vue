@@ -3,7 +3,7 @@
     <base-modal :show="isShowed"></base-modal>
     <base-dialog :show="isShowed" @close-form="$emit('show-form', false)">
       <template #header>
-        <div class="text text--heading">
+        <div class="text text--heading padding-top--24">
           THÔNG TIN NHÂN VIÊN
         </div>
       </template>
@@ -128,7 +128,7 @@
             </div>
           </div>
           <div style="padding-bottom:20px; display:inline-block">
-            <div class="text text--title-2">A. THÔNG TIN CÔNG VIỆC:</div>
+            <div class="text text--title-2">B. THÔNG TIN CÔNG VIỆC:</div>
             <div class="separator"></div>
             <div class="dialog__body__item">
               <dropdown
@@ -204,7 +204,7 @@
             </div>
             <div class="dialog__body__item">
               <dropdown
-                label="Trạng tháu công việc"
+                label="Trạng thái công việc"
                 :value="model['WorkStatus']"
                 :data="workStatus"
                 id="WorkStatus"
@@ -234,7 +234,8 @@
           Huỷ
         </div>
         <div class="dialog__footer__btn btn--done" @click="handleSubmit">
-          Lưu
+          <i class="icon icon--13 far fa-save padding-right--8"></i>
+          <div>Lưu</div>
         </div>
       </template>
     </base-dialog>

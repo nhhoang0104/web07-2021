@@ -1,9 +1,8 @@
 table {
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0;
   width: 100%;
   font-size: 13px;
-  padding-right: 30px;
-  box-sizing: border-box;
 }
 
 table thead th {
@@ -52,6 +51,10 @@ table tbody tr:hover {
 table tbody tr:active td {
   background-color: #01b075;
   color: #fff;
+}
+
+table tbody tr[checked="true"] {
+  background-color: #ebf9f4;
 }
 
 ::-webkit-scrollbar {

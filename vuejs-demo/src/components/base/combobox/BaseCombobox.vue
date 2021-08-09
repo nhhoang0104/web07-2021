@@ -1,7 +1,12 @@
 <template>
   <div :class="classNameComboBox" @blur="outFocus" tabindex="0">
     <div class="combo-box__label">
-      <input type="text" @focus="onFocusInput" v-model="textSearch" />
+      <input
+        type="text"
+        @focus="onFocusInput"
+        @blur="outFocusInput"
+        v-model="textSearch"
+      />
     </div>
     <div
       class="combo-box__toggle"
@@ -86,7 +91,7 @@ export default {
         if (tmp) this.textSearch = tmp.label;
       },
     },
-    
+
     textSearch(newVal) {
       const text = _.trim(newVal);
 
@@ -100,6 +105,7 @@ export default {
       }
     },
   },
+
   computed: {
     /*
       Tìm kiếm các option theo text search từ dataClone.
@@ -124,11 +130,26 @@ export default {
     show() {
       this.isShowed = !this.isShowed;
     },
+    /*
+      xử lý outfocus vào combobox
+    */
 
     outFocus() {
       this.isShowed = false;
     },
 
+    /*
+      xử lý outfocus vào input 
+    */
+    outFocusInput() {
+      setTimeout(() => {
+        this.isShowed = false;
+      }, 100);
+    },
+
+    /*
+      xử lý focus vào input
+    */
     onFocusInput() {
       this.isShowed = true;
     },

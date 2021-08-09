@@ -1,5 +1,5 @@
 <template>
-  <tr :id="data.id">
+  <tr :id="data.id" :checked="data.checked ? true : false">
     <td>
       <div class="container">
         <input type="checkbox" :checked="data.checked ? true : false" />

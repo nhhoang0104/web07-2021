@@ -6,6 +6,10 @@
   color: var(--color-black);
 }
 
+.text.text-body-content {
+  color: var(--color-body-content);
+}
+
 .text.text--color-white {
   color: var(--color-white);
 }

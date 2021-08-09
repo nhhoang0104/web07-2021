@@ -18,21 +18,13 @@
 }
 
 .pop-up .pop-up__close {
-  padding: 2px;
-  box-sizing: border-box;
   height: 24px;
   width: 24px;
-  padding: 5px;
-  border-bottom-left-radius: 5px;
-  border-top-right-radius: 5px;
-  text-align: center;
+  box-sizing: border-box;
   float: right;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   cursor: pointer;
-}
-
-.pop-up .pop-up__close i {
-  font-size: 20px;
-  color: #454545;
 }
 
 .pop-up .pop-up__close:hover {

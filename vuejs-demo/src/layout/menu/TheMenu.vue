@@ -1,9 +1,5 @@
 <template>
   <div class="menu" :class="isMinimize ? 'menu--minimize' : ''">
-    <div class="menu__header">
-      <div class="menu__header__toggle" @click="minimize"></div>
-      <div class="menu__header__logo" v-show="!isMinimize"></div>
-    </div>
     <div class="menu__content">
       <menu-item
         v-for="item in content"
@@ -35,8 +31,6 @@ export default {
     },
   },
 
-  emits: ["minimize"],
-
   data() {
     // Thêm thuộc tính active cho MenuItem
     let tmp = _.cloneDeep(MenuModel).map((item) => {
@@ -48,11 +42,6 @@ export default {
   },
 
   methods: {
-    // thu nhỏ Menu
-    minimize() {
-      this.$emit("minimize");
-    },
-
     // chọn menu item
     selectMenuItem(id) {
       this.content = _.cloneDeep(MenuModel).map((item) => {

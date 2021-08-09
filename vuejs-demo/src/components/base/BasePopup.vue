@@ -2,7 +2,7 @@
   <base-modal :show="popup.isShowed"></base-modal>
   <div :class="className">
     <div class="pop-up__close" @click="this.$emit('show', false)">
-      <i class="fas fa-times"></i>
+      <div class="icon icon--close icon--24"></div>
     </div>
     <div class="pop-up__header">{{ popup.title }}</div>
     <div class="pop-up__content">

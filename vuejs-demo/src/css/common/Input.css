@@ -82,8 +82,8 @@ input[format="money"] {
 
 input[format="money"] + span::after {
   position: absolute;
-  content: "VND";
+  content: "(VND)";
   right: 10px;
-  top: 35px;
+  top: 32.5px;
   color: #000;
 }

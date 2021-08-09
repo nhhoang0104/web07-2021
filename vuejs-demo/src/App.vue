@@ -1,9 +1,7 @@
 <template>
   <div>
-    <the-menu :isMinimize="isMinimize" @minimize="minimizeMenu"></the-menu>
-    <the-header
-      :className="isMinimize ? 'header header--minimize' : 'header'"
-    ></the-header>
+    <the-header className="header" @minimize="minimizeMenu"></the-header>
+    <the-menu :isMinimize="isMinimize"></the-menu>
     <the-content
       :className="isMinimize ? 'page page--minimize' : 'page'"
     ></the-content>
@@ -22,11 +20,13 @@ export default {
     "the-menu": TheMenu,
     "the-content": TheContent,
   },
+  
   data() {
     return {
       isMinimize: false,
     };
   },
+
   methods: {
     minimizeMenu() {
       this.isMinimize = !this.isMinimize;

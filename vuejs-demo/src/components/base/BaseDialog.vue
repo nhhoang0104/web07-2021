@@ -2,7 +2,7 @@
   <div class="dialog" v-show="show">
     <div class="dialog__header">
       <div class="dialog__header__close" @click="$emit('close-form')">
-        <i class="fas fa-times icon icon--24"></i>
+        <div class="icon icon--close icon--24"></div>
       </div>
       <slot name="header"></slot>
     </div>
