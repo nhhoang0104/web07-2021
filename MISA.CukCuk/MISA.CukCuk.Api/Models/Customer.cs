@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Api.Models
 {
-    public class Customer
+    public class Customer:Entity
     {
         #region Property
 
@@ -58,6 +58,37 @@ namespace MISA.CukCuk.Api.Models
         /// Số điện thoại
         /// </summary>
         public string PhoneNumber { get; set; }
+
+        /// <summary>
+        /// Id của nhóm khách hàng
+        /// </summary>
+        public Guid CustomerGroupId { get; set; }
+
+        /// <summary>
+        /// Tiền lương
+        /// </summary>
+        public string DebitAmount { get; set; }
+
+        /// <summary>
+        /// Mã thẻ thành viên
+        /// </summary>
+        public string MemberCardCode { get; set; }
+
+        /// <summary>
+        /// Tên công ty
+        /// </summary>
+        public string CompanyName { get; set; }
+
+        /// <summary>
+        /// Mã số thuế công ty
+        /// </summary>
+
+        public string CompanyTaxCode { get; set; }
+
+        /// <summary>
+        /// Trạng thái công việc trong công ty: đang làm hoặc dừng
+        /// </summary>
+        public bool IsStopFollow { get; set; }
 
         #endregion
     }

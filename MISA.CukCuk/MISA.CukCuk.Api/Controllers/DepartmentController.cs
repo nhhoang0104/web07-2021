@@ -13,10 +13,10 @@ namespace MISA.CukCuk.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class DepartmentController : ControllerBase
     {
         [HttpGet]
-        public IActionResult getCustomers()
+        public IActionResult getAll()
         {
             var connectionString = "Host = 47.241.69.179;" +
                 "Database = MISA.CukCuk_Demo_NVMANH;" +
@@ -25,34 +25,31 @@ namespace MISA.CukCuk.Api.Controllers
 
             IDbConnection dbConnection = new MySqlConnection(connectionString);
 
-            var sqlCommand = "Select * from Customer";
-            var customers = dbConnection.Query<Customer>(sqlCommand);
+            var sqlCommand = "SELECT * FROM Department";
+            var departments = dbConnection.Query<Department>(sqlCommand);
 
-            var response = StatusCode(200, customers);
+            var response = StatusCode(200, departments);
             return response;
         }
 
-        [HttpGet("{customerId}")]
-        public IActionResult getById(Guid customerId)
+        [HttpGet("{id}")]
+        public IActionResult getById(Guid id)
         {
             var connectionString = "Host = 47.241.69.179;" +
-                "Database = MISA.CukCuk_Demo_NVMANH;" +
-                "User Id = dev;" +
-                "Password = 12345678";
+               "Database = MISA.CukCuk_Demo_NVMANH;" +
+               "User Id = dev;" +
+               "Password = 12345678";
 
             IDbConnection dbConnection = new MySqlConnection(connectionString);
 
-            var sqlCommand = "Select * from Customer WHERE CustomerId = @CustomerIdParam";
-            DynamicParameters parameters = new DynamicParameters();
-            parameters.Add("@CustomerIdParam", customerId);
+            var sqlCommand = "SELECT * FROM Department WHERE DepartmentId = @DepartmentIdParam";
+            DynamicParameters parameter = new DynamicParameters();
+            parameter.Add("@DepartmentIdParam", id);
 
-            var customers = dbConnection.QueryFirstOrDefault<Customer>(sqlCommand, parameters);
-          
+            var department = dbConnection.QueryFirstOrDefault<Department>(sqlCommand, parameter);
 
-            var response = StatusCode(200, customers);
+            var response = StatusCode(200, department);
             return response;
         }
-
-
     }
 }
