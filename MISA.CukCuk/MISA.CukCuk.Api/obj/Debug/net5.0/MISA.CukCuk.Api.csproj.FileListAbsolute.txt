@@ -29,3 +29,5 @@ E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\ref\MISA.CukCuk.Api.d
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.pdb
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.genruntimeconfig.cache
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.csproj.AssemblyReference.cache
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.Properties.Resources.resources
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.csproj.GenerateResource.cache

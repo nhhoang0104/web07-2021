@@ -12,7 +12,7 @@ namespace MISA.CukCuk.Api.Models
         /// <summary>
         /// Khóa chính
         /// </summary>
-        public Guid DepartmentID { get; set; }
+        public Guid DepartmentId { get; set; }
 
         /// <summary>
         /// Mã phòng ban

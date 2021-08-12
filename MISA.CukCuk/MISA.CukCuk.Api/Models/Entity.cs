@@ -12,7 +12,7 @@ namespace MISA.CukCuk.Api.Models
         /// <summary>
         /// Nggày tạo
         /// </summary>
-        public string CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
         /// <summary>
         /// Người tạo
@@ -22,7 +22,7 @@ namespace MISA.CukCuk.Api.Models
         /// <summary>
         /// Ngày chỉnh sửa
         /// </summary>
-        public string ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
         /// <summary>
         /// Người chỉnh sửa
