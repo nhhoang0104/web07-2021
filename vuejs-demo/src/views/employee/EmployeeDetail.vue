@@ -350,8 +350,11 @@ export default {
 
       Object.keys(this.$refs).forEach((el) => {
         this.$refs[el].validate();
-        if (!this.$refs[el].isValidated)
+        if (!this.$refs[el].isValidated) {
+          if (isValidated === true) this.$refs[el].focusInput();
+
           isValidated = this.$refs[el].isValidated;
+        }
       });
 
       if (isValidated) {

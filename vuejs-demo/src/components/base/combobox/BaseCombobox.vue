@@ -28,6 +28,7 @@
 import _ from "lodash";
 export default {
   name: "combo-box",
+
   props: {
     value: {
       type: String,
@@ -42,11 +43,13 @@ export default {
       required: true,
     },
   },
+
   provide() {
     return {
       pkey: this.$props.id,
     };
   },
+
   data() {
     return {
       isShowed: false,
@@ -54,8 +57,10 @@ export default {
       classNameComboBoxMenu: "combo-box__select combo-box__select--hide",
       dataClone: _.cloneDeep(this.data),
       textSearch: "",
+      valueSelected: "",
     };
   },
+
   watch: {
     /*
       Xử lý style combobox khi đóng(hoặc mở) combobox
@@ -71,6 +76,7 @@ export default {
         this.classNameComboBoxMenu = "combo-box__select";
       }
     },
+
     data: {
       deep: true,
       handler(newVal) {
@@ -123,6 +129,7 @@ export default {
       }
     },
   },
+
   methods: {
     /*
       xử lý sự kiện đóng hoặc mở combo-box.
@@ -142,6 +149,9 @@ export default {
       xử lý outfocus vào input 
     */
     outFocusInput() {
+      let tmp = this.dataClone.find((item) => item.id === this.value);
+      this.textSearch = tmp.label;
+
       setTimeout(() => {
         this.isShowed = false;
       }, 100);

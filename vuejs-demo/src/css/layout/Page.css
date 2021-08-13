@@ -1,5 +1,6 @@
 .page {
   width: calc(100% - 220px);
+  height: calc(100vh - 48px);
   background-color: var(--color-bg-hover);
   float: left;
   transition: 0.2s all ease-in-out;

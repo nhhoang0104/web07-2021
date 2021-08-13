@@ -34,6 +34,7 @@ export default {
   },
   emits: ["close"],
   watch: {
+    // set css cho loại type toast
     type: {
       immediate: true,
       handler(newVal) {
@@ -48,6 +49,8 @@ export default {
         }
       },
     },
+
+    //đóng mở toast
     isShowed(newVal) {
       if (newVal === true) {
         setTimeout(() => {

@@ -4,6 +4,7 @@
     :value="value"
     :checked="checked"
     @click="selectItem(value)"
+    @keydown="keydown"
   >
     <div class="dropdown__option__check">
       <i class="fas fa-check icon icon--13"></i>
@@ -39,6 +40,18 @@ export default {
 
     selectItem(value) {
       this.$emit("select-item", { key: this.pkey, id: value });
+    },
+
+    keydown(event) {
+      if (event.code === "ArrowUp") {
+        event.preventDefault();
+        console.log(1);
+      }
+
+      if (event.code === "ArrowDown") {
+        event.preventDefault();
+        console.log(1);
+      }
     },
   },
 };

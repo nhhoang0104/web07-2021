@@ -11,6 +11,6 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 @import url("../../../css/common/Table.css");
 </style>

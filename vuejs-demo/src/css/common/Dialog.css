@@ -6,9 +6,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 900px;
-  height: calc(100vh - 100px);
-  min-height: 600px;
-  max-height: 850px;
+  height: 400px;
   border-radius: 5px;
   background-color: var(--color-white);
   box-sizing: border-box;
@@ -38,12 +36,9 @@
 }
 
 .dialog .dialog__body {
-  height: calc(100% - 124px); /*74 60*/
-  min-height: 436px;
-  max-height: 726px;
   display: flex;
   padding-left: 10px;
-
+  height: 276px;
   box-sizing: border-box;
   overflow: auto;
 }
@@ -116,4 +111,34 @@
 .dialog .dialog__footer .dialog__footer__btn.btn--done {
   color: #fff;
   background-color: var(--color-primary);
+}
+
+@media screen and (min-height: 400px) {
+  .dialog {
+    height: 400px;
+  }
+
+  .dialog .dialog__body {
+    height: 276px; /*64 + 60*/
+  }
+}
+
+@media screen and (min-height: 620px) {
+  .dialog {
+    height: 600px;
+  }
+
+  .dialog .dialog__body {
+    height: 476px; /*64 + 60*/
+  }
+}
+
+@media screen and (min-height: 850px) {
+  .dialog {
+    max-height: 804px;
+  }
+
+  .dialog .dialog__body {
+    max-height: 680px;
+  }
 }

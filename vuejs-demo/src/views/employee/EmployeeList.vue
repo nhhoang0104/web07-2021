@@ -97,6 +97,7 @@
           </template>
         </base-table>
       </div>
+       <div class="scrollbar__hide"></div>
     </div>
     <div class="content__footer">
       <base-pagination></base-pagination>
@@ -273,7 +274,6 @@ export default {
     /*
         Hiện cảnh báo(popup) muốn thực hiện hành đọng hay không
     */
-
     preRemoveEmployee() {
       this.setPopup(
         "Xóa các nhân viên",

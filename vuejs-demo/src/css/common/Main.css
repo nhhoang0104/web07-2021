@@ -19,6 +19,23 @@ a {
   transform: rotateZ(180deg);
 }
 
+button {
+  outline: none;
+  border: none;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: lightgray;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 2.5px;
+  min-height: 50px;
+}
+
 @font-face {
   font-family: "GoogleSans";
   src: url("../../assets/font/GoogleSans-Regular.otf");

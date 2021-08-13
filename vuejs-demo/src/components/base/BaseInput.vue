@@ -102,14 +102,16 @@ export default {
   },
 
   watch: {
+    // format giá trị khi thay đổi
     value(newVal) {
       this.valueClone = this.formatData(this.format, newVal);
     },
 
+    // hiển tooltip khi isValidated === false
     isValidated: {
       immediate: true,
       handler(newVal) {
-        let tmp = `${this.icon ? "icon input--icon" + this.icon : ""} ${
+        let tmp = `${this.icon ? "icon input--icon " + this.icon : ""} ${
           newVal ? "" : " input__danger"
         }`;
         this.styleInput = tmp;

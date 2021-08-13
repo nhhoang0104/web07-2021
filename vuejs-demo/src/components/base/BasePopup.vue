@@ -37,6 +37,7 @@ export default {
   emits: ["show"],
 
   watch: {
+    // đóng mở popup
     popup: {
       deep: true,
       immediate: true,

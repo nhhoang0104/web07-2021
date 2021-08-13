@@ -10,17 +10,18 @@
       :class="classNameDropdown"
       @click="clickDropdown"
       @keydown.enter="clickDropdown"
+      @keydown="keydown"
       @blur="outFocus"
       tabindex="0"
     >
-      <div class="dropdown__content">{{ content }}</div>
+      <div class="dropdown__content">{{ getLabel }}</div>
       <div class="dropdown__toggle">
         <i
           class="fas fa-chevron-down icon icon--16"
           :class="isShowed ? 'rotate--180' : ''"
         ></i>
       </div>
-      <div :class="classNameDropdownMenu">
+      <div :class="classNameDropdownMenu" ref="options">
         <slot name="dropdown-options" :options="data"></slot>
       </div>
     </div>
@@ -98,19 +99,21 @@ export default {
         this.classNameDropdownMenu = "dropdown__select " + this.className;
       }
     },
+  },
 
-    value: {
-      immediate: true,
-      handler(newVal) {
-        this.search(this.data, newVal);
-      },
-    },
+  computed: {
+    // lấy nhãn từ giá trị
+    getLabel() {
+      if (this.value === null || this.value === undefined) return "";
+      else {
+        let tmp = this.value;
+        if (typeof this.value === "number") tmp = this.value.toString();
 
-    data: {
-      deep: true,
-      handler(newVal) {
-        this.search(newVal, this.value);
-      },
+        let index = _.findIndex(this.data, (item) => item.id === tmp);
+
+        if (index !== -1) return this.data[index].label;
+        return "";
+      }
     },
   },
 
@@ -139,6 +142,7 @@ export default {
       this.isValidated = true;
     },
 
+    //ghép
     search(data, value) {
       try {
         if (value === null || value === undefined) this.content = "";
@@ -153,6 +157,13 @@ export default {
         }
       } catch (error) {
         console.log(error);
+      }
+    },
+
+    keydown(event) {
+      if (event.code === "ArrowDown") {
+        event.preventDefault();
+        console.log(this.$refs.options);
       }
     },
   },

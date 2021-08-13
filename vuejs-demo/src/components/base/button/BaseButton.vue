@@ -1,11 +1,13 @@
 <template>
-  <div
+  <button
+    type="button"
     class="btn"
     :class="[className, circle ? 'btn--circle' : '']"
     @click="$emit('onclick')"
+    :disabled="disable"
   >
     <slot></slot>
-  </div>
+  </button>
 </template>
 
 <script>
@@ -17,6 +19,10 @@ export default {
       default: "",
     },
     circle: {
+      type: Boolean,
+      default: false,
+    },
+    disable: {
       type: Boolean,
       default: false,
     },

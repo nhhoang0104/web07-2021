@@ -1,11 +1,11 @@
-table {
+.content table {
   border-collapse: separate;
   border-spacing: 0;
   width: 100%;
   font-size: 13px;
 }
 
-table thead th {
+.content table thead th {
   position: sticky;
   top: 0px;
   background-color: #fff;
@@ -14,59 +14,47 @@ table thead th {
   z-index: 1;
 }
 
-table tr {
+.content table tr {
   height: 48px;
   background-color: var(--color-white);
 }
 
-table td {
+.content table td {
   min-width: 100px;
   white-space: nowrap;
   border-bottom: 1px solid #c5c5c5;
   padding-right: 25px;
 }
 
-table th:nth-child(1) {
+.content table th:nth-child(1) {
   padding-left: 10px;
   min-width: 20px;
 }
 
-table td:nth-child(1) {
+.content table td:nth-child(1) {
   padding-left: 10px;
   min-width: 20px;
 }
 
-table th:nth-last-child(1) {
+.content table th:nth-last-child(1) {
   padding-right: 0px;
 }
 
-table tbody tr {
+.content table tbody tr {
   cursor: pointer;
 }
 
-table tbody tr:hover {
+.content table tbody tr:hover {
   background-color: var(--color-bg);
 }
 
-table tbody tr:active td {
+.content table tbody tr:active td {
   background-color: #01b075;
   color: #fff;
 }
 
-table tbody tr[checked="true"] {
+.content table tbody tr[checked="true"] {
   background-color: #ebf9f4;
-}
-
-::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-  background-color: lightgray;
-  border-radius: 2.5px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: grey;
-  border-radius: 2.5px;
 }
 
 .container {

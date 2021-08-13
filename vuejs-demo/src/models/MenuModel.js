@@ -26,7 +26,7 @@ export const MenuModel = [
   {
     id: 5,
     link: "/customers",
-    text: "Danh mục cá nhân",
+    text: "Danh mục khách hàng",
     iconName: "icon--dic-employee",
   },
   {
