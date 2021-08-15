@@ -213,13 +213,6 @@ namespace MISA.CukCuk.Api.Controllers
         [HttpPost]
         public IActionResult insert(Customer customer)
         {
-
-            // Validate cac truong
-            if (customer.CustomerCode != null || customer.CustomerCode.Trim() != "")
-            {
-            }
-
-
             try
             {
                 // 3. Khai báo Dynamic Parameters

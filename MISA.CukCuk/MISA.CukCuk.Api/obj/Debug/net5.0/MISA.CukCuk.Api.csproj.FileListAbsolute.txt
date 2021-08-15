@@ -31,3 +31,7 @@ E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.genru
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.csproj.AssemblyReference.cache
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.Properties.Resources.resources
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\obj\Debug\net5.0\MISA.CukCuk.Api.csproj.GenerateResource.cache
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Core.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Core.pdb
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.pdb

@@ -1,0 +1,15 @@
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.csproj.AssemblyReference.cache
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.AssemblyInfoInputs.cache
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.AssemblyInfo.cs
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.csproj.CoreCompileInputs.cache
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.deps.json
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\bin\Debug\net5.0\ref\MISA.CukCuk.Infrastructure.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.pdb
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\bin\Debug\net5.0\MISA.CukCuk.Core.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\bin\Debug\net5.0\MISA.CukCuk.Core.pdb
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.csproj.CopyComplete
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\ref\MISA.CukCuk.Infrastructure.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Infrastructure\obj\Debug\net5.0\MISA.CukCuk.Infrastructure.pdb

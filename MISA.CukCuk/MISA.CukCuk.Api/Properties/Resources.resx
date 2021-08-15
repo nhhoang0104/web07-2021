@@ -123,6 +123,9 @@
   <data name="Email_ErrorMsg" xml:space="preserve">
     <value>Email không đúng định dạng</value>
   </data>
+  <data name="EmployeeCodeExists_ErrMsg" xml:space="preserve">
+    <value>Trùng mã nhân viên</value>
+  </data>
   <data name="EmployeeCode_ErrorMsg" xml:space="preserve">
     <value>Thiếu mã nhân viên</value>
   </data>

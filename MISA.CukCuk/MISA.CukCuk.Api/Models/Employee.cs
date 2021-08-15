@@ -25,14 +25,14 @@ namespace MISA.CukCuk.Api.Models
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Ho ten day du
-        /// </summary>
-        public string FullName { get; set; }
-
-        /// <summary>
         /// Họ 
         /// </summary>
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Ho ten day du
+        /// </summary>
+        public string FullName { get; set; }
 
         /// <summary>
         /// Địa chỉ
@@ -83,7 +83,6 @@ namespace MISA.CukCuk.Api.Models
         /// 
         /// </summary>
         public int? MartialStatus { get; set; }
-
 
         /// <summary>
         /// Chất lượng

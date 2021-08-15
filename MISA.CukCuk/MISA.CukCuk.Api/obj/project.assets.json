@@ -90,6 +90,31 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "MISA.CukCuk.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/MISA.CukCuk.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MISA.CukCuk.Core.dll": {}
+        }
+      },
+      "MISA.CukCuk.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Dapper": "2.0.90",
+          "MISA.CukCuk.Core": "1.0.0",
+          "MySqlConnector": "1.3.11"
+        },
+        "compile": {
+          "bin/placeholder/MISA.CukCuk.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MISA.CukCuk.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -258,11 +283,23 @@
         "swashbuckle.aspnetcore.swaggerui.6.1.5.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "MISA.CukCuk.Core/1.0.0": {
+      "type": "project",
+      "path": "../MISA.CukCuk.Core/MISA.CukCuk.Core.csproj",
+      "msbuildProject": "../MISA.CukCuk.Core/MISA.CukCuk.Core.csproj"
+    },
+    "MISA.CukCuk.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../MISA.CukCuk.Infrastructure/MISA.CukCuk.Infrastructure.csproj",
+      "msbuildProject": "../MISA.CukCuk.Infrastructure/MISA.CukCuk.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "Dapper >= 2.0.90",
+      "MISA.CukCuk.Core >= 1.0.0",
+      "MISA.CukCuk.Infrastructure >= 1.0.0",
       "MySqlConnector >= 1.3.11",
       "Swashbuckle.AspNetCore >= 6.1.5"
     ]
@@ -293,7 +330,14 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "E:\\Web2021_07\\MISA.CukCuk\\MISA.CukCuk.Core\\MISA.CukCuk.Core.csproj": {
+              "projectPath": "E:\\Web2021_07\\MISA.CukCuk\\MISA.CukCuk.Core\\MISA.CukCuk.Core.csproj"
+            },
+            "E:\\Web2021_07\\MISA.CukCuk\\MISA.CukCuk.Infrastructure\\MISA.CukCuk.Infrastructure.csproj": {
+              "projectPath": "E:\\Web2021_07\\MISA.CukCuk\\MISA.CukCuk.Infrastructure\\MISA.CukCuk.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

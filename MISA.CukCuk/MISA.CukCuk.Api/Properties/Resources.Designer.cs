@@ -88,6 +88,15 @@ namespace MISA.CukCuk.Api.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Trùng mã nhân viên.
+        /// </summary>
+        public static string EmployeeCodeExists_ErrMsg {
+            get {
+                return ResourceManager.GetString("EmployeeCodeExists_ErrMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Có lỗi xảy ra, vui lòng liên hệ misa.
         /// </summary>
         public static string Exception_ErrorMsg {
