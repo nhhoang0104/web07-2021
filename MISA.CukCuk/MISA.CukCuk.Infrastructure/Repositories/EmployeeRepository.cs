@@ -9,18 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.CukCuk.Infrastructure.Respositories
+namespace MISA.CukCuk.Infrastructure.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository : BaseRepository<Employee>, IEmployeeRepository
     {
-        private IDbConnection _dbConnection;
-        private string config = "Host=47.241.69.179;Database=MISA.CukCuk_NHHoang;User Id=dev;Password=12345678";
-        public EmployeeRepository()
-        {
-            this._dbConnection = new MySqlConnection(config);
-        }
-
-        public List<Employee> Get(string employeeFilter, Guid? departmentId, Guid? positionId, int pageSize, int pageIndex)
+        public List<Employee> GetByFilterPaging(string employeeFilter, Guid? departmentId, Guid? positionId, int pageSize, int pageIndex)
         {
             DynamicParameters parameters = new DynamicParameters();
 
@@ -37,83 +30,16 @@ namespace MISA.CukCuk.Infrastructure.Respositories
             return (List<Employee>)employees;
         }
 
-        public Employee GetById(Guid id)
-        {
-            DynamicParameters param = new DynamicParameters();
+        public bool CheckEmployeeCodeExists(string employeeCode)
+        {   
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@EmployeeCode", employeeCode);
 
-            param.Add("@EmployeeId", id);
+            var isValid = this._dbConnection.Execute("Proc_CheckEmployeeCodeExists", dynamicParameters, commandType: CommandType.StoredProcedure);
 
-            var empployee = this._dbConnection.QueryFirstOrDefault<Employee>("Proc_GetEmployeeById", param: param, commandType: CommandType.StoredProcedure);
+            if (isValid == 1) return true;
 
-            return empployee;
-        }
-
-        public int Add(Employee employee)
-        {
-            var parameters = new DynamicParameters();
-
-            // Đọc từng properties:
-            var props = employee.GetType().GetProperties();
-
-            // Duyệt từng properties:
-            foreach (var prop in props)
-            {
-                // Lấy tên của prop:
-                var propName = prop.Name;
-
-                // Lấy giá trị của prop trong đối tượng:
-                var propValue = prop.GetValue(employee);
-
-                // Lấy kiểu dữ liệu của prop:
-                var propType = prop.GetType();
-
-                // Thêm param tương ứng với mỗi prop của đối tượng:
-                parameters.Add($"@{propName}", propValue);
-            }
-
-            var rowEffect = this._dbConnection.Execute("Proc_InsertEmployee", param: parameters, commandType: CommandType.StoredProcedure);
-
-            return rowEffect;
-        }
-
-        public int Update(Guid id, Employee employee)
-        {
-            var parameters = new DynamicParameters();
-            employee.EmployeeId = id;
-
-            // Đọc từng properties:
-            var props = employee.GetType().GetProperties();
-            
-            // Duyệt từng properties:
-            foreach (var prop in props)
-            {
-                // Lấy tên của prop:
-                var propName = prop.Name;
-
-                // Lấy giá trị của prop trong đối tượng:
-                var propValue = prop.GetValue(employee);
-
-                // Lấy kiểu dữ liệu của prop:
-                var propType = prop.GetType();
-
-                // Thêm param tương ứng với mỗi prop của đối tượng:
-                parameters.Add($"@{propName}", propValue);
-            }
-
-            var rowEffect = this._dbConnection.Execute("Proc_UpdateEmployee", param: parameters, commandType: CommandType.StoredProcedure);
-
-            return rowEffect;
-        }
-
-        public int Delete(Guid id)
-        {
-            DynamicParameters param = new DynamicParameters();
-
-            param.Add("@EmployeeId", id);
-
-            var rowEffect = this._dbConnection.Execute("Proc_DeleteEmployeeById", param: param, commandType: CommandType.StoredProcedure);
-
-            return rowEffect;
+            return false;
         }
     }
 }

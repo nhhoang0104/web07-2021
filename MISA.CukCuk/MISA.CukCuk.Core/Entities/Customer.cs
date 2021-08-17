@@ -1,36 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
-namespace MISA.CukCuk.Api.Models
+namespace MISA.CukCuk.Core.Entities
 {
-    public class Employee : Entity
+    public class Customer
     {
         #region Property
 
         /// <summary>
         /// Khóa chính
         /// </summary>
-        public Guid EmployeeId { get; set; }
+        public Guid CustomerId { get; set; }
 
         /// <summary>
-        /// Mã nhân viên
+        /// Mã Khách hàng
         /// </summary>
-        public string EmployeeCode { get; set; }
+        public string CustomerCode { get; set; }
 
         /// <summary>
-        /// Tên và đệm 
+        /// Tên và đệm
         /// </summary>
         public string FirstName { get; set; }
 
         /// <summary>
-        /// Họ 
+        /// Họ
         /// </summary>
         public string LastName { get; set; }
 
         /// <summary>
-        /// Ho ten day du
+        /// Tên đầy đủ
         /// </summary>
         public string FullName { get; set; }
 
@@ -60,59 +61,35 @@ namespace MISA.CukCuk.Api.Models
         public string PhoneNumber { get; set; }
 
         /// <summary>
-        /// CMTND hoặc CCCD
+        /// Id của nhóm khách hàng
         /// </summary>
-        public string IdentityNumber { get; set; }
+        public Guid CustomerGroupId { get; set; }
 
         /// <summary>
-        /// Ngày làm CMDTND hoắc CCCD
+        /// Tiền lương
         /// </summary>
-        public DateTime? IdentityDate { get; set; }
+        public string DebitAmount { get; set; }
 
         /// <summary>
-        /// Nơi làm CMTND hoắc CCCD
+        /// Mã thẻ thành viên
         /// </summary>
-        public string IdentityPlace { get; set; }
+        public string MemberCardCode { get; set; }
 
         /// <summary>
-        /// Ngày gia nhập công ty
+        /// Tên công ty
         /// </summary>
-        public DateTime? JoinDate { get; set; }
+        public string CompanyName { get; set; }
 
         /// <summary>
-        /// 
+        /// Mã số thuế công ty
         /// </summary>
-        public int? MartialStatus { get; set; }
+
+        public string CompanyTaxCode { get; set; }
 
         /// <summary>
-        /// Chất lượng
+        /// Trạng thái công việc trong công ty: đang làm hoặc dừng
         /// </summary>
-        public Guid? QualificationId { get; set; }
-
-        /// <summary>
-        /// Id phòng ban
-        /// </summary>
-        public Guid? DepartmentId { get; set; }
-
-        /// <summary>
-        /// Id vị tri
-        /// </summary>
-        public Guid? PositionId { get; set; }
-
-        /// <summary>
-        /// Trạng thái công việc
-        /// </summary>
-        public int? WorkStatus { get; set; }
-
-        /// <summary>
-        /// Mã số thuế
-        /// </summary>
-        public string PersonalTaxCode { get; set; }
-        
-        /// <summary>
-        /// Tiền lương 
-        /// </summary>
-        public double Salary { get; set; }
+        public bool IsStopFollow { get; set; }
 
         #endregion
     }

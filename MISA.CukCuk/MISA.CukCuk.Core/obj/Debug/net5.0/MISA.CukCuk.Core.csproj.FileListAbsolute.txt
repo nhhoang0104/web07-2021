@@ -10,3 +10,5 @@ E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Core\obj\Debug\net5.0\MISA.CukCuk.Core.csp
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Core\obj\Debug\net5.0\MISA.CukCuk.Core.dll
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Core\obj\Debug\net5.0\ref\MISA.CukCuk.Core.dll
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Core\obj\Debug\net5.0\MISA.CukCuk.Core.pdb
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Core\obj\Debug\net5.0\MISA.CukCuk.Core.Resources.ErrorMessage.resources
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Core\obj\Debug\net5.0\MISA.CukCuk.Core.csproj.GenerateResource.cache

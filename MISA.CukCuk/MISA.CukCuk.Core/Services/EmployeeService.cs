@@ -9,17 +9,24 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Core.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class EmployeeService : BaseService<Employee>, IEmployeeService
     {
         private IEmployeeRepository _employeeRepository;
-        private ServiceResult _serviceResult;
-        public EmployeeService(IEmployeeRepository employeeResponsitory)
+        public EmployeeService(IBaseRepository<Employee> baseRepository, IEmployeeRepository employeeResponsitory) : base(baseRepository)
         {
             this._employeeRepository = employeeResponsitory;
-            this._serviceResult = new ServiceResult();
         }
 
-        public ServiceResult Get(string employeeFilter, Guid? departmentId, Guid? positionId, int pageSize, int pageIndex)
+        /// <summary>
+        /// Lấy danh sách nhân viên theo bộ lọc và phân trang
+        /// </summary>
+        /// <param name="employeeFilter"></param>
+        /// <param name="departmentId">id phòng ban</param>
+        /// <param name="positionId">id vị trí</param>
+        /// <param name="pageSize">số phần tử trên trang</param>
+        /// <param name="pageIndex">id trang</param>
+        /// <returns></returns>
+        public ServiceResult GetByFilterPaging(string employeeFilter, Guid? departmentId, Guid? positionId, int pageSize, int pageIndex)
         {
             var tmp = string.Empty;
 
@@ -28,35 +35,54 @@ namespace MISA.CukCuk.Core.Services
                 tmp = employeeFilter;
             };
 
-            this._serviceResult.Data = this._employeeRepository.Get(tmp, departmentId, positionId, pageSize, pageIndex);
+            this._serviceResult.Data = this._employeeRepository.GetByFilterPaging(tmp, departmentId, positionId, pageSize, pageIndex);
             return this._serviceResult;
         }
 
-        public ServiceResult GetById(Guid id)
+        protected override bool ValidateCustom(Employee employee)
         {
-            this._serviceResult.Data = this._employeeRepository.GetById(id);
+            if (!CommonValidate.ValidateCommon(employee.EmployeeCode))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.EmployeeCode_ErrorMsg;
 
-            return this._serviceResult;
+                return false;
+            }
+
+            if (this._employeeRepository.CheckEmployeeCodeExists(employee.EmployeeCode))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.EmployeeCodeExists_ErrMsg;
+
+                return false;
+            }
+
+            if (!CommonValidate.ValidateCommon(employee.FullName))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.FullName_ErrorMsg;
+
+                return false;
+            }
+
+            if (!CommonValidate.ValidateCommon(employee.PhoneNumber))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.PhoneNumber_ErrorMsg;
+
+                return false;
+            }
+
+            if (!CommonValidate.ValidateCommon(employee.Email) && !CommonValidate.ValidateEmail(employee.Email))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.Email_ErrorMsg;
+
+                return false;
+            }
+
+            return base.ValidateCustom(employee);
         }
 
-        public ServiceResult Add(Employee employee)
-        {
-            this._serviceResult.Data = this._employeeRepository.Add(employee);
-
-            return this._serviceResult;
-        }
-
-        public ServiceResult Update(Guid id, Employee employee)
-        {
-            this._serviceResult.Data = this._employeeRepository.Update(id, employee);
-            return this._serviceResult;
-        }
-
-        public ServiceResult Delete(Guid id)
-        {
-            this._serviceResult.Data = this._employeeRepository.Delete(id);
-            return this._serviceResult;
-        }
     }
-
 }

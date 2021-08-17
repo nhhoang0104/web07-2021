@@ -27,13 +27,13 @@ namespace MISA.CukCuk.Api.Controllers
         /// <param name="positionId">id vị trí</param>
         /// <param name="pageSize">kích cỡ trang</param>
         /// <param name="pageIndex">index trang</param>
-        /// <returns></returns>
+        /// <returns>danh sách nhân viên</returns>
         [HttpGet]
         public IActionResult Get([FromQuery] string employeeFilter, [FromQuery] Guid? departmentId, [FromQuery] Guid? positionId, [FromQuery] int pageSize, [FromQuery] int pageIndex)
         {
             try
             {
-                var serviceResult = _employeeService.Get(employeeFilter, departmentId, positionId, pageSize, pageIndex);
+                var serviceResult = _employeeService.GetByFilterPaging(employeeFilter, departmentId, positionId, pageSize, pageIndex);
 
                 if (serviceResult.IsValid == true)
                 {
@@ -59,8 +59,13 @@ namespace MISA.CukCuk.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Lấy thông tin nhân viên theo id
+        /// </summary>
+        /// <param name="id">id nhân viên</param>
+        /// <returns>thông tin nhân viên</returns>
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public IActionResult GetById(string id)
         {
             try
             {
@@ -72,7 +77,7 @@ namespace MISA.CukCuk.Api.Controllers
                 }
                 else
                 {
-                    return BadRequest(serviceResult);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception e)
@@ -90,6 +95,11 @@ namespace MISA.CukCuk.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Thêm mới nhân viên
+        /// </summary>
+        /// <param name="employee">thông tin nhân viên</param>
+        /// <returns>1 -  Thêm thành công</returns>
         [HttpPost]
         public IActionResult Add(Employee employee)
         {
@@ -121,8 +131,14 @@ namespace MISA.CukCuk.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Cập nhật thông tin nhân viên
+        /// </summary>
+        /// <param name="id">id nhân viên</param>
+        /// <param name="employee">thông tin nhân viên</param>
+        /// <returns>1 - Cập nhật nhân viên thành công</returns>
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, Employee employee)
+        public IActionResult Update(string id, Employee employee)
         {
             try
             {
@@ -134,7 +150,7 @@ namespace MISA.CukCuk.Api.Controllers
                 }
                 else
                 {
-                    return BadRequest(serviceResult);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception e)
@@ -152,8 +168,13 @@ namespace MISA.CukCuk.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Xóa nhân viên
+        /// </summary>
+        /// <param name="id">id nhân viên</param>
+        /// <returns>1 - Xóa thành công</returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(string id)
         {
             try
             {
@@ -165,7 +186,7 @@ namespace MISA.CukCuk.Api.Controllers
                 }
                 else
                 {
-                    return BadRequest(serviceResult);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception e)

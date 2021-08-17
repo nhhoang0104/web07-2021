@@ -24,7 +24,7 @@ namespace MISA.CukCuk.Api.Controllers
         {
             try
             {
-                var serviceResult = this._positionService.Get();
+                var serviceResult = this._positionService.GetAll();
 
                 if (serviceResult.IsValid == true)
                 {
@@ -51,7 +51,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public IActionResult GetById(string id)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace MISA.CukCuk.Api.Controllers
                 }
                 else
                 {
-                    return BadRequest(serviceResult);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception e)
@@ -82,8 +82,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-
-        public IActionResult Delete(Guid id)
+        public IActionResult Delete(string id)
         {
             try
             {
@@ -95,7 +94,7 @@ namespace MISA.CukCuk.Api.Controllers
                 }
                 else
                 {
-                    return BadRequest(serviceResult);
+                    return BadRequest(serviceResult.Data);
                 }
             }
             catch (Exception e)

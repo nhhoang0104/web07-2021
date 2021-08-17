@@ -7,12 +7,8 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Core.Interfaces.Services
 {
-    public interface IDepartmentService
+    public interface IDepartmentService : IBaseService<Department>
     {
-        ServiceResult Get();
-        ServiceResult GetById(Guid id);
-        ServiceResult Add(Department department);
-        ServiceResult Update(Guid id, Department department);
-        ServiceResult Delete(Guid id);
+
     }
 }

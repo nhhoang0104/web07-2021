@@ -7,16 +7,10 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Core.Interfaces.Repositories
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeRepository:IBaseRepository<Employee>
     {
-        List<Employee> Get(string employeeFilter, Guid? departmentId, Guid? positionId, Int32 pageSize, Int32 pageIndex);
+        List<Employee> GetByFilterPaging(string employeeFilter, Guid? departmentId, Guid? positionId, Int32 pageSize, Int32 pageIndex);
 
-        Employee GetById(Guid id);
-
-        Int32 Add(Employee employee);
-
-        Int32 Update(Guid id, Employee employee);
-
-        Int32 Delete(Guid id);
+        bool CheckEmployeeCodeExists(string employeeCode);
     }
 }

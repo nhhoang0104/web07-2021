@@ -7,12 +7,7 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Core.Interfaces.Services
 {
-    public interface IPositionService
+    public interface IPositionService : IBaseService<Position>
     {
-        ServiceResult Get();
-        ServiceResult GetById(Guid id);
-        ServiceResult Add(Position position);
-        ServiceResult Update(Guid id, Position position);
-        ServiceResult Delete(Guid id);
     }
 }
