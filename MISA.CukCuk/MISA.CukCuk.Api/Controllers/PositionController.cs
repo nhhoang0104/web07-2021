@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MISA.CukCuk.Core.Entities;
 using MISA.CukCuk.Core.Interfaces.Services;
 using System;
 using System.Collections.Generic;
@@ -8,108 +9,13 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Api.Controllers
 {
-    [Route("api/v1/[controller]s")]
-    [ApiController]
-    public class PositionController : ControllerBase
+    public class PositionController : BaseController<Position>
     {
         IPositionService _positionService;
 
-        public PositionController(IPositionService positionService)
+        public PositionController(IBaseService<Position> baseService,IPositionService positionService):base(baseService)
         {
             this._positionService = positionService;
-        }
-
-        [HttpGet]
-        public IActionResult Get()
-        {
-            try
-            {
-                var serviceResult = this._positionService.GetAll();
-
-                if (serviceResult.IsValid == true)
-                {
-                    return StatusCode(200, serviceResult.Data);
-                }
-                else
-                {
-                    return BadRequest(serviceResult);
-                }
-            }
-            catch (Exception e)
-            {
-                var errObj = new
-                {
-                    devMsg = e.Message,
-                    userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
-                    errorCode = "misa-001",
-                    moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
-                    traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
-                };
-
-                return StatusCode(500, errObj);
-            }
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult GetById(string id)
-        {
-            try
-            {
-                var serviceResult = this._positionService.GetById(id);
-
-                if (serviceResult.IsValid == true)
-                {
-                    return StatusCode(200, serviceResult.Data);
-                }
-                else
-                {
-                    return BadRequest(serviceResult.Data);
-                }
-            }
-            catch (Exception e)
-            {
-                var errObj = new
-                {
-                    devMsg = e.Message,
-                    userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
-                    errorCode = "misa-001",
-                    moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
-                    traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
-                };
-
-                return StatusCode(500, errObj);
-            }
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult Delete(string id)
-        {
-            try
-            {
-                var serviceResult = this._positionService.Delete(id);
-
-                if (serviceResult.IsValid == true)
-                {
-                    return StatusCode(200, serviceResult.Data);
-                }
-                else
-                {
-                    return BadRequest(serviceResult.Data);
-                }
-            }
-            catch (Exception e)
-            {
-                var errObj = new
-                {
-                    devMsg = e.Message,
-                    userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
-                    errorCode = "misa-001",
-                    moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
-                    traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
-                };
-
-                return StatusCode(500, errObj);
-            }
         }
     }
 }
