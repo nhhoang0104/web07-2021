@@ -79,7 +79,7 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thiếu mã nhân viên.
+        ///   Looks up a localized string similar to Mã nhân viên không được phép trống.
         /// </summary>
         internal static string EmployeeCode_ErrorMsg {
             get {
@@ -106,24 +106,6 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Tên đầy đủ không được phép trống.
-        /// </summary>
-        internal static string FullName_ErrorMsg {
-            get {
-                return ResourceManager.GetString("FullName_ErrorMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CMTND/ CCCD không được phép trống.
-        /// </summary>
-        internal static string IdentityNumber_ErrorMsg {
-            get {
-                return ResourceManager.GetString("IdentityNumber_ErrorMsg", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ID không hợp lệ.
         /// </summary>
         internal static string IDInvalid_ErrorMsg {
@@ -133,11 +115,11 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Số điện thoại không được trống.
+        ///   Looks up a localized string similar to Các trường bắt buộc không phép để trống.
         /// </summary>
-        internal static string PhoneNumber_ErrorMsg {
+        internal static string PropRequired_ErrorMsg {
             get {
-                return ResourceManager.GetString("PhoneNumber_ErrorMsg", resourceCulture);
+                return ResourceManager.GetString("PropRequired_ErrorMsg", resourceCulture);
             }
         }
     }

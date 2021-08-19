@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.CukCuk.Core.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Core.Entities
 {
-    public class Employee:BaseEnitiy
+    public class Employee : BaseEnitiy
     {
         #region Property
 
@@ -18,6 +19,7 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Mã nhân viên
         /// </summary>
+        [MISARequired]
         public string EmployeeCode { get; set; }
 
         /// <summary>
@@ -28,6 +30,7 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Ho ten day du
         /// </summary>
+        [MISARequired]
         public string FullName { get; set; }
 
         /// <summary>
@@ -53,16 +56,19 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Email
         /// </summary>
+        [MISARequired]
         public string Email { get; set; }
 
         /// <summary>
         /// Số điện thoại
         /// </summary>
+        [MISARequired]
         public string PhoneNumber { get; set; }
 
         /// <summary>
         /// CMTND hoặc CCCD
         /// </summary>
+        [MISARequired]
         public string IdentityNumber { get; set; }
 
         /// <summary>
@@ -119,6 +125,26 @@ namespace MISA.CukCuk.Core.Entities
         /// Tiền lương 
         /// </summary>
         public double Salary { get; set; }
+
+        /// <summary>
+        /// Tên phòng ban
+        /// </summary>
+        public string DepartmentName { get; set; }
+
+        /// <summary>
+        /// Mã phòng ban
+        /// </summary>
+        public string DepartmentCode { get; set; }
+
+        /// <summary>
+        /// Tên vị trí
+        /// </summary>
+        public string PositionName { get; set; }
+
+        /// <summary>
+        /// Mã vị trí
+        /// </summary>
+        public string PositionCode { get; set; }
 
         #endregion
     }

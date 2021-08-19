@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using MISA.CukCuk.Core.Entities;
 using MISA.CukCuk.Core.Interfaces.Repositories;
 using MySqlConnector;
@@ -13,6 +14,9 @@ namespace MISA.CukCuk.Infrastructure.Repositories
 {
     public class PositionRepository : BaseRepository<Position>, IPositionRepository
     {
+        public PositionRepository(IConfiguration configuration) : base(configuration)
+        {
 
+        }
     }
 }

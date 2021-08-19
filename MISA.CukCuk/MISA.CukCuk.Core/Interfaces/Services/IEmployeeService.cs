@@ -19,5 +19,21 @@ namespace MISA.CukCuk.Core.Interfaces.Services
         /// <param name="pageIndex">id trang</param>
         /// <returns></returns>
         ServiceResult GetByFilterPaging(string employeeFilter, Guid? departmentId, Guid? positionId, Int32 pageSize, Int32 pageIndex);
+
+        /// <summary>
+        /// Kiểm tra mã nhân viên đã tồn tại chưa ?
+        /// </summary>
+        /// <param name="EmployeeCode">mã nhân viên</param>
+        /// <returns>
+        /// true - tồn tại
+        /// false - chưa
+        /// </returns>
+        ServiceResult CheckEmployeeCodeExists(string EmployeeCode);
+
+        /// <summary>
+        /// Lấy mã nhân viên mới
+        /// </summary>
+        /// <returns></returns>
+        ServiceResult GetNewEmployeeCode();
     }
 }

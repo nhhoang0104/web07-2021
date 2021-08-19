@@ -12,7 +12,7 @@ namespace MISA.CukCuk.Api.Controllers
     public class EmployeeController : BaseController<Employee>
     {
         IEmployeeService _employeeService;
-        public EmployeeController(IBaseService<Employee> baseService,IEmployeeService employeeService):base(baseService)
+        public EmployeeController(IEmployeeService employeeService) : base(employeeService)
         {
             this._employeeService = employeeService;
         }
@@ -56,6 +56,75 @@ namespace MISA.CukCuk.Api.Controllers
                 return StatusCode(500, errObj);
             }
         }
-    
+
+        /// <summary>
+        /// Kiểm tra trùng mã nhân viên
+        /// </summary>
+        /// <param name="employeeCode">mã nhân viên</param>
+        /// <returns></returns>
+        [HttpGet("CheckEmployeeExists/{employeeCode}")]
+        public IActionResult CheckEmployeeExists(string employeeCode)
+        {
+            try
+            {
+                var serviceResult = this._employeeService.CheckEmployeeCodeExists(employeeCode);
+                if (!serviceResult.IsValid)
+                {
+                    var errObj = new
+                    {
+                        devMsg = serviceResult.Messager,
+                        userMsg = serviceResult.Messager,
+                        errorCode = "misa-001",
+                        moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
+                        traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
+                    };
+
+                    return BadRequest(errObj);
+                }
+
+                return StatusCode(200, serviceResult.Data);
+            }
+            catch (Exception e)
+            {
+                var errObj = new
+                {
+                    devMsg = e.Message,
+                    userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
+                    errorCode = "misa-001",
+                    moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
+                    traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
+                };
+
+                return StatusCode(500, errObj);
+            }
+        }
+
+        /// <summary>
+        /// Lấy mã nhân viên mới
+        /// </summary>
+        /// <returns>mã nhân viên mới</returns>
+        [HttpGet("NewEmployeeCode")]
+        public IActionResult GetNewEmployeeCode()
+        {
+            try
+            {
+                var serviceResult = this._employeeService.GetNewEmployeeCode();
+
+                return StatusCode(200, serviceResult.Data);
+            }
+            catch (Exception e)
+            {
+                var errObj = new
+                {
+                    devMsg = e.Message,
+                    userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
+                    errorCode = "misa-001",
+                    moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
+                    traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
+                };
+
+                return StatusCode(500, errObj);
+            }
+        }
     }
 }

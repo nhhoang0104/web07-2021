@@ -1,4 +1,5 @@
-﻿using MISA.CukCuk.Core.Entities;
+﻿using MISA.CukCuk.Core.Attributes;
+using MISA.CukCuk.Core.Entities;
 using MISA.CukCuk.Core.Interfaces.Repositories;
 using MISA.CukCuk.Core.Interfaces.Services;
 using System;
@@ -20,12 +21,7 @@ namespace MISA.CukCuk.Core.Services
             this._serviceResult = new ServiceResult();
         }
 
-        /// <summary>
-        /// Thêm mới
-        /// </summary>
-        /// <param name="entity">thông tin</param>
-        /// <returns></returns>
-        public ServiceResult Add(MISAEntity entity)
+        public virtual ServiceResult Add(MISAEntity entity)
         {
             if (!this.ValidateData(entity)) return this._serviceResult;
 
@@ -36,24 +32,6 @@ namespace MISA.CukCuk.Core.Services
             return this._serviceResult;
         }
 
-        /// <summary>
-        /// Xóa theo id
-        /// </summary>
-        /// <param name="id">id</param>
-        /// <returns></returns>
-        public ServiceResult Delete(string id)
-        {
-            if (!this.ValidateId(id)) return this._serviceResult;
-
-            this._serviceResult.Data = this._baseRepository.Delete(Guid.Parse(id));
-
-            return this._serviceResult;
-        }
-
-        /// <summary>
-        /// Lấy tât cả
-        /// </summary>
-        /// <returns>danh sách</returns>
         public ServiceResult GetAll()
         {
             this._serviceResult.Data = this._baseRepository.GetAll();
@@ -61,11 +39,6 @@ namespace MISA.CukCuk.Core.Services
             return this._serviceResult;
         }
 
-        /// <summary>
-        /// Lấy theo id
-        /// </summary>
-        /// <param name="id">id</param>
-        /// <returns>thông tin</returns>
         public ServiceResult GetById(string id)
         {
             if (!this.ValidateId(id)) return this._serviceResult;
@@ -75,13 +48,7 @@ namespace MISA.CukCuk.Core.Services
             return this._serviceResult;
         }
 
-        /// <summary>
-        /// cập nhật thông tin
-        /// </summary>
-        /// <param name="id">id</param>
-        /// <param name="entity">thông tin</param>
-        /// <returns></returns>
-        public ServiceResult Update(string id, MISAEntity entity)
+        public virtual ServiceResult Update(string id, MISAEntity entity)
         {
             if (!this.ValidateId(id)) return this._serviceResult;
 
@@ -90,6 +57,21 @@ namespace MISA.CukCuk.Core.Services
             if (!this.ValidateCustom(entity)) return this._serviceResult;
 
             this._serviceResult.Data = this._baseRepository.Update(Guid.Parse(id), entity);
+
+            return this._serviceResult;
+        }
+
+        public ServiceResult DeleteEntites(List<string> entitiesId)
+        {
+            var tmp = new List<Guid>();
+            foreach (var id in entitiesId)
+            {
+                if (!this.ValidateId(id)) return this._serviceResult;
+
+                tmp.Add(Guid.Parse(id));
+            }
+
+            this._serviceResult.Data = this._baseRepository.DeleteEntities(tmp);
 
             return this._serviceResult;
         }
@@ -112,20 +94,43 @@ namespace MISA.CukCuk.Core.Services
             {
                 this._serviceResult.IsValid = false;
 
-                this._serviceResult.Messager = "Id không hợp lệ";
+                this._serviceResult.Messager = Resources.ErrorMessage.IDInvalid_ErrorMsg;
             }
 
             return isGuid;
         }
 
         /// <summary>
-        /// validate chung các trường trong thông tin
+        /// validate chung các trường trong thông tin bắt buộc
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        private bool ValidateData(MISAEntity entity)
+        protected bool ValidateData(MISAEntity entity)
         {
-            return true;
+            var isValid = true;
+
+            var properties = typeof(MISAEntity).GetProperties();
+
+            foreach (var prop in properties)
+            {
+                var propVal = prop.GetValue(entity);
+                var propName = prop.Name;
+                var propMISARequired = prop.GetCustomAttributes(typeof(MISARequired), true);
+
+                if (propMISARequired.Length > 0)
+                {
+                    if (prop.PropertyType == typeof(string) && (propName == null || propVal.ToString() == String.Empty))
+                    {
+                        isValid = false;
+                        var nameErrorMsg = $"{propName}_ErrorMsg";
+                        _serviceResult.IsValid = false;
+                        _serviceResult.Messager = Resources.ErrorMessage.PropRequired_ErrorMsg;
+                    }
+                }
+
+            }
+
+            return isValid;
         }
 
         /// <summary>
@@ -137,5 +142,7 @@ namespace MISA.CukCuk.Core.Services
         {
             return true;
         }
+
+
     }
 }

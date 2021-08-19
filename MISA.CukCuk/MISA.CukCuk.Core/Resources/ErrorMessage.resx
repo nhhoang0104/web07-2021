@@ -127,21 +127,15 @@
     <value>Trùng mã nhân viên</value>
   </data>
   <data name="EmployeeCode_ErrorMsg" xml:space="preserve">
-    <value>Thiếu mã nhân viên</value>
+    <value>Mã nhân viên không được phép trống</value>
   </data>
   <data name="Exception_ErrorMsg" xml:space="preserve">
     <value>Có lỗi xảy ra, vui lòng liên hệ misa</value>
   </data>
-  <data name="FullName_ErrorMsg" xml:space="preserve">
-    <value>Tên đầy đủ không được phép trống</value>
-  </data>
-  <data name="IdentityNumber_ErrorMsg" xml:space="preserve">
-    <value>CMTND/ CCCD không được phép trống</value>
-  </data>
   <data name="IDInvalid_ErrorMsg" xml:space="preserve">
     <value>ID không hợp lệ</value>
   </data>
-  <data name="PhoneNumber_ErrorMsg" xml:space="preserve">
-    <value>Số điện thoại không được trống</value>
+  <data name="PropRequired_ErrorMsg" xml:space="preserve">
+    <value>Các trường bắt buộc không phép để trống</value>
   </data>
 </root>

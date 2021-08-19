@@ -35,3 +35,4 @@ E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Core.dll
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.dll
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Core.pdb
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.pdb
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\Newtonsoft.Json.dll

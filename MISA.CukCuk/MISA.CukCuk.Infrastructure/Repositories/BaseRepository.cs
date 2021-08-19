@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using MISA.CukCuk.Core.Interfaces.Repositories;
 using MySqlConnector;
 using System;
@@ -12,16 +13,17 @@ namespace MISA.CukCuk.Infrastructure.Repositories
 {
     public class BaseRepository<MISAEntity> : IBaseRepository<MISAEntity>
     {
-        protected IDbConnection _dbConnection;
-        private const string config = "Host=47.241.69.179;Database=MISA.CukCuk_NHHoang;User Id=dev;Password=12345678";
+        #region Field
+        protected string _connectionString = "Host=47.241.69.179;Database=MISA.CukCuk_NHHoang;User Id=dev;Password=12345678";
         private readonly string _modelName;
+        #endregion
 
-        public BaseRepository()
+        #region Method
+        public BaseRepository(IConfiguration configuration)
         {
-            this._dbConnection = new MySqlConnection(config);
             this._modelName = typeof(MISAEntity).Name;
+            this._connectionString = configuration.GetConnectionString("sqlConnection");
         }
-
 
         public int Add(MISAEntity entity)
         {
@@ -46,9 +48,13 @@ namespace MISA.CukCuk.Infrastructure.Repositories
                 parameters.Add($"@{propName}", propValue);
             }
 
-            var rowEffect = this._dbConnection.Execute($"Proc_Insert{this._modelName}", param: parameters, commandType: CommandType.StoredProcedure);
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var rowEffect = dbConnection.Execute($"Proc_Insert{this._modelName}", param: parameters, commandType: CommandType.StoredProcedure);
 
-            return rowEffect;
+                return rowEffect;
+            }
+
         }
 
         public int Delete(Guid id)
@@ -57,27 +63,37 @@ namespace MISA.CukCuk.Infrastructure.Repositories
 
             param.Add($"@{this._modelName}Id", id);
 
-            var rowEffect = this._dbConnection.Execute($"Proc_Delete{this._modelName}ById", param: param, commandType: CommandType.StoredProcedure);
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var rowEffect = dbConnection.Execute($"Proc_Delete{this._modelName}ById", param: param, commandType: CommandType.StoredProcedure);
 
-            return rowEffect;
+                return rowEffect;
+            }
         }
 
         public List<MISAEntity> GetAll()
         {
-            var entities = this._dbConnection.Query<MISAEntity>($"Proc_Get{this._modelName}s", commandType: CommandType.StoredProcedure);
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var entities = dbConnection.Query<MISAEntity>($"Proc_Get{this._modelName}s", commandType: CommandType.StoredProcedure);
 
-            return (List<MISAEntity>)entities;
+                return (List<MISAEntity>)entities;
+            }
+
         }
 
         public MISAEntity GetById(Guid id)
         {
             DynamicParameters param = new DynamicParameters();
-
             param.Add($"@{this._modelName}Id", id);
 
-            var entity = this._dbConnection.QueryFirstOrDefault<MISAEntity>($"Proc_Get{this._modelName}ById", param: param, commandType: CommandType.StoredProcedure);
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var entity = dbConnection.QueryFirstOrDefault<MISAEntity>($"Proc_Get{this._modelName}ById", param: param, commandType: CommandType.StoredProcedure);
 
-            return entity;
+                return entity;
+            }
+
         }
 
         public int Update(Guid id, MISAEntity entity)
@@ -111,9 +127,38 @@ namespace MISA.CukCuk.Infrastructure.Repositories
 
             }
 
-            var rowEffect = this._dbConnection.Execute($"Proc_Update{this._modelName}", param: parameters, commandType: CommandType.StoredProcedure);
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var rowEffect = dbConnection.Execute($"Proc_Update{this._modelName}", param: parameters, commandType: CommandType.StoredProcedure);
 
-            return rowEffect;
+                return rowEffect;
+            }
+
+
         }
+
+        public Int32 DeleteEntities(List<Guid> entitiesId)
+        {
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var transaction = dbConnection.BeginTransaction();
+                var rowEffect = 0;
+
+                foreach (var id in entitiesId)
+                {
+                    DynamicParameters param = new DynamicParameters();
+
+                    param.Add($"@{this._modelName}Id", id);
+                    rowEffect += dbConnection.Execute($"Proc_Delete{this._modelName}ById", param: param, commandType: CommandType.StoredProcedure);
+                }
+
+                transaction.Commit();
+
+                return rowEffect;
+            }
+        }
+
+        #endregion
+
     }
 }
