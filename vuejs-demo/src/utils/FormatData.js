@@ -1,5 +1,17 @@
 import moment from "moment";
+import EnumGenderName from "@/constants/EnumGenderName";
 export default class FormatData {
+  /*
+    định dạng ten gioi tinh
+  */
+
+  static formatGender(id) {
+    if (id === null) return "";
+
+    let tmp = EnumGenderName.find((item) => item.id === id.toString());
+    return tmp.label;
+  }
+
   /*
     định dạng ngày tháng năm để render lên table
   */

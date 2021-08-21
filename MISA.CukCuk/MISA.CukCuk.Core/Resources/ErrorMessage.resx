@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CustomerCodeExistsInFile" xml:space="preserve">
+    <value>Mã khách hàng trùng trong tập nhập khẩu</value>
+  </data>
   <data name="CustomerCode_ErrorMsg" xml:space="preserve">
     <value>Mã khách hàng không được phép trống</value>
   </data>
@@ -146,6 +149,9 @@
   </data>
   <data name="IDInvalid_ErrorMsg" xml:space="preserve">
     <value>ID không hợp lệ</value>
+  </data>
+  <data name="PhoneNumberExistsInFile" xml:space="preserve">
+    <value>Số điện thoại trùng trong tập nhập khẩu</value>
   </data>
   <data name="PhoneNumberExsist_ErrorMsg" xml:space="preserve">
     <value>Số điện thoại  đã tồn tại trong hệ thống</value>

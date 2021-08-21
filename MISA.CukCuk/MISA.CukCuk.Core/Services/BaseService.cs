@@ -76,6 +76,15 @@ namespace MISA.CukCuk.Core.Services
             return this._serviceResult;
         }
 
+        public ServiceResult DeleteById(string id)
+        {
+            if (!this.ValidateId(id)) return this._serviceResult;
+
+            this._serviceResult.Data = this._baseRepository.Delete(Guid.Parse(id));
+
+            return this._serviceResult;
+        }
+
         /// <summary>
         /// Validate id
         /// </summary>
@@ -143,7 +152,6 @@ namespace MISA.CukCuk.Core.Services
             return true;
         }
 
-
         /// <summary>
         /// kiem tra trung ma
         /// </summary>
@@ -153,5 +161,7 @@ namespace MISA.CukCuk.Core.Services
         {
             return true;
         }
+
+      
     }
 }

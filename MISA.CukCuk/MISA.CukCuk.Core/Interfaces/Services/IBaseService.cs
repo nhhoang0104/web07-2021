@@ -48,5 +48,12 @@ namespace MISA.CukCuk.Core.Interfaces.Services
         /// <param name="id"></param>
         /// <returns></returns>
         ServiceResult DeleteEntites(List<string> entitiesId);
+
+        /// <summary>
+        /// Xoa thuc the theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        ServiceResult DeleteById(string id);
     }
 }

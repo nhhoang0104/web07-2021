@@ -19,9 +19,9 @@ export const columns = [
   },
   {
     label: "Giới tính",
-    id: "GenderName",
+    id: "Gender",
     className: "text text-body-content text--left",
-    format: "text",
+    format: "gender",
   },
   {
     label: "Điện thoại",

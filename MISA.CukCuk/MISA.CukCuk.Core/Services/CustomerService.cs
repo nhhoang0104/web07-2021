@@ -17,9 +17,11 @@ namespace MISA.CukCuk.Core.Services
     public class CustomerService : BaseService<Customer>, ICustomerService
     {
         ICustomerRepository _customerRepository;
-        public CustomerService(IBaseRepository<Customer> baseRepository, ICustomerRepository customerRepository) : base(baseRepository)
+        ICustomerGroupRepository _customerGroupRepository;
+        public CustomerService(IBaseRepository<Customer> baseRepository, ICustomerRepository customerRepository, ICustomerGroupRepository customerGroupRepository) : base(baseRepository)
         {
             this._customerRepository = customerRepository;
+            this._customerGroupRepository = customerGroupRepository;
         }
 
         public ServiceResult Import(IFormFile formFile, CancellationToken cancellationToken)
@@ -130,6 +132,7 @@ namespace MISA.CukCuk.Core.Services
         {
             List<string> customerCodeList = this._customerRepository.GetAllCustomerCode();
             List<string> phoneNumberList = this._customerRepository.GetAllPhoneNumber();
+            List<CustomerGroup> customerGroupList = _customerGroupRepository.GetAll();
             List<string> phoneNumberImportList = new List<string>();
             List<string> customerCodeImportList = new List<string>();
 
@@ -147,12 +150,12 @@ namespace MISA.CukCuk.Core.Services
                 {
                     if (customerCodeList.IndexOf(customer.CustomerCode) != -1)
                     {
-                        customer.StatusImport += ", " + Resources.ErrorMessage.CustometCodeExists_Msg;
+                        customer.StatusImport += Resources.ErrorMessage.CustometCodeExists_Msg + ", ";
                         customer.IsValid = false;
                     }
                     else if (customerCodeImportList.IndexOf(customer.CustomerCode) != -1)
                     {
-                        customer.StatusImport += ", " + Resources.ErrorMessage.CustometCodeExists_Msg;
+                        customer.StatusImport += Resources.ErrorMessage.CustomerCodeExistsInFile + ", ";
                         customer.IsValid = false;
                     }
                     else
@@ -177,7 +180,7 @@ namespace MISA.CukCuk.Core.Services
                     else if (phoneNumberImportList.IndexOf(customer.PhoneNumber) != -1)
                     {
                         customer.IsValid = false;
-                        customer.StatusImport += Resources.ErrorMessage.PhoneNumberExsist_ErrorMsg + ", ";
+                        customer.StatusImport += Resources.ErrorMessage.PhoneNumberExistsInFile + ", ";
                     }
                     else
                     {
@@ -185,14 +188,20 @@ namespace MISA.CukCuk.Core.Services
                     }
                 }
 
-                //Chech ten nhom khach hang
-                var groupCustomerId = this._customerRepository.CheckCustomerGroupNameExists(customer.CustomerGroupName) + ", ";
 
-                if (groupCustomerId == null)
+
+                var customerGroup = customerGroupList.Find(delegate (CustomerGroup item) { return item.CustomerGroupCode == customer.CustomerGroupName; });
+                //Chech ten nhom khach hang
+                if (customerGroup == null)
                 {
                     customer.IsValid = false;
                     customer.StatusImport += Resources.ErrorMessage.CustomerGroupNameExists_ErrroMsg + ", ";
                 }
+                else
+                {
+                    customer.CustomerGroupId = customerGroup.CustomerGroupId;
+                }
+                if (customer.StatusImport != string.Empty) customer.StatusImport = customer.StatusImport.Remove(customer.StatusImport.Length - 2);
             }
 
             return customers;

@@ -32,11 +32,18 @@
              <param name="entity">thông tin thực thể</param>
              <returns></returns>
         </member>
-        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.DeleteEntities(MISA.CukCuk.Core.Entities.RequestBody)">
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.DeleteEntities(System.Collections.Generic.List{System.String})">
             <summary>
             Xóa nhiều theo id
             </summary>
-            <param name="id">danh sách id của entites</param>
+            <param name="entitiesId">danh sách id của entites</param>
+            <returns></returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.DeleteById(System.String)">
+            <summary>
+            Xóa theo id
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:MISA.CukCuk.Api.Controllers.CustomerController.Import(Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">

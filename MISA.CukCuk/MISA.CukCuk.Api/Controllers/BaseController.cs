@@ -213,14 +213,14 @@ namespace MISA.CukCuk.Api.Controllers
         /// <summary>
         /// Xóa nhiều theo id
         /// </summary>
-        /// <param name="id">danh sách id của entites</param>
+        /// <param name="entitiesId">danh sách id của entites</param>
         /// <returns></returns>
         [HttpDelete]
-        public IActionResult DeleteEntities(RequestBody body)
+        public IActionResult DeleteEntities([FromQuery]List<string> entitiesId)
         {
             try
             {
-                var serviceResult = this._baseService.DeleteEntites(body.EntitiesId);
+                var serviceResult = this._baseService.DeleteEntites(entitiesId);
 
                 if (serviceResult.IsValid == true)
                 {
@@ -239,7 +239,67 @@ namespace MISA.CukCuk.Api.Controllers
 
                     return BadRequest(errObj);
                 }
-                return Ok(111);
+            }
+            catch (Exception e)
+            {
+                var errObj = new
+                {
+                    devMsg = e.Message,
+                    userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
+                    errorCode = "misa-001",
+                    moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
+                    traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
+                };
+
+                return StatusCode(500, errObj);
+            }
+        }
+
+        /// <summary>
+        /// Xóa theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(string id)
+        {
+            try
+            {
+                var serviceResult = this._baseService.DeleteById(id);
+
+                if (serviceResult.IsValid == true)
+                {
+                    if ((int)serviceResult.Data > 0)
+                    {
+                        return StatusCode(201, serviceResult.Data);
+                    }
+                    else
+                    {
+                        var errObj = new
+                        {
+                            devMsg = "SQL command error: ADD but RowEffect = 0",
+                            userMsg = "Có lỗi xảy ra! vui lòng liên hệ với MISA.",
+                            errorCode = "misa-001",
+                            moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
+                            traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
+                        };
+
+                        return StatusCode(500, errObj);
+                    }
+                }
+                else
+                {
+                    var errObj = new
+                    {
+                        devMsg = serviceResult.Messager,
+                        userMsg = serviceResult.Messager,
+                        errorCode = "misa-001",
+                        moreInfo = "https://openapi.misa.com.vn/errorcode/misa-001",
+                        traceId = "ba9587fd-1a79-4ac5-a0ca-2c9f74dfd3fb"
+                    };
+
+                    return BadRequest(errObj);
+                }
             }
             catch (Exception e)
             {

@@ -245,6 +245,7 @@
 <script>
 import { EmployeeModel } from "../../models/EmployeeModel";
 import EmployeesAPI from "@/api/components/EmployeesAPI.js";
+import EnumGenderName from "@/constants/EnumGenderName";
 import _ from "lodash";
 
 export default {
@@ -261,11 +262,7 @@ export default {
   data() {
     return {
       model: _.cloneDeep(EmployeeModel),
-      gender: [
-        { id: "0", label: "Nữ" },
-        { id: "1", label: "Nam" },
-        { id: "2", label: "Không xác định" },
-      ],
+      gender:  _.cloneDeep(EnumGenderName),
       workStatus: [
         { id: "0", label: "Thất nghiệp", checked: false },
         { id: "1", label: "Đang làm việc", checked: false },

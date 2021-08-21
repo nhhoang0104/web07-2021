@@ -70,6 +70,15 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mã khách hàng trùng trong tập nhập khẩu.
+        /// </summary>
+        internal static string CustomerCodeExistsInFile {
+            get {
+                return ResourceManager.GetString("CustomerCodeExistsInFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhóm khách hàng không có trong hệ thống.
         /// </summary>
         internal static string CustomerGroupNameExists_ErrroMsg {
@@ -147,6 +156,15 @@ namespace MISA.CukCuk.Core.Resources {
         internal static string IDInvalid_ErrorMsg {
             get {
                 return ResourceManager.GetString("IDInvalid_ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại trùng trong tập nhập khẩu.
+        /// </summary>
+        internal static string PhoneNumberExistsInFile {
+            get {
+                return ResourceManager.GetString("PhoneNumberExistsInFile", resourceCulture);
             }
         }
         

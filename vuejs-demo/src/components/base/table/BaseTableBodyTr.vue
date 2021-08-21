@@ -44,6 +44,10 @@ export default {
         tmp = FormatData.formatMoney(tmp);
       }
 
+      if (col.format === "gender") {
+        tmp = FormatData.formatGender(tmp);
+      }
+
       return tmp;
     },
   },

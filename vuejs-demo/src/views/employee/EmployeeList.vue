@@ -330,24 +330,35 @@ export default {
       Xóa nhân viên
     */
     removeEmployees() {
-      let promiseList = [];
-      this.employeeIdList.forEach((employeeId) =>
-        promiseList.push(EmployeesAPI.delete(employeeId))
-      );
+      if (this.employeeIdList.length === 1) {
+        this.isLoading = true;
+        EmployeesAPI.delete(this.employeeIdList[0])
+          .then(() => {
+            this.setToast("done", "Xóa nhân viên thành công");
+          })
+          .catch(() => {
+            this.setToast("danger", "Xóa nhân viên thất bại!");
+          })
+          .finally(() => {
+            this.employeeIdList = [];
+            this.loadData();
+          });
+      }
 
-      this.isLoading = true;
-      Promise.all(promiseList)
-        .then(() => {
-          this.setToast("done", "Xóa nhân viên thành công");
-        })
-        .catch((err) => {
-          console.log(err.message);
-          this.setToast("danger", "Xóa nhân viên thất bại!");
-        })
-        .finally(() => {
-          this.employeeIdList = [];
-          this.loadData();
-        });
+      if (this.employeeIdList.length > 1) {
+        this.isLoading = true;
+        EmployeesAPI.deleteList(_.cloneDeep(this.employeeIdList))
+          .then(() => {
+            this.setToast("done", "Xóa nhiều nhân viên thành công");
+          })
+          .catch(() => {
+            this.setToast("danger", "Xóa nhiều nhân viên thất bại!");
+          })
+          .finally(() => {
+            this.employeeIdList = [];
+            this.loadData();
+          });
+      }
     },
 
     /**

@@ -141,19 +141,18 @@ namespace MISA.CukCuk.Infrastructure.Repositories
         {
             using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
             {
-                dbConnection.Open();
-                var transaction = dbConnection.BeginTransaction();
-                var rowEffect = 0;
 
+                var idList = string.Empty;
                 foreach (var id in entitiesId)
                 {
-                    DynamicParameters param = new DynamicParameters();
-
-                    param.Add($"@{this._modelName}Id", id);
-                    rowEffect += dbConnection.Execute($"Proc_Delete{this._modelName}ById", param: param, transaction: transaction, commandType: CommandType.StoredProcedure);
+                    idList += $"'{id.ToString()}',";
                 }
 
-                transaction.Commit();
+                idList = idList.Remove(idList.Length - 1);
+
+                var sqlCmd = $"DELETE FROM {this._modelName} WHERE {this._modelName}Id IN ({idList})";
+
+                var rowEffect = dbConnection.Execute(sqlCmd);
 
                 return rowEffect;
             }

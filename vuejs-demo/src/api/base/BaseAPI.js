@@ -53,4 +53,15 @@ export default class BaseAPI {
   delete(id) {
     return BaseAPIConfig.delete(`${this.controller}/${id}`);
   }
+
+  /**
+   * Hàm xóa nhieu bản ghi
+   */
+  deleteList(idList) {
+    let tmp = "";
+    idList.forEach((id) => {
+      tmp += `entitiesId=${id}&`;
+    });
+    return BaseAPIConfig.delete(`${this.controller}?${tmp}`);
+  }
 }
