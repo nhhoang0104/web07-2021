@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MISA.CukCuk.Api</name>
+    </assembly>
+    <members>
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.GetAll">
+            <summary>
+            Lấy danh sách tất cả dữ liệu
+            </summary>
+            <returns>danh sách thực thể</returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.GetById(System.String)">
+            <summary>
+            Lấy theo id
+            </summary>
+            <param name="id">id thực thể</param>
+            <returns>thông tin thực thể</returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.Add(`0)">
+            <summary>
+            Thêm mới 1 bản ghi vào database
+            </summary>
+            <param name="entity">thông tin thực thể</param>
+            <returns></returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.Update(System.String,`0)">
+             <summary>
+            Sửa đổi thông tin của đối tượng
+             </summary>
+             <param name="id">id thực thể</param>
+             <param name="entity">thông tin thực thể</param>
+             <returns></returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.BaseController`1.DeleteEntities(MISA.CukCuk.Core.Entities.RequestBody)">
+            <summary>
+            Xóa nhiều theo id
+            </summary>
+            <param name="id">danh sách id của entites</param>
+            <returns></returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.CustomerController.Import(Microsoft.AspNetCore.Http.IFormFile,System.Threading.CancellationToken)">
+            <summary>
+            import file
+            </summary>
+            <param name="formFile"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.EmployeeController.GetByFilterPaging(System.String,System.Nullable{System.Guid},System.Nullable{System.Guid},System.Int32,System.Int32)">
+            <summary>
+            Lấy dữ liệu theo bộ lộc và phân trang
+            </summary>
+            <param name="employeeFilter">thông tin filter(EmployeeCode hoặc PhoneNumber hoặc FullName</param>
+            <param name="departmentId">id phòng ban</param>
+            <param name="positionId">id vị trí</param>
+            <param name="pageSize">kích cỡ trang</param>
+            <param name="pageIndex">index trang</param>
+            <returns>danh sách nhân viên</returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.EmployeeController.CheckEmployeeExists(System.String)">
+            <summary>
+            Kiểm tra mã nhân viên đã tồn tại chưa.
+            </summary>
+            <param name="employeeCode">mã nhân viên</param>
+            <returns></returns>
+        </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.EmployeeController.GetNewEmployeeCode">
+            <summary>
+            Lấy mã nhân viên mới
+            </summary>
+            <returns>mã nhân viên mới</returns>
+        </member>
+        <member name="T:MISA.CukCuk.Api.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.CustomerCode_ErrorMsg">
+            <summary>
+              Looks up a localized string similar to Thiếu mã khách hàng.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.Email_ErrorMsg">
+            <summary>
+              Looks up a localized string similar to Email không đúng định dạng.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.EmployeeCode_ErrorMsg">
+            <summary>
+              Looks up a localized string similar to Thiếu mã nhân viên.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.EmployeeCodeExists_ErrMsg">
+            <summary>
+              Looks up a localized string similar to Trùng mã nhân viên.
+            </summary>
+        </member>
+        <member name="P:MISA.CukCuk.Api.Properties.Resources.Exception_ErrorMsg">
+            <summary>
+              Looks up a localized string similar to Có lỗi xảy ra, vui lòng liên hệ misa.
+            </summary>
+        </member>
+    </members>
+</doc>

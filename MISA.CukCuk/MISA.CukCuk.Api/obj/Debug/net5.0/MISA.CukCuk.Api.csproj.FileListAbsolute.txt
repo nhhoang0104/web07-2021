@@ -36,3 +36,11 @@ E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Infrastru
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Core.pdb
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Infrastructure.pdb
 E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\Newtonsoft.Json.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\MISA.CukCuk.Api.xml
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\Microsoft.Extensions.PlatformAbstractions.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\EPPlus.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+E:\Web2021_07\MISA.CukCuk\MISA.CukCuk.Api\bin\Debug\net5.0\System.IO.Pipelines.dll

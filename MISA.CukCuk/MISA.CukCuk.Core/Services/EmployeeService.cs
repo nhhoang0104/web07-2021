@@ -44,7 +44,11 @@ namespace MISA.CukCuk.Core.Services
             this._serviceResult.Data = this._employeeRepository.GetByFilterPaging(tmp, departmentId, positionId, pageSize, pageIndex);
             return this._serviceResult;
         }
-
+        
+        /// <summary>
+        /// Laasy ma nhan vien moi
+        /// </summary>
+        /// <returns></returns>
         public ServiceResult GetNewEmployeeCode()
         {
             var lastEmployeeCode = this._employeeRepository.GetLastEmployeeCode();
@@ -64,16 +68,24 @@ namespace MISA.CukCuk.Core.Services
         }
 
         /// <summary>
-        /// validate data
+        /// validate cac trường dữ liệu đặc biệt(EmployeeCode, PhoneNumber, IdentifyNumber, Email)
         /// </summary>
-        /// <param name="employee"></param>
+        /// <param name="employee">thông tin nhân viên</param>
         /// <returns></returns>
         protected override bool ValidateCustom(Employee employee)
         {
-            if (this._employeeRepository.CheckEmployeeCodeExists(employee.EmployeeCode))
+            if (this._employeeRepository.CheckEmployeeIdentifyNumberExists(employee.IdentityNumber))
             {
                 this._serviceResult.IsValid = false;
-                this._serviceResult.Messager = Resources.ErrorMessage.EmployeeCodeExists_ErrMsg;
+                this._serviceResult.Messager = Resources.ErrorMessage.IdentifyNumberExsist_ErrorMsg;
+
+                return false;
+            }
+
+            if (this._employeeRepository.CheckEmployeePhoneNumberExists(employee.PhoneNumber))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.PhoneNumberExsist_ErrorMsg;
 
                 return false;
             }
@@ -89,5 +101,17 @@ namespace MISA.CukCuk.Core.Services
             return base.ValidateCustom(employee);
         }
 
+        protected override bool ValidateEntityCode(Employee employee)
+        {
+            if (this._employeeRepository.CheckEmployeeCodeExists(employee.EmployeeCode))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.EmployeeCodeExists_ErrMsg;
+
+                return false;
+            }
+
+            return base.ValidateEntityCode(employee);
+        }
     }
 }

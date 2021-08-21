@@ -49,5 +49,6 @@ namespace MISA.CukCuk.Core.Interfaces.Repositories
         /// <param name="entitiesId"></param>
         /// <returns></returns>
         Int32 DeleteEntities(List<Guid> entitiesId);
+        
     }
 }

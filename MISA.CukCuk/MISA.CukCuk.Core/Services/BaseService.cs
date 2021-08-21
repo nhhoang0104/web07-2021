@@ -25,6 +25,8 @@ namespace MISA.CukCuk.Core.Services
         {
             if (!this.ValidateData(entity)) return this._serviceResult;
 
+            if (!this.ValidateEntityCode(entity)) return this._serviceResult;
+
             if (!this.ValidateCustom(entity)) return this._serviceResult;
 
             this._serviceResult.Data = this._baseRepository.Add(entity);
@@ -53,8 +55,6 @@ namespace MISA.CukCuk.Core.Services
             if (!this.ValidateId(id)) return this._serviceResult;
 
             if (!this.ValidateData(entity)) return this._serviceResult;
-
-            if (!this.ValidateCustom(entity)) return this._serviceResult;
 
             this._serviceResult.Data = this._baseRepository.Update(Guid.Parse(id), entity);
 
@@ -144,5 +144,14 @@ namespace MISA.CukCuk.Core.Services
         }
 
 
+        /// <summary>
+        /// kiem tra trung ma
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        protected virtual bool ValidateEntityCode(MISAEntity entity)
+        {
+            return true;
+        }
     }
 }

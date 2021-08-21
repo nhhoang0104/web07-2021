@@ -13,7 +13,7 @@
       :value="valueClone"
       :format="format"
       :placeholder="placeholder"
-      :max="`${type === 'date' ? '2100-12-31' : null}`"
+      :max="`${type === 'date' ? currentDate : null}`"
       @input="onChangeInput"
       @blur="validate"
       @focus="clearTool"
@@ -91,6 +91,7 @@ export default {
 
   data() {
     return {
+      currentDate: FormatData.formatDateInput(new Date()),
       valueClone: "",
       isValidated: true,
       styleInput: "",
@@ -98,6 +99,7 @@ export default {
         active: false,
         message: "Không được bỏ trống",
       },
+      timeoutItem: null,
     };
   },
 

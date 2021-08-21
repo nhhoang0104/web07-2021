@@ -20,6 +20,9 @@
     </div>
     <div :class="classNameComboBoxMenu" @click="show">
       <slot name="combo-box-options" :options="dataClone"></slot>
+      <div v-show="dataClone.length === 0 ? true : false" class="no-content">
+        Không có dữ liệu
+      </div>
     </div>
   </div>
 </template>
@@ -97,6 +100,10 @@ export default {
         if (tmp) this.textSearch = tmp.label;
       },
     },
+
+    /*
+      search 
+    */
 
     textSearch(newVal) {
       const text = _.trim(newVal);

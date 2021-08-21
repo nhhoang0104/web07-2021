@@ -120,11 +120,17 @@
   <data name="CustomerCode_ErrorMsg" xml:space="preserve">
     <value>Mã khách hàng không được phép trống</value>
   </data>
+  <data name="CustomerGroupNameExists_ErrroMsg" xml:space="preserve">
+    <value>Nhóm khách hàng không có trong hệ thống</value>
+  </data>
+  <data name="CustometCodeExists_Msg" xml:space="preserve">
+    <value>Mã nhân viên đã tồn tại trong hệ thống</value>
+  </data>
   <data name="Email_ErrorMsg" xml:space="preserve">
     <value>Email không đúng định dạng</value>
   </data>
   <data name="EmployeeCodeExists_ErrMsg" xml:space="preserve">
-    <value>Trùng mã nhân viên</value>
+    <value>Mã nhân viên  đã tồn tại trong hệ thống</value>
   </data>
   <data name="EmployeeCode_ErrorMsg" xml:space="preserve">
     <value>Mã nhân viên không được phép trống</value>
@@ -132,8 +138,17 @@
   <data name="Exception_ErrorMsg" xml:space="preserve">
     <value>Có lỗi xảy ra, vui lòng liên hệ misa</value>
   </data>
+  <data name="FullName_ErrorMsg" xml:space="preserve">
+    <value>Tên đầy đủ không được phép chống</value>
+  </data>
+  <data name="IdentifyNumberExsist_ErrorMsg" xml:space="preserve">
+    <value>CMTND hoặc CCCD  đã tồn tại trong hệ thống</value>
+  </data>
   <data name="IDInvalid_ErrorMsg" xml:space="preserve">
     <value>ID không hợp lệ</value>
+  </data>
+  <data name="PhoneNumberExsist_ErrorMsg" xml:space="preserve">
+    <value>Số điện thoại  đã tồn tại trong hệ thống</value>
   </data>
   <data name="PropRequired_ErrorMsg" xml:space="preserve">
     <value>Các trường bắt buộc không phép để trống</value>

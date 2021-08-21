@@ -20,6 +20,7 @@ import BaseToastMessage from "@/components/base/BaseToastMessage.vue";
 import BaseDialog from "@/components/base/BaseDialog.vue";
 import BaseLoader from "@/components/base/BaseLoader.vue";
 import BaseTooltip from "@/components/base/BaseTooltip.vue";
+import 'devextreme/dist/css/dx.light.css';
 
 app.use(router);
 

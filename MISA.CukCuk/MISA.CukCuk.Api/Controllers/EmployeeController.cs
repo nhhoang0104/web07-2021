@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using MISA.CukCuk.Core.Entities;
 using MISA.CukCuk.Core.Interfaces.Services;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Api.Controllers
@@ -18,7 +21,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Lấy danh sách nhân viên
+        /// Lấy dữ liệu theo bộ lộc và phân trang
         /// </summary>
         /// <param name="employeeFilter">thông tin filter(EmployeeCode hoặc PhoneNumber hoặc FullName</param>
         /// <param name="departmentId">id phòng ban</param>
@@ -27,7 +30,7 @@ namespace MISA.CukCuk.Api.Controllers
         /// <param name="pageIndex">index trang</param>
         /// <returns>danh sách nhân viên</returns>
         [HttpGet("Filter")]
-        public IActionResult GetByFilterPaging([FromQuery] string employeeFilter, [FromQuery] Guid? departmentId, [FromQuery] Guid? positionId, [FromQuery] int pageSize, [FromQuery] int pageIndex)
+        public IActionResult GetByFilterPaging([FromQuery] string? employeeFilter, [FromQuery] Guid? departmentId, [FromQuery] Guid? positionId, [FromQuery] int pageSize, [FromQuery] int pageIndex)
         {
             try
             {
@@ -58,7 +61,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Kiểm tra trùng mã nhân viên
+        /// Kiểm tra mã nhân viên đã tồn tại chưa.
         /// </summary>
         /// <param name="employeeCode">mã nhân viên</param>
         /// <returns></returns>

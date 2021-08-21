@@ -1,7 +1,15 @@
 <template>
   <div class="pagination">
     <div class="pagination__left">
-      <div>Hiển thị <b>1-10/1000</b> nhân viên</div>
+      <div class="text">
+        Hiển thị
+        <b
+          >{{ (currentPage - 1) * pageSize + 1 }}-{{
+            currentPage * pageSize
+          }}/{{ totalRecord }}</b
+        >
+        nhân viên
+      </div>
     </div>
     <div class="pagination__center">
       <base-button
@@ -43,9 +51,22 @@
       </base-button>
     </div>
     <div class="pagination__right">
-      <DxSelectBox :data-source="data" drop-down-button-template="imageIcon">
+      <DxSelectBox
+        :value="pageSize"
+        :data-source="data"
+        value-expr="value"
+        display-expr="label"
+        drop-down-button-template="imageIcon"
+        item-template="field"
+        @value-changed="valueChanged"
+      >
         <template #imageIcon="{}">
-          <i class="icon icon--16 fas fa-sort"></i>
+          <i class="fas fa-sort custom-icon"></i>
+        </template>
+        <template #field="{ data }">
+          <div class="custom-item" style="font-family:'GoogleSans'">
+            {{ data.label }}
+          </div>
         </template>
       </DxSelectBox>
     </div>
@@ -59,14 +80,56 @@ import { DxSelectBox } from "devextreme-vue/select-box";
 export default {
   components: { BaseButton, DxSelectBox },
   name: "base-pagination",
+
+  props: {
+    currentPage: {
+      type: Number,
+      required: true,
+    },
+    totalRecord: {
+      type: Number,
+      required: true,
+    },
+    totalPages: {
+      type: Number,
+      required: true,
+    },
+    pageSize: {
+      type: Number,
+      required: true,
+    },
+  },
+
+  emits: ["select-page", "select-size"],
+
   data() {
     return {
-      currentPage: 1,
-      maxVisibleButtons: 4,
-      totalPages: 10,
-      data: [1, 2, 3, 4, 5, 6],
+      maxVisibleButtons: 3,
+      data: [
+        {
+          value: 10,
+          label: "10 nhân viên/trang",
+        },
+        {
+          value: 20,
+          label: "20 nhân viên/trang",
+        },
+        {
+          value: 30,
+          label: "30 nhân viên/trang",
+        },
+        {
+          value: 40,
+          label: "40 nhân viên/trang",
+        },
+        {
+          value: 50,
+          label: "50 nhân viên/trang",
+        },
+      ],
     };
   },
+
   computed: {
     // nếu đang ở index đầu (===1) thì disable btn
     isInFirstPage: function() {
@@ -88,8 +151,8 @@ export default {
         return this.totalPages - this.maxVisibleButtons + 1;
       }
 
-      // if (this.totalPages - this.currentPage < this.maxVisibleButtons) {
-      //   return this.totalPages - this.maxVisibleButtons + 1;
+      // if (this.pageTotal - this.currentPage < this.maxVisibleButtons) {
+      //   return this.pageTotal - this.maxVisibleButtons + 1;
       // }
 
       return this.currentPage - 1;
@@ -121,28 +184,28 @@ export default {
   methods: {
     // chọn index trang đầu tiên(=1)
     onClickFirstPage() {
-      this.currentPage = 1;
+      this.$emit("select-page", 1);
     },
 
-    // chọn index trang cuối cùng(=totalPages)
+    // chọn index trang cuối cùng(=pageTotal)
     onClickLastPage() {
-      this.currentPage = this.totalPages;
+      this.$emit("select-page", this.totalPages);
     },
 
     // Chọn index trang ngẫu nhiễn từ range
     onClickPage(page = 1) {
-      this.currentPage = page;
+      this.$emit("select-page", page);
     },
 
     // chọn index trang tiếp theo của index hiện tại
 
     onClickNextPage() {
-      this.currentPage = this.currentPage + 1;
+      this.$emit("select-page", this.currentPage + 1);
     },
 
     // chọn index trang phía sau index hiện tại
     onClickPrevPage() {
-      this.currentPage -= 1;
+      this.$emit("select-page", this.currentPage - 1);
     },
 
     // xét index trang chọn thì class active
@@ -154,6 +217,11 @@ export default {
       } else tmp += " color-bg";
 
       return tmp;
+    },
+
+    // chọn kích cỡ trang
+    valueChanged(e) {
+      this.$emit("select-size", e.value);
     },
   },
 };
@@ -185,5 +253,18 @@ button.btn.btn--active:hover {
 
 button.btn:active div.text {
   color: var(--color-white);
+}
+
+.custom-icon {
+  height: 100%;
+  width: 100%;
+}
+
+.custom-item {
+  margin-left: 5px;
+}
+
+.dx-overlay-content {
+  transform: translate(0px) !important;
 }
 </style>

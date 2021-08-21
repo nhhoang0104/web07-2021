@@ -1,5 +1,5 @@
 <template lang="html">
-  <span class="tooltip" :class="tooltip.active ? 'tooltip--active' : ''">{{
+  <span class="tooltip tooltip--active" v-show="tooltip.active">{{
     tooltip.message
   }}</span>
 </template>

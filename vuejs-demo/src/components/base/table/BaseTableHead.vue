@@ -1,7 +1,8 @@
 <template>
   <thead>
     <tr>
-      <th>#</th>
+      <th></th>
+      <th class="text text--center">#</th>
       <th v-for="col in columns" :key="col.id" :class="col.className">
         {{ col.label }}
       </th>

@@ -20,15 +20,6 @@ namespace MISA.CukCuk.Infrastructure.Repositories
 
         }
 
-        /// <summary>
-        /// Lấy dữ liệu theo phân trang
-        /// </summary>
-        /// <param name="employeeFilter"></param>
-        /// <param name="departmentId">id phòng ban</param>
-        /// <param name="positionId">id vị trí</param>
-        /// <param name="pageSize">kích cỡ</param>
-        /// <param name="pageIndex"></param>
-        /// <returns></returns>
         public Object GetByFilterPaging(string employeeFilter, Guid? departmentId, Guid? positionId, int pageSize, int pageIndex)
         {
             var parameters = new DynamicParameters();
@@ -56,11 +47,6 @@ namespace MISA.CukCuk.Infrastructure.Repositories
             }
         }
 
-        /// <summary>
-        /// Kiểm tra trùng mã nhân viên
-        /// </summary>
-        /// <param name="employeeCode"></param>
-        /// <returns></returns>
         public bool CheckEmployeeCodeExists(string employeeCode)
         {
             DynamicParameters dynamicParameters = new DynamicParameters();
@@ -73,13 +59,8 @@ namespace MISA.CukCuk.Infrastructure.Repositories
                 bool isExists = dynamicParameters.Get<bool>("@IsExists");
                 return isExists;
             }
-
         }
 
-        /// <summary>
-        /// Lấy mã nhân viên mới
-        /// </summary>
-        /// <returns></returns>
         public string GetLastEmployeeCode()
         {
             using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
@@ -87,6 +68,34 @@ namespace MISA.CukCuk.Infrastructure.Repositories
                 var lastEmpoyeeCode = dbConnection.QueryFirstOrDefault<string>("Proc_GetLastEmployeeCode", commandType: CommandType.StoredProcedure);
            
                 return lastEmpoyeeCode;
+            }
+        }
+
+        public bool CheckEmployeePhoneNumberExists(string phoneNumber)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@PhoneNumber", phoneNumber);
+            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                dbConnection.Execute("Proc_CheckEmployeePhoneNumberExists", dynamicParameters, commandType: CommandType.StoredProcedure);
+                bool isExists = dynamicParameters.Get<bool>("@IsExists");
+                return isExists;
+            }
+        }
+
+        public bool CheckEmployeeIdentifyNumberExists(string identifyNumber)
+        {
+            DynamicParameters dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("@IdentifyNumber", identifyNumber);
+            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                dbConnection.Execute("Proc_CheckEmployeeIdentifyNumberExists", dynamicParameters, commandType: CommandType.StoredProcedure);
+                bool isExists = dynamicParameters.Get<bool>("@IsExists");
+                return isExists;
             }
         }
     }

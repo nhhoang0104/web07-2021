@@ -1,10 +1,11 @@
 <template>
   <tbody>
     <tr-cus
-      v-for="item in data"
+      v-for="(item, index) in data"
       :key="item.EmployeeId"
       :columns="columns"
       :data="item"
+      :index="index"
       @click="checkBox(item.EmployeeId)"
       @dblclick="doubleClick(item.EmployeeId)"
     ></tr-cus>

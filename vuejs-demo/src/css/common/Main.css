@@ -15,6 +15,10 @@ a {
   text-decoration: none;
 }
 
+b {
+  font-family: "GoogleSans-Bold";
+}
+
 .rotate--180 {
   transform: rotateZ(180deg);
 }
@@ -25,8 +29,8 @@ button {
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
   height: 5px;
+  width: 5px;
   background-color: lightgray;
 }
 

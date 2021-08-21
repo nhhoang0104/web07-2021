@@ -9,6 +9,10 @@ namespace MISA.CukCuk.Core.Attributes
     [AttributeUsage(AttributeTargets.Property)]
     public class MISARequired : Attribute
     {
-
+        public readonly string Message;
+        public MISARequired()
+        {
+           
+        }
     }
 }

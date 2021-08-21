@@ -70,6 +70,24 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nhóm khách hàng không có trong hệ thống.
+        /// </summary>
+        internal static string CustomerGroupNameExists_ErrroMsg {
+            get {
+                return ResourceManager.GetString("CustomerGroupNameExists_ErrroMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mã nhân viên đã tồn tại trong hệ thống.
+        /// </summary>
+        internal static string CustometCodeExists_Msg {
+            get {
+                return ResourceManager.GetString("CustometCodeExists_Msg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email không đúng định dạng.
         /// </summary>
         internal static string Email_ErrorMsg {
@@ -88,7 +106,7 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trùng mã nhân viên.
+        ///   Looks up a localized string similar to Mã nhân viên  đã tồn tại trong hệ thống.
         /// </summary>
         internal static string EmployeeCodeExists_ErrMsg {
             get {
@@ -106,11 +124,38 @@ namespace MISA.CukCuk.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên đầy đủ không được phép chống.
+        /// </summary>
+        internal static string FullName_ErrorMsg {
+            get {
+                return ResourceManager.GetString("FullName_ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CMTND hoặc CCCD  đã tồn tại trong hệ thống.
+        /// </summary>
+        internal static string IdentifyNumberExsist_ErrorMsg {
+            get {
+                return ResourceManager.GetString("IdentifyNumberExsist_ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ID không hợp lệ.
         /// </summary>
         internal static string IDInvalid_ErrorMsg {
             get {
                 return ResourceManager.GetString("IDInvalid_ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Số điện thoại  đã tồn tại trong hệ thống.
+        /// </summary>
+        internal static string PhoneNumberExsist_ErrorMsg {
+            get {
+                return ResourceManager.GetString("PhoneNumberExsist_ErrorMsg", resourceCulture);
             }
         }
         

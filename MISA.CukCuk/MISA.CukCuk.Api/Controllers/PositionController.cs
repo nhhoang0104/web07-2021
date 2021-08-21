@@ -11,11 +11,9 @@ namespace MISA.CukCuk.Api.Controllers
 {
     public class PositionController : BaseController<Position>
     {
-        IPositionService _positionService;
-
-        public PositionController(IBaseService<Position> baseService,IPositionService positionService):base(baseService)
+        public PositionController(IBaseService<Position> baseService) : base(baseService)
         {
-            this._positionService = positionService;
+
         }
     }
 }

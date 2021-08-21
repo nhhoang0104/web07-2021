@@ -36,7 +36,8 @@
         <base-input
           icon="icon--search"
           placeholder="Tìm kiếm theo Mã, Tên hoặc Số điện thoại"
-          value=""
+          @handle-input="handleInput"
+          :value="search.employeeFilter"
           id="searchText"
         ></base-input>
         <combo-box
@@ -97,10 +98,17 @@
           </template>
         </base-table>
       </div>
-       <div class="scrollbar__hide"></div>
+      <div class="scrollbar__hide"></div>
     </div>
     <div class="content__footer">
-      <base-pagination></base-pagination>
+      <base-pagination
+        :currentPage="currentPage"
+        :totalRecord="totalRecord"
+        :totalPages="totalPages"
+        :pageSize="pageSize"
+        @select-page="selectPageIndex"
+        @select-size="selectPageSize"
+      ></base-pagination>
     </div>
     <base-loader :is-loading="isLoading"></base-loader>
     <EmployeeDetail
@@ -143,9 +151,9 @@ export default {
       departmentCbb: [],
       positionCbb: [],
       search: {
-        departmentId: "1",
-        positionId: "1",
-        textSearch: "",
+        departmentId: "",
+        positionId: "",
+        employeeFilter: "",
       },
       isLoading: false,
       dialog: { employeeId: null, isShowed: false, formMode: 1 },
@@ -162,6 +170,10 @@ export default {
         action: null,
         cancel: null,
       },
+      currentPage: 1,
+      totalRecord: 20, // tổng số bản ghi
+      totalPages: 10, // tổng số index trang
+      pageSize: 10,
     };
   },
 
@@ -172,12 +184,21 @@ export default {
     this.isLoading = true;
 
     Promise.all([
-      EmployeesAPI.getAll(),
+      EmployeesAPI.getByFilterPaging(
+        this.currentPage,
+        this.pageSize,
+        this.search.employeeFilter,
+        this.search.departmentId,
+        this.search.positionId
+      ),
       PositionAPI.getAll(),
       DepartmentAPI.getAll(),
     ])
       .then((res) => {
-        this.employeeList = res[0].data;
+        this.employeeList = res[0].data.employees;
+        this.totalPages = res[0].data.totalPage;
+        this.totalRecord = res[0].data.totalRecord;
+        this.page;
 
         this.position = res[1].data.map(({ PositionId, PositionName }) => ({
           id: PositionId,
@@ -193,15 +214,15 @@ export default {
 
         // Khởi tạo data cho combobox
         this.positionCbb = _.cloneDeep(this.position);
-        this.positionCbb.push({ id: "1", label: "Tất cả vị trí" });
+        this.positionCbb.push({ id: "", label: "Tất cả vị trí" });
 
         this.departmentCbb = _.cloneDeep(this.department);
-        this.departmentCbb.push({ id: "1", label: "Tất cả phòng ban" });
+        this.departmentCbb.push({ id: "", label: "Tất cả phòng ban" });
         this.isLoading = false;
         this.setToast("done", "Tải dữ liệu thành công");
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
         this.setToast("danger", "Tải dữ liệu thất bại");
       });
   },
@@ -236,27 +257,37 @@ export default {
   },
 
   methods: {
-    /*
+    /**
         Lấy dữ liệu nhân viên từ api
     */
     loadData() {
       this.isLoading = true;
-      EmployeesAPI.getAll()
+      EmployeesAPI.getByFilterPaging(
+        this.currentPage,
+        this.pageSize,
+        this.search.employeeFilter,
+        this.search.departmentId,
+        this.search.positionId
+      )
         .then((res) => {
-          this.employeeList = res.data;
+          console.log(res);
+          this.employeeList = res.data.employees;
+          this.totalPages = res.data.totalPage;
+          this.totalRecord = res.data.totalRecord;
           this.isLoading = false;
         })
         .catch((err) => console.log(err));
     },
 
-    /*
+    /**
       Xử lý chọn option trong cac combobox
     */
     selectItem(item) {
       this.search[item.key] = item.id;
+      this.loadData();
     },
 
-    /*
+    /**
      check box vào nhân viên
     */
     checkbox(id) {
@@ -271,19 +302,31 @@ export default {
       }
     },
 
-    /*
+    /**
         Hiện cảnh báo(popup) muốn thực hiện hành đọng hay không
     */
     preRemoveEmployee() {
+      let message = "Bạn có chắc chắn muốn xóa các nhân viên đã chọn không?";
+
+      if (this.employeeIdList.length === 1) {
+        let tmp = this.employeeList.filter(
+          (item) => item.EmployeeId === this.employeeIdList[0]
+        );
+
+        message = `Bạn có chắc chắn muốn nhân viên ${
+          tmp.length === 1 ? tmp[0].EmployeeCode : ""
+        } đã chọn không?`;
+      }
+
       this.setPopup(
         "Xóa các nhân viên",
-        "Bạn có chắc chắn muốn xóa các nhân viên đã chọn không?",
+        message,
         this.removeEmployees,
         this.uncheckEmployees
       );
     },
 
-    /*
+    /**
       Xóa nhân viên
     */
     removeEmployees() {
@@ -307,28 +350,28 @@ export default {
         });
     },
 
-    /*
+    /**
       Bỏ tất cả các các checkbox của các nhân viên đã chọn
     */
     uncheckEmployees() {
       // this.employeeIdList = [];
     },
 
-    /*
+    /**
       Xem thông tin chi tiết nhân viên
     */
     viewInfo(id) {
       this.dialog = { employeeId: id, formMode: 0, isShowed: true };
     },
 
-    /*
+    /**
       Thêm mới nhân viên
     */
     addNewEmployee() {
       this.dialog = { formMode: 1, isShowed: true };
     },
 
-    /*
+    /**
       Mở form Employee Detail
       * @param:  formMode = 1 -> tạo mới nhân viên
                 formMode = 0 -> hiện chi tiết nhân viên và có thể chỉnh sửa nhân viên
@@ -338,35 +381,35 @@ export default {
       this.dialog.isShowed = show;
     },
 
-    /*
+    /**
         Truyền nội dùng toast message
     */
     setToast(type, message) {
       this.toast = { type: type, message: message, isShowed: true };
     },
 
-    /*
+    /** 
       Đóng mở toast message
     */
     showToast(isShowed) {
       this.toast.isShowed = isShowed;
     },
 
-    /*
+    /**
         Truyền nội dung popup
     */
     setPopup(title, content, action, cancel) {
       this.popup = { title, content, isShowed: true, action, cancel };
     },
 
-    /*
+    /**
       Đóng mở popup
     */
     showPopup(isShowed) {
       this.popup.isShowed = isShowed;
     },
 
-    /*
+    /**
         Xử lý khi ấn submit của form
     */
     handleSubmitForm({ action, type }) {
@@ -392,6 +435,33 @@ export default {
           this.showForm(false);
           this.loadData();
         });
+    },
+
+    /**
+     * xử lý sự kiện chọn index trang
+     */
+    selectPageIndex(pageIndex) {
+      this.currentPage = pageIndex;
+      this.loadData();
+    },
+
+    /**
+     * xử lý sự kiện chọn kích cỡ trang
+     */
+    selectPageSize(pageSize) {
+      this.pageSize = pageSize;
+      this.loadData();
+    },
+
+    /**
+     * Xu ly text input
+     */
+    handleInput({ value }) {
+      clearTimeout(this.timeoutItem);
+      this.timeoutItem = setTimeout(() => {
+        this.search.employeeFilter = value;
+        this.loadData();
+      }, 300);
     },
   },
 };

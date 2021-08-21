@@ -11,11 +11,9 @@ namespace MISA.CukCuk.Api.Controllers
 {
     public class DepartmentController : BaseController<Department>
     {
-        IDepartmentService _departmentService;
-
-        public DepartmentController(IBaseService<Department> baseService, IDepartmentService departmentService) : base(baseService)
+        public DepartmentController(IBaseService<Department> baseService) : base(baseService)
         {
-            this._departmentService = departmentService;
+
         }
     }
 }

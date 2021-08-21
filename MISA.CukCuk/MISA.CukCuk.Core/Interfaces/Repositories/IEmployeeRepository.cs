@@ -31,6 +31,20 @@ namespace MISA.CukCuk.Core.Interfaces.Repositories
         bool CheckEmployeeCodeExists(string employeeCode);
 
         /// <summary>
+        /// Kiem tra so dien thoai ton tai
+        /// </summary>
+        /// <param name="phoneNumber">sdt</param>
+        /// <returns></returns>
+        bool CheckEmployeePhoneNumberExists(string phoneNumber);
+
+        /// <summary>
+        /// Kiem tra cmtnd hoac cccd ton tai
+        /// </summary>
+        /// <param name="identifyNumber">cmtnd hoac cccd</param>
+        /// <returns></returns>
+        bool CheckEmployeeIdentifyNumberExists(string identifyNumber);
+
+        /// <summary>
         /// Lấy mã nhân viên mã mới
         /// </summary>
         /// <returns>mã nhân viên</returns>

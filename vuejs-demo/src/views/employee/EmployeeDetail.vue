@@ -15,7 +15,7 @@
           </div>
         </div>
         <div style="width:75%">
-          <div style="padding-bottom:20px; display:inline-block">
+          <div style="padding-bottom:8px; display:inline-block">
             <div class="text text--title-2">A. THÔNG TIN CHUNG:</div>
             <div class="separator"></div>
             <div class="dialog__body__item">
@@ -127,7 +127,7 @@
               ></base-input>
             </div>
           </div>
-          <div style="padding-bottom:20px; display:inline-block">
+          <div style="padding-bottom:8px; display:inline-block">
             <div class="text text--title-2">B. THÔNG TIN CÔNG VIỆC:</div>
             <div class="separator"></div>
             <div class="dialog__body__item">
@@ -361,11 +361,11 @@ export default {
         let promise = null;
 
         if (this.formMode === 1) {
-          promise = EmployeesAPI.add(this.model);
+          promise = EmployeesAPI.add( _.cloneDeep(this.model));
         }
 
         if (this.formMode === 0) {
-          promise = EmployeesAPI.update(this.employeeId, this.model);
+          promise = EmployeesAPI.update(this.employeeId,  _.cloneDeep(this.model));
         }
 
         this.$emit("submit-form", { action: promise, type: this.formMode });

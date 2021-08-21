@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MISA.CukCuk.Core.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Mã Khách hàng
         /// </summary>
+        [MISARequired]
         public string CustomerCode { get; set; }
 
         /// <summary>
@@ -33,6 +35,7 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Tên đầy đủ
         /// </summary>
+        [MISARequired]
         public string FullName { get; set; }
 
         /// <summary>
@@ -63,10 +66,10 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Id của nhóm khách hàng
         /// </summary>
-        public Guid CustomerGroupId { get; set; }
+        public Guid? CustomerGroupId { get; set; }
 
         /// <summary>
-        /// Tiền lương
+        /// 
         /// </summary>
         public string DebitAmount { get; set; }
 
@@ -81,15 +84,29 @@ namespace MISA.CukCuk.Core.Entities
         public string CompanyName { get; set; }
 
         /// <summary>
-        /// Mã số thuế công ty
+        /// Mã số thuế
         /// </summary>
-
         public string CompanyTaxCode { get; set; }
 
         /// <summary>
         /// Trạng thái công việc trong công ty: đang làm hoặc dừng
         /// </summary>
         public bool IsStopFollow { get; set; }
+
+        /// <summary>
+        /// Tên nhóm khách hàng
+        /// </summary>
+        public string CustomerGroupName { get; set; }
+
+        /// <summary>
+        /// Trạng thái khi import
+        /// </summary>
+        public string StatusImport { get; set; } = string.Empty;
+
+        /// <summary>
+        /// true - thông tin khách hàng hợp lệ, false - không hợp lệ
+        /// </summary>
+        public bool IsValid { get; set; } = true;
 
         #endregion
     }

@@ -94,7 +94,7 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// 
         /// </summary>
-        public int EducationalBackground { get; set; }
+        public int? EducationalBackground { get; set; }
 
         /// <summary>
         /// Chất lượng
@@ -124,7 +124,7 @@ namespace MISA.CukCuk.Core.Entities
         /// <summary>
         /// Tiền lương 
         /// </summary>
-        public double Salary { get; set; }
+        public int? Salary { get; set; }
 
         /// <summary>
         /// Tên phòng ban

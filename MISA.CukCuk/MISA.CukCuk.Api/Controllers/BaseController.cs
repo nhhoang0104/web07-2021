@@ -22,7 +22,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Lấy danh sách tất cả các thực thể
+        /// Lấy danh sách tất cả dữ liệu
         /// </summary>
         /// <returns>danh sách thực thể</returns>
 
@@ -58,7 +58,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Lấy thực thể theo id
+        /// Lấy theo id
         /// </summary>
         /// <param name="id">id thực thể</param>
         /// <returns>thông tin thực thể</returns>
@@ -103,7 +103,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Thêm mới thực thể
+        /// Thêm mới 1 bản ghi vào database
         /// </summary>
         /// <param name="entity">thông tin thực thể</param>
         /// <returns></returns>
@@ -165,7 +165,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Cập nhật thông tin thực thể
+        ///Sửa đổi thông tin của đối tượng
         /// </summary>
         /// <param name="id">id thực thể</param>
         /// <param name="entity">thông tin thực thể</param>
@@ -211,7 +211,7 @@ namespace MISA.CukCuk.Api.Controllers
         }
 
         /// <summary>
-        /// Xóa nhiều entites
+        /// Xóa nhiều theo id
         /// </summary>
         /// <param name="id">danh sách id của entites</param>
         /// <returns></returns>

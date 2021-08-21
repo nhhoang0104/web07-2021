@@ -141,6 +141,7 @@ namespace MISA.CukCuk.Infrastructure.Repositories
         {
             using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
             {
+                dbConnection.Open();
                 var transaction = dbConnection.BeginTransaction();
                 var rowEffect = 0;
 
@@ -149,7 +150,7 @@ namespace MISA.CukCuk.Infrastructure.Repositories
                     DynamicParameters param = new DynamicParameters();
 
                     param.Add($"@{this._modelName}Id", id);
-                    rowEffect += dbConnection.Execute($"Proc_Delete{this._modelName}ById", param: param, commandType: CommandType.StoredProcedure);
+                    rowEffect += dbConnection.Execute($"Proc_Delete{this._modelName}ById", param: param, transaction: transaction, commandType: CommandType.StoredProcedure);
                 }
 
                 transaction.Commit();

@@ -118,6 +118,19 @@
   color: #fff;
 }
 
+.combo-box .combo-box__select .no-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  margin-left: 26px;
+  z-index: 1;
+  box-sizing: border-box;
+  transition: 0.2s all ease-in-out;
+  cursor: default;
+}
+
 .combo-box
   .combo-box__select
   .combo-box__option:active

@@ -6,6 +6,7 @@
         <span class="checkmark"></span>
       </div>
     </td>
+    <td class="text text--center">{{ index + 1 }}</td>
     <td v-for="col in columns" :key="col.id" :class="col.className">
       {{ formatText(col, data[col.id]) }}
     </td>
@@ -24,6 +25,10 @@ export default {
     },
     data: {
       type: Object,
+      required: true,
+    },
+    index: {
+      type: Number,
       required: true,
     },
   },

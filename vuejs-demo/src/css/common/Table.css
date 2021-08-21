@@ -32,7 +32,12 @@
 }
 
 .content table td:nth-child(1) {
-  padding-left: 10px;
+  padding-left: 16px;
+  padding-right: 10px;
+  min-width: 10px;
+}
+
+.content table td:nth-child(2) {
   min-width: 20px;
 }
 
