@@ -31,17 +31,14 @@
   width: 20px;
   height: 20px;
   bottom: 10px;
-  right: 6px;
+  right: 10px;
   border-radius: 50%;
   background-color: var(--color-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.input .input__clear--hidden {
-  display: none;
+  cursor: pointer;
 }
 
 .input input {

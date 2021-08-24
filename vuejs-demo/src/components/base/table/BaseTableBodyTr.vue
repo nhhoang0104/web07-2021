@@ -1,8 +1,8 @@
 <template>
-  <tr :id="data.id" :checked="data.checked ? true : false">
+  <tr :id="data.id" :checked="checked">
     <td>
       <div class="container">
-        <input type="checkbox" :checked="data.checked ? true : false" />
+        <input type="checkbox" :checked="checked" />
         <span class="checkmark"></span>
       </div>
     </td>
@@ -18,20 +18,29 @@ import FormatData from "@/utils/FormatData.js";
 
 export default {
   name: "base-tr",
+
   props: {
     columns: {
       type: Array,
       required: true,
     },
+
     data: {
       type: Object,
       required: true,
     },
+
     index: {
       type: Number,
       required: true,
     },
+
+    checked: {
+      type: Boolean,
+      required: true,
+    },
   },
+
   methods: {
     formatText(col, item) {
       let tmp = item;
@@ -42,10 +51,6 @@ export default {
 
       if (col.format === "money") {
         tmp = FormatData.formatMoney(tmp);
-      }
-
-      if (col.format === "gender") {
-        tmp = FormatData.formatGender(tmp);
       }
 
       return tmp;

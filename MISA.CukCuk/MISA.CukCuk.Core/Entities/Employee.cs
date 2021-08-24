@@ -44,9 +44,14 @@ namespace MISA.CukCuk.Core.Entities
         public string Address { get; set; }
 
         /// <summary>
-        /// Giới tính
+        /// id Giới tính
         /// </summary>
         public int? Gender { get; set; }
+
+        /// <summary>
+        /// Giới tính
+        /// </summary>
+        public string GenderName { get; set; }
 
         /// <summary>
         /// Ngày sinh

@@ -1,7 +1,12 @@
 <template>
   <thead>
     <tr>
-      <th></th>
+      <th @click="$emit('select-all', checked)">
+        <div class="container">
+          <input type="checkbox" :checked="checked" />
+          <span class="checkmark"></span>
+        </div>
+      </th>
       <th class="text text--center">#</th>
       <th v-for="col in columns" :key="col.id" :class="col.className">
         {{ col.label }}
@@ -18,7 +23,13 @@ export default {
       type: Array,
       required: true,
     },
+    checked: {
+      type: Boolean,
+      required: true,
+    },
   },
+
+  emits: ["select-all"],
 };
 </script>
 

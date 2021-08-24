@@ -40,6 +40,10 @@ button {
   min-height: 50px;
 }
 
+.dx-overlay-content.dx-popup-normal.dx-resizable.dx-dropdowneditor-overlay-flipped {
+  transform: translate(0px, -168px) !important;
+}
+
 @font-face {
   font-family: "GoogleSans";
   src: url("../../assets/font/GoogleSans-Regular.otf");

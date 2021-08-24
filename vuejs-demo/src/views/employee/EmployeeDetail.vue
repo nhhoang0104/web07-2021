@@ -23,6 +23,7 @@
                 label="Mã nhân viên"
                 id="EmployeeCode"
                 ref="EmployeeCode"
+                placeholder="Mã nhân viên"
                 @handle-input="onChangeInput"
                 :value="model['EmployeeCode']"
                 required
@@ -262,7 +263,7 @@ export default {
   data() {
     return {
       model: _.cloneDeep(EmployeeModel),
-      gender:  _.cloneDeep(EnumGenderName),
+      gender: _.cloneDeep(EnumGenderName),
       workStatus: [
         { id: "0", label: "Thất nghiệp", checked: false },
         { id: "1", label: "Đang làm việc", checked: false },
@@ -358,11 +359,14 @@ export default {
         let promise = null;
 
         if (this.formMode === 1) {
-          promise = EmployeesAPI.add( _.cloneDeep(this.model));
+          promise = EmployeesAPI.add(_.cloneDeep(this.model));
         }
 
         if (this.formMode === 0) {
-          promise = EmployeesAPI.update(this.employeeId,  _.cloneDeep(this.model));
+          promise = EmployeesAPI.update(
+            this.employeeId,
+            _.cloneDeep(this.model)
+          );
         }
 
         this.$emit("submit-form", { action: promise, type: this.formMode });

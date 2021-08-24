@@ -15,12 +15,12 @@
       :placeholder="placeholder"
       :max="`${type === 'date' ? currentDate : null}`"
       @input="onChangeInput"
-      @blur="validate"
+      @blur="blur"
       @focus="clearTool"
     />
     <span></span>
     <base-tooltip :tooltip="tooltip"></base-tooltip>
-    <div class="input__clear input__clear--hidden">
+    <div class="input__clear" v-show="isShowed" @click="clearValue">
       <i class="fas fa-times icon icon--16"></i>
     </div>
   </div>
@@ -92,14 +92,19 @@ export default {
   data() {
     return {
       currentDate: FormatData.formatDateInput(new Date()),
+
       valueClone: "",
+
       isValidated: true,
+
       styleInput: "",
+
       tooltip: {
         active: false,
         message: "Không được bỏ trống",
       },
-      timeoutItem: null,
+
+      clear: true,
     };
   },
 
@@ -121,12 +126,23 @@ export default {
     },
   },
 
+  computed: {
+    isShowed() {
+      if (this.type === "date") return false;
+
+      if (this.value === "" || this.value === null) return false;
+
+      return this.clear;
+    },
+  },
+
   methods: {
     /*
       clear tooltip, danger when focus input
     */
     clearTool() {
       this.tooltip.active = false;
+      this.clear = false;
     },
 
     /*
@@ -174,6 +190,11 @@ export default {
       return value;
     },
 
+    blur() {
+      this.clear = true;
+      this.validate();
+    },
+
     /*
         Validate value đúng theo validation chưa khi Blur
     */
@@ -191,6 +212,18 @@ export default {
 
         this.isValidated = isValidated;
       }
+    },
+
+    /**
+     * clear value
+     */
+    clearValue() {
+      this.clear = false;
+
+      this.$emit("handle-input", { id: this.id, value: "" });
+
+      this.valueClone = "";
+      this.validate();
     },
   },
 };

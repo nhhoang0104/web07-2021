@@ -86,12 +86,17 @@
       <div class="content__body__grid">
         <base-table>
           <template v-slot:thead>
-            <base-table-head :columns="columns"></base-table-head>
+            <base-table-head
+              :columns="columns"
+              :checked="isSelectedAll"
+              @select-all="selectAll"
+            ></base-table-head>
           </template>
           <template v-slot:tbody>
             <base-table-body
               :columns="columns"
               :data="employeeList"
+              :employeeDeleteList="employeeIdList"
               @check-box="checkbox"
               @dblclick="viewInfo"
             ></base-table-body>
@@ -121,10 +126,12 @@
       @submit-form="handleSubmitForm"
     />
     <base-toast-message
-      :type="toast.type"
-      :message="toast.message"
-      :isShowed="toast.isShowed"
-      @close="showToast"
+      v-for="(item,index) in toastList"
+      :index="index"
+      :key="item.id"
+      :type="item.type"
+      :message="item.message"
+      @close="closeToast(item.id)"
     ></base-toast-message>
     <base-popup :popup="popup" @show="showPopup"></base-popup>
   </div>
@@ -137,6 +144,7 @@ import DepartmentAPI from "@/api/components/DepartmentAPI.js";
 import { columns } from "@/views/employee/Column.js";
 import EmployeeDetail from "@/views/employee/EmployeeDetail";
 import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   components: { EmployeeDetail },
@@ -144,24 +152,31 @@ export default {
   data() {
     return {
       columns: columns,
+
       employeeList: [],
+
       employeeIdList: [],
+
       department: [],
+
       position: [],
+
       departmentCbb: [],
+
       positionCbb: [],
+
       search: {
         departmentId: "",
         positionId: "",
         employeeFilter: "",
       },
+
       isLoading: false,
+
       dialog: { employeeId: null, isShowed: false, formMode: 1 },
-      toast: {
-        type: "done",
-        message: "Tải dữ liệu thành công",
-        isShowed: false,
-      },
+
+      toastList: [],
+
       popup: {
         type: "done",
         title: "Xoa nhan vien",
@@ -170,9 +185,13 @@ export default {
         action: null,
         cancel: null,
       },
+
       currentPage: 1,
+
       totalRecord: 20, // tổng số bản ghi
+
       totalPages: 10, // tổng số index trang
+
       pageSize: 10,
     };
   },
@@ -254,6 +273,27 @@ export default {
       deep: true,
       handler() {},
     },
+
+    employeeIdList: {
+      deep: true,
+      handler() {},
+    },
+  },
+
+  computed: {
+    isSelectedAll() {
+      if (this.employeeIdList.length === 0) return false;
+
+      var isSelectedAll = true;
+
+      this.employeeList.forEach((employee) => {
+        if (this.employeeIdList.indexOf(employee.EmployeeId) === -1) {
+          isSelectedAll = false;
+        }
+      });
+
+      return isSelectedAll;
+    },
   },
 
   methods: {
@@ -275,8 +315,12 @@ export default {
           this.totalPages = res.data.totalPage;
           this.totalRecord = res.data.totalRecord;
           this.isLoading = false;
+          this.setToast("done", "Tải dữ liệu thành công");
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.log(err);
+          this.setToast("danger", "Tải dữ liệu thất bại");
+        });
     },
 
     /**
@@ -291,14 +335,11 @@ export default {
      check box vào nhân viên
     */
     checkbox(id) {
-      let tmp = this.employeeList.find((item) => item.EmployeeId == id);
-      tmp.checked = !tmp.checked;
-      if (tmp.checked) this.employeeIdList.push(id);
+      let index = this.employeeIdList.indexOf(id);
+
+      if (index === -1) this.employeeIdList.push(id);
       else {
-        const index = this.employeeIdList.indexOf(id);
-        if (index > -1) {
-          this.employeeIdList.splice(index, 1);
-        }
+        this.employeeIdList.splice(index, 1);
       }
     },
 
@@ -309,13 +350,11 @@ export default {
       let message = "Bạn có chắc chắn muốn xóa các nhân viên đã chọn không?";
 
       if (this.employeeIdList.length === 1) {
-        let tmp = this.employeeList.filter(
-          (item) => item.EmployeeId === this.employeeIdList[0]
-        );
+        let tmp = _.find(this.employeeList, {
+          EmployeeId: this.employeeIdList[0],
+        });
 
-        message = `Bạn có chắc chắn muốn nhân viên ${
-          tmp.length === 1 ? tmp[0].EmployeeCode : ""
-        } đã chọn không?`;
+        message = `Bạn có chắc chắn muốn nhân viên ${tmp.EmployeeCode} đã chọn không?`;
       }
 
       this.setPopup(
@@ -365,7 +404,7 @@ export default {
       Bỏ tất cả các các checkbox của các nhân viên đã chọn
     */
     uncheckEmployees() {
-      // this.employeeIdList = [];
+      this.employeeIdList = [];
     },
 
     /**
@@ -396,14 +435,21 @@ export default {
         Truyền nội dùng toast message
     */
     setToast(type, message) {
-      this.toast = { type: type, message: message, isShowed: true };
+      this.toastList.push({
+        id: uuidv4(),
+        type: type,
+        message: message,
+        isShowed: true,
+      });
     },
 
     /** 
-      Đóng mở toast message
+      Đóng toast message
     */
-    showToast(isShowed) {
-      this.toast.isShowed = isShowed;
+    closeToast(id) {
+      this.toastList = this.toastList.filter((item) => {
+        return !(item.id === id);
+      });
     },
 
     /**
@@ -473,6 +519,24 @@ export default {
         this.search.employeeFilter = value;
         this.loadData();
       }, 300);
+    },
+
+    /**
+     * Chọn tất cả
+     */
+    selectAll(isCheckedAll = false) {
+      if (!isCheckedAll) {
+        this.employeeList.forEach((employee) => {
+          if (this.employeeIdList.indexOf(employee.EmployeeId) === -1) {
+            this.employeeIdList.push(employee.EmployeeId);
+          }
+        });
+      } else {
+        let tmp = _.map(this.employeeList, "EmployeeId");
+        this.employeeIdList = this.employeeIdList.filter((id) => {
+          return !tmp.includes(id);
+        });
+      }
     },
   },
 };

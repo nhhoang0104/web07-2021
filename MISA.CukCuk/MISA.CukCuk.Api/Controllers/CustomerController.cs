@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MISA.CukCuk.Core.Attributes;
 using MISA.CukCuk.Core.Entities;
+using MISA.CukCuk.Core.Interfaces.Repositories;
 using MISA.CukCuk.Core.Interfaces.Services;
 using OfficeOpenXml;
 using System;
@@ -15,9 +17,11 @@ namespace MISA.CukCuk.Api.Controllers
     public class CustomerController : BaseController<Customer>
     {
         ICustomerService _customerService;
-        public CustomerController(ICustomerService customerService) : base(customerService)
+        IBaseRepository<Customer> _baseRepository;
+        public CustomerController(ICustomerService customerService, IBaseRepository<Customer> baseRepository) : base(customerService)
         {
             this._customerService = customerService;
+            this._baseRepository = baseRepository;
         }
 
         [HttpGet("Filter")]
@@ -97,6 +101,63 @@ namespace MISA.CukCuk.Api.Controllers
 
                 return StatusCode(500, errObj);
             }
+        }
+
+        [HttpGet("Export")]
+
+        public async Task<IActionResult> Export(CancellationToken cancellationToken)
+        {
+            // query data from database  
+            await Task.Yield();
+
+            var customers = new List<Customer>();
+
+            customers = this._baseRepository.GetAll();
+
+            var stream = new MemoryStream();
+
+            var properties = typeof(Customer).GetProperties();
+
+
+
+            using (var package = new ExcelPackage(stream))
+            {
+
+                var workSheet = package.Workbook.Worksheets.Add("Sheet1");
+                workSheet.Cells.LoadFromCollection(customers, true);
+                var column = 1;
+
+                foreach (var prop in properties)
+                {
+                    var propMISAExport = prop.GetCustomAttributes(typeof(MISAExport), true);
+                    var isHidden = (propMISAExport[0] as MISAExport).isHidden;
+
+                    // xet cac truong export hay ko?
+                    if (isHidden)
+                    {
+                        workSheet.Cells.AutoFitColumns();
+                        workSheet.Column(column).Hidden = true;
+                    }
+                    
+                    // dinh dang ngay thang nam
+                    if (prop.PropertyType.Name.Contains(typeof(Nullable).Name) && prop.PropertyType.GetGenericArguments()[0] == typeof(DateTime))
+                    {
+                        workSheet.Column(column).Style.Numberformat.Format = "mm/dd/yyyy";
+                    }
+
+
+
+                    column++;
+                }
+
+                package.Save();
+            }
+
+            stream.Position = 0;
+            string excelName = $"DanhSachThongTinKhachHang.xlsx";
+
+            //return File(stream, "application/octet-stream", excelName);  
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", excelName);
         }
     }
 }

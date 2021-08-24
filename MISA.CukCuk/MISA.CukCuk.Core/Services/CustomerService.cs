@@ -188,8 +188,6 @@ namespace MISA.CukCuk.Core.Services
                     }
                 }
 
-
-
                 var customerGroup = customerGroupList.Find(delegate (CustomerGroup item) { return item.CustomerGroupCode == customer.CustomerGroupName; });
                 //Chech ten nhom khach hang
                 if (customerGroup == null)

@@ -1,14 +1,11 @@
 <template>
-  <div
-    class="container__toast"
-    :class="isShowed ? '' : 'container__toast--hidden'"
-  >
+  <div class="container__toast" :style="`top:${24 + index * 49}px`">
     <div class="toast" :class="style.color">
       <div class="toast__icon">
         <i class="icon icon--24 icon--circle fas" :class="style.icon"></i>
       </div>
       <div class="toast__message">{{ message }}</div>
-      <div class="toast__close" @click="this.$emit('close', false)">
+      <div class="toast__close" @click="this.$emit('close')">
         <i class="icon icon--24 fas fa-times"></i>
       </div>
     </div>
@@ -31,8 +28,14 @@ export default {
       type: Boolean,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
+
   emits: ["close"],
+
   watch: {
     // set css cho loại type toast
     type: {
@@ -49,21 +52,22 @@ export default {
         }
       },
     },
-
-    //đóng mở toast
-    isShowed(newVal) {
-      if (newVal === true) {
-        setTimeout(() => {
-          this.$emit("close", false);
-        }, 6000);
-      }
-    },
   },
+
+  mounted() {
+    setTimeout(() => {
+      this.$emit("close");
+    }, 3000);
+  },
+
   data() {
     return {
       style: {
         icon: "fa-check-circle",
         color: "toast--done",
+      },
+      distanceToasts: {
+        "margin-bottom": `${this.index * 48}px`,
       },
     };
   },

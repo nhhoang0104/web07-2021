@@ -6,6 +6,10 @@
   color: var(--color-black);
 }
 
+.text.text--11 {
+  font-size: 11px;
+}
+
 .text.text-body-content {
   color: var(--color-body-content);
 }

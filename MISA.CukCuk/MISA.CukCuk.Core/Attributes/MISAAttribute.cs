@@ -15,4 +15,13 @@ namespace MISA.CukCuk.Core.Attributes
            
         }
     }
+
+    public class MISAExport : Attribute
+    {
+        public readonly bool isHidden;
+        public MISAExport(bool hidden)
+        {
+            this.isHidden = !hidden;
+        }
+    }
 }

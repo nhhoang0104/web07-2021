@@ -3,12 +3,7 @@
     <div class="pagination__left">
       <div class="text">
         Hiển thị
-        <b
-          >{{ (currentPage - 1) * pageSize + 1 }}-{{
-            currentPage * pageSize
-          }}/{{ totalRecord }}</b
-        >
-        nhân viên
+        <b>{{ informationPage }}/{{ totalRecord }}</b> nhân viên
       </div>
     </div>
     <div class="pagination__center">
@@ -64,7 +59,7 @@
           <i class="fas fa-sort custom-icon"></i>
         </template>
         <template #field="{ data }">
-          <div class="custom-item" style="font-family:'GoogleSans'">
+          <div class="custom-item">
             {{ data.label }}
           </div>
         </template>
@@ -86,14 +81,17 @@ export default {
       type: Number,
       required: true,
     },
+
     totalRecord: {
       type: Number,
       required: true,
     },
+
     totalPages: {
       type: Number,
       required: true,
     },
+
     pageSize: {
       type: Number,
       required: true,
@@ -179,6 +177,14 @@ export default {
 
       return range;
     },
+
+    // hien thi thong tin trang
+    informationPage: function() {
+      if (this.currentPage < this.totalPages)
+        return `${(this.currentPage - 1) * this.pageSize + 1}-${this
+          .currentPage * this.pageSize}`;
+      return `${this.totalRecord}`;
+    },
   },
 
   methods: {
@@ -262,9 +268,11 @@ button.btn:active div.text {
 
 .custom-item {
   margin-left: 5px;
+  font-family: "GoogleSans" !important;
 }
 
-.dx-overlay-content {
-  transform: translate(0px) !important;
+.dx-item.dx-list-item.dx-list-item-selected {
+  background-color: #019160 !important;
+  color: #fff !important;
 }
 </style>
