@@ -174,6 +174,14 @@ export default {
         });
       }
 
+      if (range.length === 0)
+        return [
+          {
+            name: 1,
+            isDisabled: true,
+          },
+        ];
+
       return range;
     },
 

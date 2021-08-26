@@ -329,6 +329,7 @@ export default {
     */
     selectItem(item) {
       this.model[item.key] = item.id;
+      this.isSubmitEnabled = true;
     },
 
     /*
@@ -376,7 +377,7 @@ export default {
         } else {
           this.$emit("set-toast", {
             type: "warning",
-            message: "chưa thay đổi thông tin",
+            message: "Thông tin chưa thay đổi",
           });
         }
       } else {
