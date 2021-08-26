@@ -271,7 +271,7 @@ namespace MISA.CukCuk.Api.Controllers
                 {
                     if ((int)serviceResult.Data > 0)
                     {
-                        return StatusCode(201, serviceResult.Data);
+                        return StatusCode(200, serviceResult.Data);
                     }
                     else
                     {

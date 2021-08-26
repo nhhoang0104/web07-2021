@@ -5,7 +5,7 @@
       :key="item.EmployeeId"
       :columns="columns"
       :data="item"
-      :index="index"
+      :index="indexStarted + index"
       :checked="
         employeeDeleteList.indexOf(item.EmployeeId) === -1 ? false : true
       "
@@ -40,6 +40,11 @@ export default {
 
     employeeDeleteList: {
       type: Array,
+      required: true,
+    },
+
+    indexStarted: {
+      type: Number,
       required: true,
     },
   },

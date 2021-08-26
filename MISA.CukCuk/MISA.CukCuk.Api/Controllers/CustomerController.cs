@@ -103,8 +103,12 @@ namespace MISA.CukCuk.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// emport du lieu
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpGet("Export")]
-
         public async Task<IActionResult> Export(CancellationToken cancellationToken)
         {
             // query data from database  
@@ -132,10 +136,11 @@ namespace MISA.CukCuk.Api.Controllers
                     var propMISAExport = prop.GetCustomAttributes(typeof(MISAExport), true);
                     var isHidden = (propMISAExport[0] as MISAExport).isHidden;
 
+                    workSheet.Cells.AutoFitColumns();
+
                     // xet cac truong export hay ko?
                     if (isHidden)
                     {
-                        workSheet.Cells.AutoFitColumns();
                         workSheet.Column(column).Hidden = true;
                     }
                     
@@ -144,8 +149,6 @@ namespace MISA.CukCuk.Api.Controllers
                     {
                         workSheet.Column(column).Style.Numberformat.Format = "mm/dd/yyyy";
                     }
-
-
 
                     column++;
                 }

@@ -14,9 +14,9 @@ namespace MISA.CukCuk.Core.Entities
         public Guid CustomerGroupId { get; set; }
 
         /// <summary>
-        /// mã nhóm khách hàng
+        /// nhóm khách hàng
         /// </summary>
-        public string CustomerGroupCode { get; set; }
+        public string CustomerGroupName { get; set; }
 
         /// <summary>
         /// mô tả

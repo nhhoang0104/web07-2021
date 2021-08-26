@@ -18,52 +18,6 @@ namespace MISA.CukCuk.Infrastructure.Repositories
         {
         }
 
-        public bool CheckCustomerCodeExists(string customerCode)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@CustomerCode", customerCode);
-            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
-
-            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
-            {
-                dbConnection.Execute("Proc_CheckCustomerCodeExists", dynamicParameters, commandType: CommandType.StoredProcedure);
-                bool isExists = dynamicParameters.Get<bool>("@IsExists");
-                return isExists;
-            }
-        }
-
-        public Guid? CheckCustomerGroupNameExists(string customerGroupName)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@CustomerGroupName", customerGroupName);
-            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
-            dynamicParameters.Add("@CustomerGroupId", dbType: DbType.Guid, direction: ParameterDirection.Output);
-
-
-            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
-            {
-                dbConnection.Execute("Proc_CheckCustomerGroupNameExists", dynamicParameters, commandType: CommandType.StoredProcedure);
-                bool isExists = dynamicParameters.Get<bool>("@IsExists");
-                var customerGroupId = dynamicParameters.Get<Guid>("@CustomerGroupId");
-
-                return customerGroupId;
-            }
-        }
-
-        public bool CheckCustomerPhoneNumberExists(string phoneNumber)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@PhoneNumber", phoneNumber);
-            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
-
-            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
-            {
-                dbConnection.Execute("Proc_CheckCustomerPhoneNumberExists", dynamicParameters, commandType: CommandType.StoredProcedure);
-                bool isExists = dynamicParameters.Get<bool>("@IsExists");
-                return isExists;
-            }
-        }
-
         public List<string> GetAllCustomerCode()
         {
             using (IDbConnection dbConnection = new MySqlConnection(_connectionString))

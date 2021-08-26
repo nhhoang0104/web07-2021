@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MISA.CukCuk.Core.Interfaces.Repositories
 {
-    public interface IEmployeeRepository:IBaseRepository<Employee>
+    public interface IEmployeeRepository : IBaseRepository<Employee>
     {
         /// <summary>
         /// Lấy danh sách sách nhân viên theo bộ lọc, phân trang
@@ -21,33 +21,22 @@ namespace MISA.CukCuk.Core.Interfaces.Repositories
         Object GetByFilterPaging(string employeeFilter, Guid? departmentId, Guid? positionId, Int32 pageSize, Int32 pageIndex);
 
         /// <summary>
-        /// Kiểm tra mã nhân viên tồn tại
+        /// Kiểm tra các trường thông tin employee xem có tồn tại chưa
         /// </summary>
-        /// <param name="employeeCode">mã nhân viên</param>
+        /// <param name="employeeCode">mã nhan viên</param>
+        /// <param name="identifyNumber">cmtnd hoặc cccd</param>
+        /// <param name="phoneNumber">số điện thoại</param>
+        /// <param name="email">email</param>
         /// <returns>
-        /// true - trùng
-        /// false - ko trùng
+        /// true - tồn tại
+        /// false - chưa tồn tại
         /// </returns>
-        bool CheckEmployeeCodeExists(string employeeCode);
+        bool CheckInfoEmployeeExists(string employeeCode, string identifyNumber, string phoneNumber, string email);
 
         /// <summary>
-        /// Kiem tra so dien thoai ton tai
-        /// </summary>
-        /// <param name="phoneNumber">sdt</param>
-        /// <returns></returns>
-        bool CheckEmployeePhoneNumberExists(string phoneNumber);
-
-        /// <summary>
-        /// Kiem tra cmtnd hoac cccd ton tai
-        /// </summary>
-        /// <param name="identifyNumber">cmtnd hoac cccd</param>
-        /// <returns></returns>
-        bool CheckEmployeeIdentifyNumberExists(string identifyNumber);
-
-        /// <summary>
-        /// Lấy mã nhân viên mã mới
+        /// Lấy danh sach mã nhân viên
         /// </summary>
         /// <returns>mã nhân viên</returns>
-        string GetLastEmployeeCode();
+        List<string> GetAllEmployeeCode();
     }
 }

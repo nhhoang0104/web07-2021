@@ -34,7 +34,7 @@
 }
 
 .toast.toast--warning {
-  color: var(--color-danger);
+  color: #ffe7af;
 }
 
 .toast.toast--done {

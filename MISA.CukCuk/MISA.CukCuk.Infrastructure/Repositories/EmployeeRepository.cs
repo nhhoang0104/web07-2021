@@ -28,7 +28,7 @@ namespace MISA.CukCuk.Infrastructure.Repositories
             parameters.Add("@DepartmentId", departmentId);
             parameters.Add("@PositionId", positionId);
             parameters.Add("@Size", pageSize);
-            parameters.Add("@Offset", (pageIndex-1)*pageSize);
+            parameters.Add("@Offset", pageIndex);
             parameters.Add("@TotalRecord", dbType: DbType.Int32, direction: ParameterDirection.Output);
             parameters.Add("@TotalPage", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
@@ -47,55 +47,30 @@ namespace MISA.CukCuk.Infrastructure.Repositories
             }
         }
 
-        public bool CheckEmployeeCodeExists(string employeeCode)
+        public List<string> GetAllEmployeeCode()
+        {
+            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
+            {
+                var empoyeeCodeList = dbConnection.Query<string>("Proc_GetAllEmployeeCode", commandType: CommandType.StoredProcedure);
+
+                return (List<string>)empoyeeCodeList;
+            }
+        }
+
+        public bool CheckInfoEmployeeExists(string employeeCode, string identifyNumber, string phoneNumber, string email)
         {
             DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@EmployeeCode", employeeCode);
-            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
-
-            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
-            {
-                dbConnection.Execute("Proc_CheckEmployeeCodeExists", dynamicParameters, commandType: CommandType.StoredProcedure);
-                bool isExists = dynamicParameters.Get<bool>("@IsExists");
-                return isExists;
-            }
-        }
-
-        public string GetLastEmployeeCode()
-        {
-            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
-            {
-                var lastEmpoyeeCode = dbConnection.QueryFirstOrDefault<string>("Proc_GetLastEmployeeCode", commandType: CommandType.StoredProcedure);
-           
-                return lastEmpoyeeCode;
-            }
-        }
-
-        public bool CheckEmployeePhoneNumberExists(string phoneNumber)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
             dynamicParameters.Add("@PhoneNumber", phoneNumber);
-            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
+            dynamicParameters.Add("@Email", email);
+            dynamicParameters.Add("@IdentityNumber", identifyNumber);
+            dynamicParameters.Add("@IsExists", dbType: DbType.Int32, direction: ParameterDirection.Output);
 
             using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
             {
-                dbConnection.Execute("Proc_CheckEmployeePhoneNumberExists", dynamicParameters, commandType: CommandType.StoredProcedure);
-                bool isExists = dynamicParameters.Get<bool>("@IsExists");
-                return isExists;
-            }
-        }
-
-        public bool CheckEmployeeIdentifyNumberExists(string identifyNumber)
-        {
-            DynamicParameters dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("@IdentifyNumber", identifyNumber);
-            dynamicParameters.Add("@IsExists", dbType: DbType.Boolean, direction: ParameterDirection.Output);
-
-            using (IDbConnection dbConnection = new MySqlConnection(_connectionString))
-            {
-                dbConnection.Execute("Proc_CheckEmployeeIdentifyNumberExists", dynamicParameters, commandType: CommandType.StoredProcedure);
-                bool isExists = dynamicParameters.Get<bool>("@IsExists");
-                return isExists;
+                dbConnection.Execute("Proc_CheckInfoEmployeeExists", dynamicParameters, commandType: CommandType.StoredProcedure);
+                Int32 isExists = dynamicParameters.Get<Int32>("@IsExists");
+                return isExists == 1 ? true : false;
             }
         }
     }

@@ -53,6 +53,13 @@
             <param name="formFile"></param>
             <returns></returns>
         </member>
+        <member name="M:MISA.CukCuk.Api.Controllers.CustomerController.Export(System.Threading.CancellationToken)">
+            <summary>
+            emport du lieu
+            </summary>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
         <member name="M:MISA.CukCuk.Api.Controllers.EmployeeController.GetByFilterPaging(System.String,System.Nullable{System.Guid},System.Nullable{System.Guid},System.Int32,System.Int32)">
             <summary>
             Lấy dữ liệu theo bộ lộc và phân trang

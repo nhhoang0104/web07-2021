@@ -152,8 +152,7 @@ export default {
       // if (this.pageTotal - this.currentPage < this.maxVisibleButtons) {
       //   return this.pageTotal - this.maxVisibleButtons + 1;
       // }
-
-      return this.currentPage - 1;
+      return this.currentPage - 1 > 0 ? this.currentPage - 1 : 1;
     },
 
     //tạo index cuối
@@ -180,10 +179,14 @@ export default {
 
     // hien thi thong tin trang
     informationPage: function() {
+      if (this.totalRecord === 0) return "0";
+
       if (this.currentPage < this.totalPages)
         return `${(this.currentPage - 1) * this.pageSize + 1}-${this
           .currentPage * this.pageSize}`;
-      return `${this.totalRecord}`;
+      return `${(this.currentPage - 1) * this.pageSize + 1}-${
+        this.totalRecord
+      }`;
     },
   },
 

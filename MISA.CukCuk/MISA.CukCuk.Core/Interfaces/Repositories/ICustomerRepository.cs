@@ -20,27 +20,6 @@ namespace MISA.CukCuk.Core.Interfaces.Repositories
         Object GetByFilterPaging(string customerFilter, Int32 pageSize, Int32 pageIndex);
 
         /// <summary>
-        /// Kiểm tra mã khách hàng trùng
-        /// </summary>
-        /// <param name="employeeCode"></param>
-        /// <returns></returns>
-        bool CheckCustomerCodeExists(string customerCode);
-
-        /// <summary>
-        /// Kiểm tra số điện thoại
-        /// </summary>
-        /// <param name="phoneNumber"></param>
-        /// <returns></returns>
-        bool CheckCustomerPhoneNumberExists(string phoneNumber);
-
-        /// <summary>
-        /// Kiểm tra trên nhóm khách hàng
-        /// </summary>
-        /// <param name="customerGroupName"></param>
-        /// <returns></returns>
-        Guid? CheckCustomerGroupNameExists(string customerGroupName);
-
-        /// <summary>
         /// Lay tat ca MKH
         /// </summary>
         /// <returns></returns>

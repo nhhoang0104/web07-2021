@@ -153,7 +153,8 @@ namespace MISA.CukCuk.Core.Services
                         customer.StatusImport += Resources.ErrorMessage.CustometCodeExists_Msg + ", ";
                         customer.IsValid = false;
                     }
-                    else if (customerCodeImportList.IndexOf(customer.CustomerCode) != -1)
+
+                    if (customerCodeImportList.IndexOf(customer.CustomerCode) != -1)
                     {
                         customer.StatusImport += Resources.ErrorMessage.CustomerCodeExistsInFile + ", ";
                         customer.IsValid = false;
@@ -188,7 +189,8 @@ namespace MISA.CukCuk.Core.Services
                     }
                 }
 
-                var customerGroup = customerGroupList.Find(delegate (CustomerGroup item) { return item.CustomerGroupCode == customer.CustomerGroupName; });
+                var customerGroup = customerGroupList.Find(delegate (CustomerGroup item) { return item.CustomerGroupName == customer.CustomerGroupName; });
+
                 //Chech ten nhom khach hang
                 if (customerGroup == null)
                 {
@@ -199,7 +201,13 @@ namespace MISA.CukCuk.Core.Services
                 {
                     customer.CustomerGroupId = customerGroup.CustomerGroupId;
                 }
+
                 if (customer.StatusImport != string.Empty) customer.StatusImport = customer.StatusImport.Remove(customer.StatusImport.Length - 2);
+
+                if (customer.IsValid)
+                {
+                    customer.StatusImport = "Hợp lệ";
+                }
             }
 
             return customers;

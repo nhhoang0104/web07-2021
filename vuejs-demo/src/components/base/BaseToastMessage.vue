@@ -50,6 +50,11 @@ export default {
           this.style.icon = "fa-exclamation-triangle";
           this.style.color = "toast--danger";
         }
+
+        if (newVal === "warning") {
+          this.style.icon = "fa-exclamation-circle";
+          this.style.color = "toast--warning";
+        }
       },
     },
   },

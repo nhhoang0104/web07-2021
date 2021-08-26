@@ -258,7 +258,7 @@ export default {
     position: { type: Array, required: true },
   },
 
-  emits: ["show-form", "submit-form"],
+  emits: ["show-form", "submit-form", "set-toast"],
 
   data() {
     return {
@@ -268,6 +268,7 @@ export default {
         { id: "0", label: "Thất nghiệp", checked: false },
         { id: "1", label: "Đang làm việc", checked: false },
       ],
+      isSubmitEnabled: false,
       isShow: false,
     };
   },
@@ -335,6 +336,7 @@ export default {
     */
     onChangeInput({ id, value }) {
       this.model[id] = value;
+      this.isSubmitEnabled = true;
     },
 
     /**
@@ -356,20 +358,29 @@ export default {
       });
 
       if (isValidated) {
-        let promise = null;
+        if (this.isSubmitEnabled) {
+          let promise = null;
 
-        if (this.formMode === 1) {
-          promise = EmployeesAPI.add(_.cloneDeep(this.model));
+          if (this.formMode === 1) {
+            promise = EmployeesAPI.add(_.cloneDeep(this.model));
+          }
+
+          if (this.formMode === 0) {
+            promise = EmployeesAPI.update(
+              this.employeeId,
+              _.cloneDeep(this.model)
+            );
+          }
+
+          this.$emit("submit-form", { action: promise, type: this.formMode });
+        } else {
+          this.$emit("set-toast", {
+            type: "warning",
+            message: "chưa thay đổi thông tin",
+          });
         }
-
-        if (this.formMode === 0) {
-          promise = EmployeesAPI.update(
-            this.employeeId,
-            _.cloneDeep(this.model)
-          );
-        }
-
-        this.$emit("submit-form", { action: promise, type: this.formMode });
+      } else {
+        this.isSubmitEnabled = false;
       }
     },
 

@@ -9,6 +9,7 @@ import {
   BaseTableHead,
   BaseTableBody,
 } from "@/components/base/table";
+
 import { BaseDropdown, BaseDropdownOption } from "@/components/base/dropdown";
 import { BaseComboBox, BaseComboBoxOption } from "@/components/base/comboBox";
 import { BaseButton } from "@/components/base/button";
@@ -20,7 +21,8 @@ import BaseToastMessage from "@/components/base/BaseToastMessage.vue";
 import BaseDialog from "@/components/base/BaseDialog.vue";
 import BaseLoader from "@/components/base/BaseLoader.vue";
 import BaseTooltip from "@/components/base/BaseTooltip.vue";
-import 'devextreme/dist/css/dx.light.css';
+
+import "devextreme/dist/css/dx.light.css";
 
 app.use(router);
 

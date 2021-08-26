@@ -12,7 +12,7 @@ namespace MISA.CukCuk.Core.Entities
     {
         #region Property
 
-        [MISAExport(false)]
+        [MISAExport(true)]
         /// <summary>
         /// Khóa chính
         /// </summary>

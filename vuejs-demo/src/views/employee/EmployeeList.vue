@@ -95,6 +95,7 @@
           <template v-slot:tbody>
             <base-table-body
               :columns="columns"
+              :indexStarted="(currentPage - 1) * pageSize"
               :data="employeeList"
               :employeeDeleteList="employeeIdList"
               @check-box="checkbox"
@@ -124,9 +125,10 @@
       :employee-id="dialog.employeeId"
       @show-form="showForm"
       @submit-form="handleSubmitForm"
+      @set-toast="setToast"
     />
     <base-toast-message
-      v-for="(item,index) in toastList"
+      v-for="(item, index) in toastList"
       :index="index"
       :key="item.id"
       :type="item.type"
@@ -143,6 +145,7 @@ import PositionAPI from "@/api/components/PositionAPI.js";
 import DepartmentAPI from "@/api/components/DepartmentAPI.js";
 import { columns } from "@/views/employee/Column.js";
 import EmployeeDetail from "@/views/employee/EmployeeDetail";
+import ResourceToastMsg from "@/constants/ResourceToastMsg";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 
@@ -193,6 +196,8 @@ export default {
       totalPages: 10, // tổng số index trang
 
       pageSize: 10,
+
+      timeoutItem: null,
     };
   },
 
@@ -237,12 +242,13 @@ export default {
 
         this.departmentCbb = _.cloneDeep(this.department);
         this.departmentCbb.push({ id: "", label: "Tất cả phòng ban" });
+        
         this.isLoading = false;
-        this.setToast("done", "Tải dữ liệu thành công");
+        this.setToast(ResourceToastMsg.LOAD_SUCCESS);
       })
-      .catch((err) => {
-        console.log(err);
-        this.setToast("danger", "Tải dữ liệu thất bại");
+      .catch(() => {
+        this.isLoading = false;
+        this.setToast(ResourceToastMsg.LOAD_FAIL);
       });
   },
 
@@ -310,19 +316,26 @@ export default {
         this.search.positionId
       )
         .then((res) => {
-          console.log(res);
           this.employeeList = res.data.employees;
           this.totalPages = res.data.totalPage;
           this.totalRecord = res.data.totalRecord;
+
+          if (this.currentPage > this.totalPages && this.totalRecord > 0) {
+            this.currentPage = this.totalPages;
+          }
+
+          if (this.totalRecord === 0) {
+            this.currentPage = 1;
+          }
+
           this.isLoading = false;
-          this.setToast("done", "Tải dữ liệu thành công");
+          this.setToast(ResourceToastMsg.LOAD_SUCCESS);
         })
-        .catch((err) => {
-          console.log(err);
-          this.setToast("danger", "Tải dữ liệu thất bại");
+        .catch(() => {
+          this.isLoading = false;
+          this.setToast(ResourceToastMsg.LOAD_FAIL);
         });
     },
-
     /**
       Xử lý chọn option trong cac combobox
     */
@@ -373,10 +386,10 @@ export default {
         this.isLoading = true;
         EmployeesAPI.delete(this.employeeIdList[0])
           .then(() => {
-            this.setToast("done", "Xóa nhân viên thành công");
+            this.setToast(ResourceToastMsg.DELETE_SUCCESS);
           })
           .catch(() => {
-            this.setToast("danger", "Xóa nhân viên thất bại!");
+            this.setToast(ResourceToastMsg.DELETE_FAIL);
           })
           .finally(() => {
             this.employeeIdList = [];
@@ -388,10 +401,10 @@ export default {
         this.isLoading = true;
         EmployeesAPI.deleteList(_.cloneDeep(this.employeeIdList))
           .then(() => {
-            this.setToast("done", "Xóa nhiều nhân viên thành công");
+            this.setToast(ResourceToastMsg.DELETE_SUCCESS);
           })
           .catch(() => {
-            this.setToast("danger", "Xóa nhiều nhân viên thất bại!");
+            this.setToast(ResourceToastMsg.DELETE_FAIL);
           })
           .finally(() => {
             this.employeeIdList = [];
@@ -415,7 +428,7 @@ export default {
     },
 
     /**
-      Thêm mới nhân viên
+      show form Thêm mới nhân viên
     */
     addNewEmployee() {
       this.dialog = { formMode: 1, isShowed: true };
@@ -434,7 +447,7 @@ export default {
     /**
         Truyền nội dùng toast message
     */
-    setToast(type, message) {
+    setToast({ type, message }) {
       this.toastList.push({
         id: uuidv4(),
         type: type,
@@ -443,7 +456,7 @@ export default {
       });
     },
 
-    /** 
+    /**
       Đóng toast message
     */
     closeToast(id) {
@@ -473,19 +486,16 @@ export default {
       action
         .then(() => {
           this.setToast(
-            "done",
             type === 1
-              ? "Thêm mới nhân viên thành công"
-              : "Chỉnh sửa thông tin thành công"
+              ? ResourceToastMsg.ADD_SUCCESS
+              : ResourceToastMsg.CHANGE_SUCCESS
           );
         })
-        .catch((err) => {
-          console.log(err.message);
+        .catch(() => {
           this.setToast(
-            "danger",
             type === 1
-              ? "Thêm mới nhân viên thất bại"
-              : "Chỉnh sửa thông tin thất bại"
+              ? ResourceToastMsg.ADD_FAIL
+              : ResourceToastMsg.CHANGE_FAIL
           );
         })
         .finally(() => {

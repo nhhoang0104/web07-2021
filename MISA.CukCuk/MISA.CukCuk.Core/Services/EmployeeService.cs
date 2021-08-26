@@ -27,7 +27,7 @@ namespace MISA.CukCuk.Core.Services
 
             };
 
-            this._serviceResult.Data = this._employeeRepository.CheckEmployeeCodeExists(employeeCode);
+            this._serviceResult.Data = this._employeeRepository.CheckInfoEmployeeExists(employeeCode, null, null, null);
 
             return this._serviceResult;
         }
@@ -44,14 +44,32 @@ namespace MISA.CukCuk.Core.Services
             this._serviceResult.Data = this._employeeRepository.GetByFilterPaging(tmp, departmentId, positionId, pageSize, pageIndex);
             return this._serviceResult;
         }
-        
+
         /// <summary>
         /// Laasy ma nhan vien moi
         /// </summary>
         /// <returns></returns>
         public ServiceResult GetNewEmployeeCode()
         {
-            var lastEmployeeCode = this._employeeRepository.GetLastEmployeeCode();
+            var employeeCodeList = this._employeeRepository.GetAllEmployeeCode();
+            var lastEmployeeCode = string.Empty;
+
+            if (employeeCodeList.Count == 0)
+            {
+                this._serviceResult.Data = "NV-001";
+                return this._serviceResult;
+            }
+            else
+            {
+                employeeCodeList.Sort(delegate (string a, string b)
+                {
+                    if (b.Length == a.Length) return b.CompareTo(a);
+                    else return b.Length - a.Length;
+                });
+
+                lastEmployeeCode = employeeCodeList[0];
+            }
+
 
             string prefix = String.Empty;
             string code = String.Empty;
@@ -74,7 +92,7 @@ namespace MISA.CukCuk.Core.Services
         /// <returns></returns>
         protected override bool ValidateCustom(Employee employee)
         {
-            if (this._employeeRepository.CheckEmployeeIdentifyNumberExists(employee.IdentityNumber))
+            if (this._employeeRepository.CheckInfoEmployeeExists(null, employee.IdentityNumber, null, null))
             {
                 this._serviceResult.IsValid = false;
                 this._serviceResult.Messager = Resources.ErrorMessage.IdentifyNumberExsist_ErrorMsg;
@@ -82,7 +100,7 @@ namespace MISA.CukCuk.Core.Services
                 return false;
             }
 
-            if (this._employeeRepository.CheckEmployeePhoneNumberExists(employee.PhoneNumber))
+            if (this._employeeRepository.CheckInfoEmployeeExists(null, null, employee.PhoneNumber, null))
             {
                 this._serviceResult.IsValid = false;
                 this._serviceResult.Messager = Resources.ErrorMessage.PhoneNumberExsist_ErrorMsg;
@@ -98,12 +116,20 @@ namespace MISA.CukCuk.Core.Services
                 return false;
             }
 
+            if (this._employeeRepository.CheckInfoEmployeeExists(null, null, null, employee.Email))
+            {
+                this._serviceResult.IsValid = false;
+                this._serviceResult.Messager = Resources.ErrorMessage.Email_ErrorMsg;
+
+                return false;
+            }
+
             return base.ValidateCustom(employee);
         }
 
         protected override bool ValidateEntityCode(Employee employee)
         {
-            if (this._employeeRepository.CheckEmployeeCodeExists(employee.EmployeeCode))
+            if (this._employeeRepository.CheckInfoEmployeeExists(employee.EmployeeCode, null, null, null))
             {
                 this._serviceResult.IsValid = false;
                 this._serviceResult.Messager = Resources.ErrorMessage.EmployeeCodeExists_ErrMsg;
